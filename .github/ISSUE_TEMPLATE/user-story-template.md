@@ -7,8 +7,8 @@ assignees: Ironmonkeynuts
 
 ---
 
-As a **role**, I can **activity** so that **benefit**.
+As a **role**, I can **capability** so that **received benefit**.
 
 Acceptance criteria:
 
--
+- AC1
