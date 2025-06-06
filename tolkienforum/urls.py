@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from forum.views import my_forum
+from forum import views as forum_views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('forum/', my_forum, name='forum'),
+    path('admin/', admin.site.urls),  # URL for the Django admin site
+    path('forum/', forum_views.my_forum, name='forum'),  # URL for the forum view
 ]
