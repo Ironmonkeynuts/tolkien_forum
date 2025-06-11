@@ -21,5 +21,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),  # URL for the Django admin site
     path('', include('forum.urls'), name='forum-urls'),
-    # URL for the forum view
+    # URL for the forum view visible at the homepage
 ]

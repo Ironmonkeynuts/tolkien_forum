@@ -2,5 +2,6 @@ from . import views
 from django.urls import path
 
 urlpatterns = [
-    path('', views.ArticleList.as_view(), name='home')
+    path('', views.ArticleList.as_view(), name='home') 
+    # Forum visible at the homepage
 ]
