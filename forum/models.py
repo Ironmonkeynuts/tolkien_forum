@@ -23,6 +23,14 @@ class Article(models.Model):
     exerpt = models.TextField(blank=True)
     approved = models.BooleanField(default=False)
 
+    # Order articles by date created in descending order
+    class Meta:
+        ordering = ['-created_on']
+
+    # Enable more user friendly article naming
+    def __str__(self):
+        return f"{self.title} | Created by {self.author}"
+
 
 # Modelled on walkthrough Django-Blog, modified
 class Comment(models.Model):
@@ -32,3 +40,11 @@ class Comment(models.Model):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
+
+    # Order comments by date created in descending order
+    class Meta:
+        ordering = ['-created_on']
+
+    # Enable more user friendly comment naming
+    def __str__(self):
+        return f"Comment {self.body} by {self.author} on {self.article.title}"
