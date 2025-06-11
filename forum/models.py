@@ -11,8 +11,8 @@ STATUS = (
 # Create your models here.
 # Modelled on walkthrough Django-Blog
 class Article(models.Model):
-    title = models.CharField(max_length=100)
-    slug = models.SlugField()
+    title = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='articles')
     # related_name is used to access the articles from the user
