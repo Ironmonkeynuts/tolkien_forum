@@ -21,3 +21,4 @@ class Article(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     updated_on = models.DateTimeField(auto_now=True)
     exerpt = models.TextField(blank=True)
+    approved = models.BooleanField(default=False)
