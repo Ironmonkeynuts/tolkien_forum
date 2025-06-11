@@ -1,7 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views import generic
+from .models import Article
 
 
 # Create your views here.
-def my_forum(request):
-    return HttpResponse('Welcome to my forum')
+class ArticleList(generic.ListView):
+    """
+    A view that displays a list of articles.
+    """
+    queryset = Article.objects.all()
+    template_name = 'article_list.html'
