@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),  # URL for the Django admin site
     path('summernote/', include('django_summernote.urls')),
     # URL for the Summernote editor
-    path('', include('forum.urls'), name='forum-urls'),
-    # URL for the forum view visible at the homepage
+    path('', include('forum.urls')),
+    # URL for the forum view visible at the 
+    path('accounts/', include('allauth.urls')),
 ]
