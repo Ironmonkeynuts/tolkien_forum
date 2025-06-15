@@ -1,0 +1,11 @@
+/* Make navbar brand and links gold on dark navbar */
+nav.navbar-dark.bg-dark .navbar-brand,
+nav.navbar-dark.bg-dark .navbar-nav .nav-link {
+  color: gold;
+}
+
+/* Change on hover */
+nav.navbar-dark.bg-dark .navbar-brand:hover,
+nav.navbar-dark.bg-dark .navbar-nav .nav-link:hover {
+  color: #ffd700; /* lighter gold shade */
+}
