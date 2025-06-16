@@ -11,5 +11,23 @@
   </div>
   <hr>
 
+    <h3>Comments</h3>
+  {% if article.comments.all %}
+    <ul class="list-group">
+      {% for comment in article.comments.all %}
+        {% if comment.approved %}
+        <li class="list-group-item">
+          <p><strong>{{ comment.author }}</strong> <small class="text-muted">{{ comment.created_on|date:"M d, Y H:i" }}</small></p>
+          <p>{{ comment.body }}</p>
+        </li>
+        {% endif %}
+      {% empty %}
+        <li class="list-group-item">No comments yet.</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No comments yet.</p>
+  {% endif %}
+
   <a href="{% url 'forum' %}" class="btn btn-secondary">Back to Forum</a>
 {% endblock %}
