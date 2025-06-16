@@ -8,8 +8,11 @@
     <ul class="list-group">
       {% for article in object_list %}
         <li class="list-group-item">
-          <strong>{{ article.title }}</strong>
-          <small class="text-muted"> by {{ article.author }} on {{ article.created_on|date:"M d, Y" }}</small>
+          <a href="{% url 'article_detail' slug=article.slug %}">
+            <strong>{{ article.title }}</strong>
+          </a>
+          <br>
+          <small class="text-muted">by {{ article.author }} on {{ article.created_on|date:"M d, Y" }}</small>
         </li>
       {% endfor %}
     </ul>
