@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} | Speak, Friend and Enter{% endblock %}
+
+{% block content %}
+  <h1>{{ article.title }}</h1>
+  <p class="text-muted">By {{ article.author }} | Published on {{ article.created_on|date:"M d, Y" }}</p>
+  <hr>
+  <div>
+    {{ article.content|safe }}
+  </div>
+  <hr>
+
+  <a href="{% url 'forum' %}" class="btn btn-secondary">Back to Forum</a>
+{% endblock %}
