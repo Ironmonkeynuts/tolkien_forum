@@ -49,3 +49,61 @@ class Comment(models.Model):
     # Enable more user friendly comment naming
     def __str__(self):
         return f"Comment {self.body} by {self.author} on {self.article.title}"
+
+# New Model
+class Profile(models.Model):
+    USER_TYPES = (
+        ('visitor', 'Visitor'),  # Default user type, not logged in
+        ('member', 'Member'),  # Can comment/reply, and edit/delete own comments
+        ('creator', 'Content Creator'),  # Can add articles, and edit/delete own articles
+        ('moderator', 'Moderator'),  # Can approve/disapprove comments and articles
+        ('admin', 'Admin'),  #  Full control(is_staff/is_superuser). Can manage users, and edit/delete any content
+    )
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user_type = models.CharField(max_length=20, choices=USER_TYPES, default='visitor')
+    bio = models.TextField(blank=True)
+    # avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
+
+    # Enable more user friendly profile naming
+    def __str__(self):
+        return f"{self.user.username} Profile | {self.get_user_type_display()}"
+    
+    # Individual permissions
+    def can_view(self):
+        return True  # Everyone can view
+
+    def can_comment(self):
+        return self.user_type in ['member', 'creator', 'moderator', 'admin']
+
+    def can_reply(self):
+        return self.can_comment()
+
+    def can_edit_own_comment(self):
+        return self.user_type in ['member', 'creator', 'moderator', 'admin']
+
+    def can_delete_own_comment(self):
+        return self.can_edit_own_comment()
+
+    def can_add_articles(self):
+        return self.user_type in ['creator', 'moderator', 'admin']
+
+    def can_edit_own_article(self):
+        return self.user_type in ['creator', 'moderator', 'admin']
+
+    def can_delete_own_article(self):
+        return self.can_edit_own_article()
+
+    def can_approve_articles(self):
+        return self.user_type in ['moderator', 'admin']
+
+    def can_approve_comments(self):
+        return self.user_type in ['moderator', 'admin']
+
+    def can_manage_users(self):
+        return self.user_type == 'admin' or self.user.is_superuser
+
+    def is_admin(self):
+        return self.user_type == 'admin' or self.user.is_staff or self.user.is_superuser
