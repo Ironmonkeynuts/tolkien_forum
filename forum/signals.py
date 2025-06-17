@@ -16,3 +16,6 @@ def create_or_update_profile(sender, instance, created, **kwargs):
     else:
         # If user exists, ensure profile exists
         Profile.objects.get_or_create(user=instance)
+    # Save profile in all cases (trigger signals or update timestamp)
+    instance.profile.save()
+

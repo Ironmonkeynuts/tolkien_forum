@@ -5,4 +5,10 @@
 {% block content %}
   <h1>User Profile</h1>
   <p>Welcome, {{ user.username }}!</p>
+  {% if user.profile %}
+    <p>Class: {{ user.profile.get_user_type_display }}</p>
+    <p>Bio: {{ user.profile.bio }}</p>
+  {% else %}
+    <p>No profile information available.</p>
+  {% endif %} 
 {% endblock %}
