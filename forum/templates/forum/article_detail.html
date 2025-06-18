@@ -11,22 +11,36 @@
   </div>
   <hr>
 
-    <h3>Comments</h3>
-  {% if article.comments.all %}
+  <h3>Comments</h3>
+  {% if comments %}
     <ul class="list-group">
-      {% for comment in article.comments.all %}
-        {% if comment.approved %}
+      {% for comment in comments %}
         <li class="list-group-item">
-          <p><strong>{{ comment.author }}</strong> <small class="text-muted">{{ comment.created_on|date:"M d, Y H:i" }}</small></p>
+          <p>
+            <strong>{{ comment.author }}</strong>
+            <small class="text-muted">{{ comment.created_on|date:"M d, Y H:i" }}</small>
+          </p>
           <p>{{ comment.body }}</p>
         </li>
-        {% endif %}
-      {% empty %}
-        <li class="list-group-item">No comments yet.</li>
       {% endfor %}
     </ul>
   {% else %}
-    <p>No comments yet.</p>
+    <p>No comments yet. Be the first to comment!</p>
+  {% endif %}
+
+  <hr>
+  <h3>Leave a Comment</h3>
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      <!-- Customise form rendering. No field label shown. Was {{ form.as_p }} -->
+      {{ form.non_field_errors }}
+      {{ form.body.errors }}
+      {{ form.body }}
+      <button type="submit" class="btn btn-primary">Submit Comment</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'account_login' %}">Log in</a> to leave a comment.</p>
   {% endif %}
 
   <a href="{% url 'forum' %}" class="btn btn-secondary">Back to Forum</a>
