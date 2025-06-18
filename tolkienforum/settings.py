@@ -77,10 +77,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'tolkienforum.wsgi.application'
 
@@ -148,3 +150,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Login/logout redirects
+# Redirect after successful logi
+LOGIN_REDIRECT_URL = 'forum'
+# Redirect after logout
+ACCOUNT_LOGOUT_REDIRECT_URL = 'welcome'
+ACCOUNT_LOGOUT_ON_GET = True
