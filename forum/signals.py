@@ -8,14 +8,17 @@ from .models import Profile
 
 # Connects function create_or_update_profile to run after any User is saved
 @receiver(post_save, sender=User)
-# Checks instance of user is already created
 def create_or_update_profile(sender, instance, created, **kwargs):
-    if created:
-        # If new user, create profile
-        Profile.objects.create(user=instance)
-    else:
-        # If user exists, ensure profile exists
-        Profile.objects.get_or_create(user=instance)
-    # Save profile in all cases (trigger signals or update timestamp)
-    instance.profile.save()
+    """
+    Signal receiver that ensures every User has a linked Profile.
+    Runs after a User is saved (created or updated).
 
+    - If created → create a new Profile.
+    - If updated → ensure Profile exists, or create if missing.
+    """
+    profile, profile_created = Profile.objects.get_or_create(user=instance)
+
+    if created:
+        # New user, profile just created — you can set defaults if needed
+        profile.user_type = 'member'  # Example default user type
+        profile.save()
