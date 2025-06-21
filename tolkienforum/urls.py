@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from forum import views
 
 
 urlpatterns = [
@@ -23,6 +24,16 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
     # URL for the Summernote editor
     path('', include('forum.urls')),
-    # URL for the forum view visible at the 
+    # URL for the forum view
+    path('forum/add/', views.article_form, name='add_article'),
+    # URL for adding an article
+    path('forum/<slug:slug>/edit/', views.article_form, name='edit_article'),
+    # URL for editing an article
+    path('forum/<slug:slug>/delete/', views.ArticleDelete.as_view(), name='delete_article'),
+    # URL for deleting an article
     path('accounts/', include('allauth.urls')),
+    # URL for allauth authentication
+    path('accounts/', include('django.contrib.auth.urls')),
+    # URL for built-in Django authentication
+
 ]

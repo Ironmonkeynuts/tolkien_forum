@@ -1,7 +1,10 @@
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from .models import Article, Comment
-from .forms import CommentForm
+from .forms import CommentForm, ArticleForm
 
 
 # Create your views here.
@@ -84,3 +87,59 @@ def about(request):
 
 def contact(request):
     return render(request, 'forum/contact.html')
+
+
+@login_required
+def article_form(request, slug=None):
+    """
+    Handles both article creation and editing:
+    - If slug provided → edit mode.
+    - If no slug → create mode.
+    Permissions:
+    - Create: content creator, moderator, admin.
+    - Edit: author, moderator, admin.
+    """
+    if slug:
+        article = get_object_or_404(Article, slug=slug)
+        if request.user != article.author and not (
+            request.user.profile.can_approve_content() or request.user.profile.is_admin()
+        ):
+            return HttpResponseForbidden("You do not have permission to edit this article.")
+    else:
+        if not request.user.profile.can_add_articles():
+            return HttpResponseForbidden("You do not have permission to add articles.")
+        article = None
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            new_article = form.save(commit=False)
+            if not article:
+                new_article.author = request.user
+            new_article.save()
+            return redirect('article_detail', slug=new_article.slug)
+    else:
+        form = ArticleForm(instance=article)
+
+    return render(request, 'forum/article_form.html', {'form': form, 'article': article})
+
+
+@method_decorator(login_required, name='dispatch')
+class ArticleDelete(generic.DeleteView):
+    """
+    Handles deletion of articles.
+    Only the author, staff, or admin can delete.
+    """
+    model = Article
+    success_url = '/forum/'
+
+    def get_queryset(self):
+        """
+        Restricts deletion rights to:
+        - The author
+        - Staff/admins
+        """
+        qs = super().get_queryset()
+        if self.request.user.is_staff:
+            return qs
+        return qs.filter(author=self.request.user)
