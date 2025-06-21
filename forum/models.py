@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from django.contrib.auth.models import User
 
 # Modelled on walkthrough Django-Blog
@@ -12,7 +13,7 @@ STATUS = (
 # Modelled on walkthrough Django-Blog, modified
 class Article(models.Model):
     title = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='articles')
     # related_name is used to access the articles from the user
@@ -27,6 +28,17 @@ class Article(models.Model):
     class Meta:
         ordering = ['-created_on']
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title).lower()
+            slug = base_slug
+            counter = 1
+            while Article.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
     # Enable more user friendly article naming
     def __str__(self):
         return f"{self.title} | created by {self.author}"
@@ -37,7 +49,7 @@ class Comment(models.Model):
     article = models.ForeignKey(
         Article, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='commenter')
+        User, on_delete=models.CASCADE, related_name='comments')
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
@@ -48,7 +60,8 @@ class Comment(models.Model):
 
     # Enable more user friendly comment naming
     def __str__(self):
-        return f"Comment {self.body} by {self.author} on {self.article.title}"
+        # Prevent too long a comment
+        return f"Comment '{self.body[:30]}...' by {self.author} on {self.article.title}"
 
 # New Model
 class Profile(models.Model):
@@ -82,7 +95,7 @@ class Profile(models.Model):
         return self.can_comment()
 
     def can_edit_own_comment(self):
-        return self.user_type in ['member', 'creator', 'moderator', 'admin']
+        return self.can_comment()
 
     def can_delete_own_comment(self):
         return self.can_edit_own_comment()
@@ -91,7 +104,7 @@ class Profile(models.Model):
         return self.user_type in ['creator', 'moderator', 'admin']
 
     def can_edit_own_article(self):
-        return self.user_type in ['creator', 'moderator', 'admin']
+        return self.can_add_articles()
 
     def can_delete_own_article(self):
         return self.can_edit_own_article()
@@ -101,9 +114,23 @@ class Profile(models.Model):
 
     def can_approve_comments(self):
         return self.user_type in ['moderator', 'admin']
+    
+    def can_approve_profiles(self):
+        return self.user_type in ['moderator', 'admin']
+    
+    def can_approve_content(self):
+        return (
+            self.can_approve_articles()
+            or self.can_approve_comments()
+            or self.can_approve_profiles()
+        )
 
     def can_manage_users(self):
-        return self.user_type == 'admin' or self.user.is_superuser
+        return self.is_admin()
 
     def is_admin(self):
-        return self.user_type == 'admin' or self.user.is_staff or self.user.is_superuser
+        return (
+            self.user_type == 'admin'
+            or self.user.is_staff
+            or self.user.is_superuser
+        )

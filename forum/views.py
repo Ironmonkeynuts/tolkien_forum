@@ -118,6 +118,13 @@ def article_form(request, slug=None):
                 new_article.author = request.user
             new_article.save()
             return redirect('article_detail', slug=new_article.slug)
+        else:
+            # return form with errors
+            return render(
+                request,
+                'forum/article_form.html',
+                {'form': form, 'article': article}
+            )
     else:
         form = ArticleForm(instance=article)
 
