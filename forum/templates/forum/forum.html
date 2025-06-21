@@ -3,7 +3,9 @@
 
 {% block content %}
   <h1>Forum Articles</h1>
-
+  {% if user.is_authenticated and user.profile.user_type in 'creator moderator admin' %}
+  <a href="{% url 'add_article' %}" class="btn btn-success mb-3">Add New Article</a>
+  {% endif %}
   {% if object_list %}
     <ul class="list-group">
       {% for article in object_list %}
