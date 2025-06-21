@@ -3,6 +3,7 @@ from django.utils.decorators import method_decorator
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
+from django.db import models
 from .models import Article, Comment
 from .forms import CommentForm, ArticleForm
 
@@ -12,9 +13,26 @@ class ArticleList(generic.ListView):
     """
     A view that displays a list of articles.
     """
-    queryset = Article.objects.filter(status=1, approved=True)
+
     template_name = 'forum/forum.html'
     paginate_by = 6
+
+    def get_queryset(self):
+        qs = Article.objects.all()
+
+        if self.request.user.is_authenticated:
+            # Staff see all
+            if self.request.user.is_staff or self.request.user.is_superuser: 
+                return qs
+            else:
+                # Authors see their own drafts and/or unapproved articles
+                own_articles = qs.filter(author=self.request.user)
+                public_articles = qs.filter(status=1, approved=True)
+                return (own_articles | public_articles).distinct()
+        else:
+            # Public users see only approved published articles
+            return qs.filter(status=1, approved=True)
+
 
 class ArticleDetail(generic.DetailView):
     """
@@ -35,7 +53,11 @@ class ArticleDetail(generic.DetailView):
         qs = super().get_queryset()
         if self.request.user.is_staff or self.request.user.is_superuser:
             return qs
-        return qs.filter(status=1, approved=True)
+        # Let creators see their own drafts and pending
+        return qs.filter(
+            models.Q(status=1, approved=True) |
+            models.Q(author=self.request.user)
+        )
 
     def get_context_data(self, **kwargs):
         """

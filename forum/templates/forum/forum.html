@@ -3,18 +3,46 @@
 
 {% block content %}
   <h1>Forum Articles</h1>
+
   {% if user.is_authenticated and user.profile.user_type in 'creator moderator admin' %}
-  <a href="{% url 'add_article' %}" class="btn btn-success mb-3">Add New Article</a>
+    <a href="{% url 'add_article' %}" class="btn btn-success mb-3">Add New Article</a>
   {% endif %}
+
   {% if object_list %}
     <ul class="list-group">
       {% for article in object_list %}
         <li class="list-group-item">
-          <a href="{% url 'article_detail' slug=article.slug %}">
-            <strong>{{ article.title }}</strong>
-          </a>
-          <br>
-          <small class="text-muted">by {{ article.author }} on {{ article.created_on|date:"M d, Y" }}</small>
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <a href="{% url 'article_detail' slug=article.slug %}">
+                <strong>{{ article.title }}</strong>
+              </a><br>
+              <small class="text-muted">
+                by {{ article.author }} on {{ article.created_on|date:"M d, Y" }}
+              </small>
+
+              <!-- Status badges -->
+              <div class="mt-1">
+                {% if article.status == 0 %}
+                  <span class="badge bg-secondary">Draft</span>
+                {% endif %}
+                {% if not article.approved %}
+                  <span class="badge bg-warning text-dark">Pending Approval</span>
+                {% endif %}
+                {% if article.status == 1 and article.approved %}
+                  <span class="badge bg-success">Published</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Author tools -->
+            {% if user == article.author or user.is_staff %}
+              <div class="btn-group" role="group">
+                <a href="{% url 'edit_article' slug=article.slug %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                <a href="{% url 'delete_article' slug=article.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
+              </div>
+            {% endif %}
+          </div>
         </li>
       {% endfor %}
     </ul>
@@ -43,6 +71,7 @@
         {% endif %}
       </ul>
     </nav>
+
   {% else %}
     <p>No articles found.</p>
   {% endif %}
