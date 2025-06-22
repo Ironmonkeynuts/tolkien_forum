@@ -5,10 +5,46 @@
 {% block content %}
   <h1>User Profile</h1>
   <p>Welcome, {{ user.username }}!</p>
+
   {% if user.profile %}
-    <p>User type: {{ user.profile.get_user_type_display }}</p>
-    <p>Bio: {{ user.profile.bio }}</p>
+    <div class="mb-3">
+      {% if user.profile.avatar %}
+        <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}'s avatar" class="rounded-circle" style="max-width: 150px;">
+      {% else %}
+        <img src="/static/images/avatar-placeholder.jpg" alt="Default avatar" class="rounded-circle" style="max-width: 150px;">
+      {% endif %}
+    </div>
+
+    <p><strong>User type:</strong> {{ user.profile.get_user_type_display }}</p>
+    <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+
+    {% if user == request.user %}
+      <a href="{% url 'edit_profile' %}" class="btn btn-warning mb-3">Edit Profile</a>
+    {% endif %}
+
+    <hr>
+
+    <h2>Your Articles</h2>
+    {% if user.articles.all %}
+      <ul class="list-group mb-3">
+        {% for article in user.articles.all %}
+          <li class="list-group-item">
+            <a href="{% url 'article_detail' slug=article.slug %}">
+              {{ article.title }}
+            </a>
+            <small class="text-muted">({{ article.get_status_display }}, {% if article.approved %}Approved{% else %}Pending Approval{% endif %})</small>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>You haven't written any articles yet.</p>
+    {% endif %}
+
+    {% if user.profile.can_add_articles %}
+      <a href="{% url 'add_article' %}" class="btn btn-success">Create New Article</a>
+    {% endif %}
+
   {% else %}
     <p>No profile information available.</p>
-  {% endif %} 
+  {% endif %}
 {% endblock %}
