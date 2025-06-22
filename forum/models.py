@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Modelled on walkthrough Django-Blog
 STATUS = (
@@ -17,6 +18,7 @@ class Article(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='articles')
     # related_name is used to access the articles from the user
+    primary_image = CloudinaryField('Primary Image', default='placeholder', blank=True, null=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
@@ -63,6 +65,7 @@ class Comment(models.Model):
         # Prevent too long a comment
         return f"Comment '{self.body[:30]}...' by {self.author} on {self.article.title}"
 
+
 # New Model
 class Profile(models.Model):
     USER_TYPES = (
@@ -75,8 +78,8 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_type = models.CharField(max_length=20, choices=USER_TYPES, default='visitor')
+    avatar = CloudinaryField('Avatar', default='placeholder', blank=True, null=True)
     bio = models.TextField(blank=True)
-    # avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
 
