@@ -32,6 +32,7 @@ class ArticleList(generic.ListView):
         else:
             # Public users see only approved published articles
             return qs.filter(status=1, approved=True)
+        except EmptyPage:
 
 
 class ArticleDetail(generic.DetailView):
