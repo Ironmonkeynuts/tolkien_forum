@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Profile | Speak, Friend and Enter{% endblock %}
 
@@ -8,11 +9,11 @@
 
   {% if user.profile %}
     <div class="mb-3">
-      {% if user.profile.avatar %}
-        <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}'s avatar" class="rounded-circle" style="max-width: 150px;">
-      {% else %}
-        <img src="/static/images/avatar-placeholder.jpg" alt="Default avatar" class="rounded-circle" style="max-width: 150px;">
-      {% endif %}
+    {% if user.profile.avatar %}
+      <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar" class="rounded-circle" style="max-width: 150px;">
+    {% else %}
+      <img src="{% static 'images/avatar_placeholder.jpg' %}" alt="Placeholder avatar" class="rounded-circle" style="max-width: 150px;">
+    {% endif %}
     </div>
 
     <p><strong>User type:</strong> {{ user.profile.get_user_type_display }}</p>
