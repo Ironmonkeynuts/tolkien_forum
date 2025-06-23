@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage
+from django.contrib import messages
 from .models import Article, Comment
 from .forms import CommentForm, ArticleForm, ProfileForm
 
@@ -37,9 +38,10 @@ class ArticleList(generic.ListView):
     def paginate_queryset(self, queryset, page_size):
         try:
             return super().paginate_queryset(queryset, page_size)
-        #
         except EmptyPage:
-            return self.paginator.page(self.paginator.num_pages)
+            if hasattr(self, 'paginator'):  # Ensure paginator exists
+                return self.paginator.page(self.paginator.num_pages)
+            return super().paginate_queryset(queryset, page_size)
 
 
 class ArticleDetail(generic.DetailView):
@@ -76,8 +78,11 @@ class ArticleDetail(generic.DetailView):
         """
         context = super().get_context_data(**kwargs)
         article = self.get_object()
-        # Fetch approved comments only, order newest first
-        context['comments'] = article.comments.filter(approved=True).order_by('-created_on')
+        # Allow author to see their own unapproved comments
+        if self.request.user.is_authenticated and self.request.user == article.author:
+            context['comments'] = article.comments.order_by('-created_on')
+        else:
+            context['comments'] = article.comments.filter(approved=True).order_by('-created_on')
         context['form'] = CommentForm()
         return context
 
@@ -97,6 +102,7 @@ class ArticleDetail(generic.DetailView):
             comment.author = request.user
             comment.approved = True  # Automatic approval
             comment.save()
+            messages.success(request, 'Your comment has been posted.')  # Feedback success
             # Redirect to the same page so a refresh doesn't resubmit the form
             return redirect('article_detail', slug=self.object.slug)
         else:
@@ -148,10 +154,15 @@ def article_form(request, slug=None):
             if not article:
                 new_article.author = request.user
             new_article.save()
+            if new_article.status == 0 or not new_article.approved:  # Smart redirect + message
+                messages.info(request, "Your article is saved as draft or awaiting approval.")
+                return redirect('forum')
+            messages.success(request, "Your article has been saved successfully.")  # Feedback success
             return redirect('article_detail', slug=new_article.slug)
+        else:
+            messages.error(request, "There was an error saving your article. Please check the form.")  # Error message
     else:
         form = ArticleForm(instance=article)
-
     return render(request, 'forum/article_form.html', {'form': form, 'article': article})
 
 
@@ -163,6 +174,10 @@ class ArticleDelete(generic.DeleteView):
     """
     model = Article
     success_url = '/forum/'
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "The article has been deleted.")  # Feedback on delete
+        return super().delete(request, *args, **kwargs)
 
     def get_queryset(self):
         """
@@ -185,7 +200,10 @@ def edit_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
+            messages.success(request, "Your profile has been updated.")  # Feedback success
             return redirect('profile')
+        else:
+            messages.error(request, "There was an error updating your profile. Please check the form.")  # Error message
     else:
         form = ProfileForm(instance=profile)
 
