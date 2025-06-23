@@ -55,10 +55,16 @@
 
               <!-- Show edit/delete buttons for author or staff -->
               {% if user == article.author or user.is_staff %}
-              <div class="btn-group btn-group-sm">
-                <a href="{% url 'edit_article' slug=article.slug %}" class="btn btn-outline-primary">Edit</a>
-                <a href="{% url 'delete_article' slug=article.slug %}" class="btn btn-outline-danger">Delete</a>
-              </div>
+                <div class="d-flex gap-1">
+                  <!-- Edit button: smaller size, less padding -->
+                  <a href="{% url 'edit_article' slug=article.slug %}" class="btn btn-outline-primary btn-xs">
+                    Edit
+                  </a>
+                  <!-- Delete button: smaller size, less padding -->
+                  <a href="{% url 'delete_article' slug=article.slug %}" class="btn btn-outline-danger btn-xs">
+                    Delete
+                  </a>
+                </div>
               {% endif %}
             </div>
 
