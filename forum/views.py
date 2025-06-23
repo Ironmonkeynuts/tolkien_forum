@@ -4,8 +4,9 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.db import models
+from django.core.paginator import Paginator, EmptyPage
 from .models import Article, Comment
-from .forms import CommentForm, ArticleForm
+from .forms import CommentForm, ArticleForm, ProfileForm
 
 
 # Create your views here.
@@ -32,7 +33,13 @@ class ArticleList(generic.ListView):
         else:
             # Public users see only approved published articles
             return qs.filter(status=1, approved=True)
+    # Prevent 404 if users request invalid page
+    def paginate_queryset(self, queryset, page_size):
+        try:
+            return super().paginate_queryset(queryset, page_size)
+        #
         except EmptyPage:
+            return self.paginator.page(self.paginator.num_pages)
 
 
 class ArticleDetail(generic.DetailView):
@@ -54,11 +61,12 @@ class ArticleDetail(generic.DetailView):
         qs = super().get_queryset()
         if self.request.user.is_staff or self.request.user.is_superuser:
             return qs
-        # Let creators see their own drafts and pending
-        return qs.filter(
-            models.Q(status=1, approved=True) |
-            models.Q(author=self.request.user)
-        )
+        if self.request.user.is_authenticated:
+            return qs.filter(
+                models.Q(status=1, approved=True) |
+                models.Q(author=self.request.user)
+            )
+        return qs.filter(status=1, approved=True)
 
     def get_context_data(self, **kwargs):
         """
@@ -134,20 +142,13 @@ def article_form(request, slug=None):
         article = None
 
     if request.method == 'POST':
-        form = ArticleForm(request.POST, instance=article)
+        form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid():
             new_article = form.save(commit=False)
             if not article:
                 new_article.author = request.user
             new_article.save()
             return redirect('article_detail', slug=new_article.slug)
-        else:
-            # return form with errors
-            return render(
-                request,
-                'forum/article_form.html',
-                {'form': form, 'article': article}
-            )
     else:
         form = ArticleForm(instance=article)
 
@@ -173,3 +174,19 @@ class ArticleDelete(generic.DeleteView):
         if self.request.user.is_staff:
             return qs
         return qs.filter(author=self.request.user)
+
+@login_required
+def edit_profile(request):
+    """
+    Handles editing of user profiles.
+    """
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=profile)
+
+    return render(request, 'forum/edit_profile.html', {'form': form})
