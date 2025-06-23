@@ -29,6 +29,15 @@
       {% endfor %}
     </div>
 
+        <!-- Primary Image -->
+    <div class="mb-3">
+      {{ form.primary_image.label_tag }}
+      {{ form.primary_image }}
+      {% for error in form.primary_image.errors %}
+        <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+
     <!-- Content -->
     <div class="mb-3">
       {{ form.content.label_tag }}
