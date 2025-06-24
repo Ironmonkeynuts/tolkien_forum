@@ -13,6 +13,7 @@
       <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar" class="rounded-circle" style="max-width: 150px;">
     {% else %}
       <img src="{% static 'images/avatar-placeholder.jpg' %}" alt="Placeholder avatar" class="rounded-circle" style="max-width: 150px;">
+      <img src="{% static 'images/forum-logo-dark.png' %}" class="img-fluid mx-auto d-block" alt="Forum Logo">
     {% endif %}
     </div>
 
@@ -26,23 +27,22 @@
     <hr>
 
     <h2>Your Articles</h2>
+    {% if user.profile.can_add_articles %}
+      <a href="{% url 'add_article' %}" class="btn btn-success mb-3">Create New Article</a>
+    {% endif %}
     {% if user.articles.all %}
       <ul class="list-group mb-3">
         {% for article in user.articles.all %}
-          <li class="list-group-item">
-            <a href="{% url 'article_detail' slug=article.slug %}">
+          <li class="list-group-item bg-success">
+            <a href="{% url 'article_detail' slug=article.slug %}" class="text-warning">
               {{ article.title }}
             </a>
-            <small class="text-muted">({{ article.get_status_display }}, {% if article.approved %}Approved{% else %}Pending Approval{% endif %})</small>
+            <small class="text-light">({{ article.get_status_display }}, {% if article.approved %}Approved{% else %}Pending Approval{% endif %})</small>
           </li>
         {% endfor %}
       </ul>
     {% else %}
       <p>You haven't written any articles yet.</p>
-    {% endif %}
-
-    {% if user.profile.can_add_articles %}
-      <a href="{% url 'add_article' %}" class="btn btn-success">Create New Article</a>
     {% endif %}
 
   {% else %}
