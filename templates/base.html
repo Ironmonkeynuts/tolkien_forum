@@ -41,15 +41,15 @@
               <a class="nav-link {% if request.path == forum_url %}active{% endif %}" href="{{ forum_url }}">Forum</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {% if request.path == profile_url %}active{% endif %}" href="{{ profile_url }}">Profile</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link {% if request.path == about_url %}active{% endif %}" href="{{ about_url }}">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link {% if request.path == contact_url %}active{% endif %}" href="{{ contact_url }}">Contact</a>
             </li>
             {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link {% if request.path == profile_url %}active{% endif %}" href="{{ profile_url }}">Profile</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ logout_url }}">Logout</a>
               </li>
