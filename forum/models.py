@@ -18,7 +18,7 @@ class Article(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='articles')
     # related_name is used to access the articles from the user
-    primary_image = CloudinaryField('Primary Image', default='placeholder', blank=True, null=True)
+    primary_image = CloudinaryField('image', default='placeholder', blank=True, null=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
@@ -78,7 +78,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_type = models.CharField(max_length=20, choices=USER_TYPES, default='visitor')
-    avatar = CloudinaryField('Avatar', default='placeholder', blank=True, null=True)
+    avatar = CloudinaryField('image', default='placeholder', blank=True, null=True)
     bio = models.TextField(blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
