@@ -12,7 +12,7 @@
     {% if user.profile.avatar %}
       <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar" class="rounded-circle" style="max-width: 150px;">
     {% else %}
-      <img src="{% static 'images/avatar_placeholder.jpg' %}" alt="Placeholder avatar" class="rounded-circle" style="max-width: 150px;">
+      <img src="{% static 'images/avatar-placeholder.jpg' %}" alt="Placeholder avatar" class="rounded-circle" style="max-width: 150px;">
     {% endif %}
     </div>
 

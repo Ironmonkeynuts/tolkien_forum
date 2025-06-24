@@ -23,7 +23,7 @@
             {% if article.primary_image %}
               <img src="{{ article.primary_image.url }}" class="card-img-top img-fluid" alt="{{ article.title }}">
             {% else %}
-              <img src="{% static 'images/article_placeholder.jpg' %}" class="card-img-top img-fluid" alt="Placeholder">
+              <img src="{% static 'images/article-placeholder.jpg' %}" class="card-img-top img-fluid" alt="Placeholder">
             {% endif %}
 
             <div class="card-body d-flex flex-column">
