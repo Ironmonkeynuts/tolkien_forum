@@ -4,9 +4,14 @@
 {% block title %}Welcome | Speak, Friend and Enter{% endblock %}
 
 {% block content %}
-  <div class="container-fluid">
-    <h1>Welcome to Speak, Friend and Enter</h1>
-    <p>This is the home page of the forum.</p>
-    <img src="{% static 'images/forum-logo-dark.png' %}" class="img-fluid mx-auto d-block" alt="Forum Logo">
+  <div class="container-fluid py-5">
+    <div class="text-center mb-4">
+    <div class="mb-4">
+      <h1 class="display-4">Welcome to Speak, Friend and Enter</h1>
+      <p class="lead">A Fellowship for All Things Tolkien</p>
+    </div>
+    <div class="justify-content-center">
+      <img src="{% static 'images/forum-logo-dark.png' %}" class="img-fluid mx-auto d-block" alt="Forum Logo">
+    </div>
   </div>
 {% endblock %}

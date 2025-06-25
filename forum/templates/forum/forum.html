@@ -4,8 +4,11 @@
 {% block title %}Forum | Speak, Friend and Enter{% endblock %}
 
 {% block content %}
-<div class="container">
-  <h1 class="mb-4">Forum Articles</h1>
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h1 class="display-4">Forum Articles</h1>
+    <p class="lead">Join the conversation!</p>
+  </div>
 
   <!-- Show add article button for authenticated users with appropriate roles -->
   {% if user.is_authenticated and user.profile.user_type in 'creator moderator admin' %}
