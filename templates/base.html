@@ -13,6 +13,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{% static 'images/forum-logo-icon.png' %}" type="image/x-icon">
   <title>{% block title %}Speak, Friend and Enter{% endblock %}</title>
 
   <!-- Bootstrap 5 CSS -->
@@ -26,14 +27,17 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{{ welcome_url }}">Speak, Friend and Enter</a>
+        <a class="navbar-brand d-flex align-items-center" href="{{ welcome_url }}">
+          <img src="{% static 'images/forum-logo-notext.png' %}" class="img-fluid" style="max-height: 40px;" alt="Forum Logo">
+          <span class="ms-2">Speak, Friend and Enter</span>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
           aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto align-items-center">
             <li class="nav-item">
               <a class="nav-link {% if request.path == welcome_url %}active{% endif %}" href="{{ welcome_url }}">Welcome</a>
             </li>
