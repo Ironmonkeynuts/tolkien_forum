@@ -236,3 +236,43 @@ def toggle_approval(request):
         obj.save()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@login_required
+def edit_comment(request, pk):
+    """
+    View to edit an individual comment.
+    Only the author or an admin can edit.
+    """
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.user != comment.author and not request.user.profile.is_admin():
+        return HttpResponseForbidden("You do not have permission to edit this comment.")
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Comment updated successfully.")
+            return redirect('article_detail', slug=comment.article.slug)
+    else:
+        form = CommentForm(instance=comment)
+
+    return render(request, 'forum/edit_comment.html', {'form': form, 'comment': comment})
+
+
+@login_required
+def delete_comment(request, pk):
+    """
+    View to delete an individual comment.
+    Only the author or an admin can delete.
+    """
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.user != comment.author and not request.user.profile.is_admin():
+        return HttpResponseForbidden("You do not have permission to delete this comment.")
+
+    if request.method == 'POST':
+        comment.delete()
+        messages.success(request, "Comment deleted.")
+        return redirect('article_detail', slug=comment.article.slug)
+
+    return render(request, 'forum/delete_comment_confirm.html', {'comment': comment})
