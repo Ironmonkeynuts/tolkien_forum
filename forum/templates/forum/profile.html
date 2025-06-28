@@ -23,11 +23,11 @@
     <p><strong>User type:</strong> {{ user.profile.get_user_type_display }}</p>
     <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
     <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-      {% if user == request.user %}
+      {% if request.user == user or request.user.profile.user_type == "admin" %}
         <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-warning">Edit Profile</a>
       {% endif %}
 
-      {% if user.is_authenticated and user.profile.can_approve_profiles %}
+      {% if user.profile.user_type == "moderator" or user.profile.user_type == "admin" %}
         <form method="post" action="{% url 'toggle_approval' %}">
           {% csrf_token %}
           <input type="hidden" name="object_type" value="Profile">

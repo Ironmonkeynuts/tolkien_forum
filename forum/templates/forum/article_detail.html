@@ -19,26 +19,29 @@
   <hr>
 
   {% if user == article.author or user.is_staff or user.profile.can_approve_articles %}
-    <div class="mt-4 d-flex flex-wrap gap-2 align-items-center">
+  <div class="mt-4 d-flex flex-wrap gap-2 align-items-center">
+    {% if user == article.author or user.profile.user_type == "admin" %}
       <a href="{% url 'edit_article' slug=article.slug %}" class="btn btn-sm btn-warning">Edit Article</a>
 
-      <!-- Delete button triggers modal -->
+      <!-- Delete Modal Trigger -->
       <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
         Delete Article
       </button>
+    {% endif %}
 
-      {% if user.profile.can_approve_articles %}
-        <form method="post" action="{% url 'toggle_approval' %}" class="d-inline">
-          {% csrf_token %}
-          <input type="hidden" name="object_type" value="Article">
-          <input type="hidden" name="object_id" value="{{ article.id }}">
-          <button type="submit"
-                  class="btn btn-sm {% if article.approved %}btn-danger{% else %}btn-success{% endif %}">
-            {% if article.approved %}Disapprove{% else %}Approve{% endif %}
-          </button>
-        </form>
-      {% endif %}
-    </div>
+    {% if user.profile.user_type == "moderator" or user.profile.user_type == "admin" %}
+      <form method="post" action="{% url 'toggle_approval' %}" class="d-inline">
+        {% csrf_token %}
+        <input type="hidden" name="object_type" value="Article">
+        <input type="hidden" name="object_id" value="{{ article.id }}">
+        <button type="submit"
+                class="btn btn-sm {% if article.approved %}btn-danger{% else %}btn-success{% endif %}">
+          {% if article.approved %}Disapprove{% else %}Approve{% endif %}
+        </button>
+      </form>
+    {% endif %}
+  </div>
+
   {% endif %}
 
   <!-- Modal -->
@@ -63,7 +66,7 @@
     </div>
   </div>
 
-  <h3>Comments</h3>
+  <h3 class="mt-4">Comments</h3>
   {% if comments %}
     <ul class="list-group">
       {% for comment in comments %}
@@ -74,7 +77,7 @@
           </p>
           <p>{{ comment.body }}</p>
 
-          {% if user.is_authenticated and user.profile.can_approve_comments %}
+          {% if user.profile.user_type == "moderator" or user.profile.user_type == "admin" %}
             <form method="post" action="{% url 'toggle_approval' %}" class="mt-2">
               {% csrf_token %}
               <input type="hidden" name="object_type" value="Comment">
