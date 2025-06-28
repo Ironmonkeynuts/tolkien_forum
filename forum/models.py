@@ -24,7 +24,7 @@ class Article(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     updated_on = models.DateTimeField(auto_now=True)
     excerpt = models.TextField(blank=True)
-    approved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=True)
 
     # Order articles by date created in descending order
     class Meta:
@@ -54,7 +54,7 @@ class Comment(models.Model):
         User, on_delete=models.CASCADE, related_name='comments')
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    approved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=True)
 
     # Order comments by date created in descending order
     class Meta:
@@ -81,7 +81,7 @@ class Profile(models.Model):
     avatar = CloudinaryField('image', default='placeholder', blank=True, null=True)
     bio = models.TextField(blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
-    approved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=True)
 
     # Enable more user friendly profile naming
     def __str__(self):

@@ -22,11 +22,23 @@
 
     <p><strong>User type:</strong> {{ user.profile.get_user_type_display }}</p>
     <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+    <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+      {% if user == request.user %}
+        <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-warning">Edit Profile</a>
+      {% endif %}
 
-    {% if user == request.user %}
-      <a href="{% url 'edit_profile' %}" class="btn btn-warning mb-3">Edit Profile</a>
-    {% endif %}
-
+      {% if user.is_authenticated and user.profile.can_approve_profiles %}
+        <form method="post" action="{% url 'toggle_approval' %}">
+          {% csrf_token %}
+          <input type="hidden" name="object_type" value="Profile">
+          <input type="hidden" name="object_id" value="{{ user.profile.id }}">
+          <button type="submit" name="approval_toggle"
+                  class="btn btn-sm {% if user.profile.approved %}btn-danger{% else %}btn-success{% endif %}">
+            {% if user.profile.approved %}Disapprove{% else %}Approve{% endif %}
+          </button>
+        </form>
+      {% endif %}
+    </div>
     <hr>
 
     <h2>Your Articles</h2>

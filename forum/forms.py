@@ -45,3 +45,7 @@ class ProfileForm(forms.ModelForm):
             'avatar': 'Upload an avatar image for your profile (optional).',
             'bio': 'Write a short bio about yourself (optional).',
         }
+
+class ApprovalToggleForm(forms.Form):
+    object_type = forms.CharField(widget=forms.HiddenInput)
+    object_id = forms.IntegerField(widget=forms.HiddenInput)

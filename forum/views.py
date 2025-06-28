@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseForbidden
@@ -6,8 +7,8 @@ from django.views import generic
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib import messages
-from .models import Article, Comment
-from .forms import CommentForm, ArticleForm, ProfileForm
+from .models import Article, Comment, Profile
+from .forms import CommentForm, ArticleForm, ProfileForm, ApprovalToggleForm
 
 
 # Create your views here.
@@ -208,3 +209,30 @@ def edit_profile(request):
         form = ProfileForm(instance=profile)
 
     return render(request, 'forum/edit_profile.html', {'form': form})
+
+
+def toggle_approval(request):
+    """
+    Handles toggling of content approval.
+    """
+    form = ApprovalToggleForm(request.POST)
+    if form.is_valid():
+        model_name = form.cleaned_data['object_type']
+        object_id = form.cleaned_data['object_id']
+        model = apps.get_model('forum', model_name)
+
+        obj = model.objects.get(pk=object_id)
+
+        # Permissions
+        if isinstance(obj, Article) and not request.user.profile.can_approve_articles():
+            return HttpResponseForbidden("You can't approve articles.")
+        elif isinstance(obj, Comment) and not request.user.profile.can_approve_comments():
+            return HttpResponseForbidden("You can't approve comments.")
+        elif isinstance(obj, Profile) and not request.user.profile.can_approve_profiles():
+            return HttpResponseForbidden("You can't approve profiles.")
+
+        # Toggle approval
+        obj.approved = not obj.approved
+        obj.save()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
