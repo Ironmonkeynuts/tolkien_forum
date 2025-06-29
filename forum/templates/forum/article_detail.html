@@ -86,29 +86,75 @@
             <strong>{{ comment.author }}</strong>
             <small class="text-muted">{{ comment.created_on|date:"M d, Y H:i" }}</small>
           </p>
-          <p>{{ comment.body }}</p>
 
-          <div class="d-flex flex-wrap gap-2 align-items-center mt-2">
-            {% if user == comment.author or user.profile.user_type == "admin" %}
-              <a href="{% url 'edit_comment' comment.id %}" class="btn btn-sm btn-warning">Edit</a>
-              <form method="post" action="{% url 'delete_comment' comment.id %}" class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-              </form>
-            {% endif %}
+          {% if editing_comment_id == comment.id %}
+            <!-- Inline edit form with original text shown -->
+            <div class="mb-2">
+              <small class="text-muted">Original:</small>
+              <blockquote class="blockquote fst-italic">{{ comment.body }}</blockquote>
+            </div>
 
-            {% if user.profile.user_type == "moderator" or user.profile.user_type == "admin" %}
-              <form method="post" action="{% url 'toggle_approval' %}" class="d-inline">
-                {% csrf_token %}
-                <input type="hidden" name="object_type" value="Comment">
-                <input type="hidden" name="object_id" value="{{ comment.id }}">
-                <button type="submit"
-                        class="btn btn-sm {% if comment.approved %}btn-danger{% else %}btn-success{% endif %}">
-                  {% if comment.approved %}Disapprove{% else %}Approve{% endif %}
+            <form method="post">
+              {% csrf_token %}
+              <input type="hidden" name="edit_comment_id" value="{{ comment.id }}">
+              {{ form.body.errors }}
+              {{ form.body }}
+              <div class="d-flex flex-wrap gap-2 mt-2">
+                <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                <a href="{% url 'article_detail' slug=article.slug %}" class="btn btn-sm btn-secondary">Cancel</a>
+              </div>
+            </form>
+          {% else %}
+            <!-- Normal comment display-->
+            <p>{{ comment.body }}</p>
+            <div class="d-flex flex-wrap gap-2 align-items-center mt-2">
+              {% if user == comment.author or user.profile.user_type == "admin" %}
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="edit_comment_id" value="{{ comment.id }}">
+                  <button type="submit" class="btn btn-sm btn-warning">Edit</button>
+                </form>
+                <!-- Delete Modal Trigger -->
+                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCommentModal{{ comment.id }}">
+                  Delete
                 </button>
-              </form>
-            {% endif %}
-          </div>
+                <!-- Delete Comment Modal -->
+                <div class="modal fade" id="deleteCommentModal{{ comment.id }}" tabindex="-1" aria-labelledby="deleteCommentModalLabel{{ comment.id }}" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="deleteCommentModalLabel{{ comment.id }}">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body bg-success text-white">
+                        Are you sure you want to delete this comment?
+                        <blockquote class="blockquote fst-italic text-white mt-2">{{ comment.body }}</blockquote>
+                      </div>
+                      <div class="modal-footer bg-success">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <form method="post" action="{% url 'delete_comment' comment.id %}">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+              {% if user.profile.user_type == "moderator" or user.profile.user_type == "admin" %}
+                <form method="post" action="{% url 'toggle_approval' %}" class="d-inline">
+                  {% csrf_token %}
+                  <input type="hidden" name="object_type" value="Comment">
+                  <input type="hidden" name="object_id" value="{{ comment.id }}">
+                  <button type="submit"
+                          class="btn btn-sm {% if comment.approved %}btn-danger{% else %}btn-success{% endif %}">
+                    {% if comment.approved %}Disapprove{% else %}Approve{% endif %}
+                  </button>
+                </form>
+              {% endif %}
+            </div>
+          {% endif %}
         </li>
       {% endfor %}
     </ul>

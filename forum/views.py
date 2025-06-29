@@ -96,20 +96,38 @@ class ArticleDetail(generic.DetailView):
         - Redirect to the article detail page to avoid form resubmission
         """
         self.object = self.get_object()
+        # Check if this is an edit request
+        if "edit_comment_id" in request.POST:
+            comment_id = request.POST.get("edit_comment_id")
+            comment = get_object_or_404(Comment, pk=comment_id)
+
+            if request.user != comment.author and not request.user.profile.is_admin():
+                return HttpResponseForbidden("You do not have permission to edit this comment.")
+
+            form = CommentForm(request.POST, instance=comment)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Comment updated successfully.")
+                return redirect('article_detail', slug=self.object.slug)
+
+            # If form invalid, keep context and editing state
+            context = self.get_context_data(form=form)
+            context["editing_comment_id"] = comment.id
+            return self.render_to_response(context)
+
+        # Handle new comment submission
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.article = self.object
             comment.author = request.user
-            comment.approved = True  # Automatic approval
+            comment.approved = True  # or False, depending on moderation
             comment.save()
-            messages.success(request, 'Your comment has been posted.')  # Feedback success
-            # Redirect to the same page so a refresh doesn't resubmit the form
+            messages.success(request, 'Your comment has been posted.')
             return redirect('article_detail', slug=self.object.slug)
-        else:
-            # If form is invalid, re-render with errors and existing context
-            context = self.get_context_data(form=form)
-            return self.render_to_response(context)
+
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
 
 def welcome(request):
     return render(request, 'forum/welcome.html')
