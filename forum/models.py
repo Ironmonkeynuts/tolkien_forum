@@ -137,3 +137,71 @@ class Profile(models.Model):
             or self.user.is_staff
             or self.user.is_superuser
         )
+
+# Contact for collaboration and enquiry
+class ContactMessage(models.Model):
+    """
+    Stores general enquiries and collaboration requests submitted by users.
+    Accessible to admins for reading and follow-up.
+    """
+    email = models.EmailField()  # User's email for follow-up
+    message = models.TextField()  # The message body
+    created_on = models.DateTimeField(auto_now_add=True)  # Timestamp of submission
+    read = models.BooleanField(default=False)  # Track whether admin has read the message
+
+    class Meta:
+        ordering = ['-created_on']  # Newest messages first
+
+    def __str__(self):
+        return f"Message from {self.email} at {self.created_on.strftime('%Y-%m-%d %H:%M')}"
+
+
+# Apply for Content Creator role
+class CreatorApplication(models.Model):
+    """
+    Represents a request by a user to become a Content Creator.
+    Viewable by moderators and admins.
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='creator_applications')  # Applicant
+    reason = models.TextField()  # Justification for the role
+    created_on = models.DateTimeField(auto_now_add=True)  # Timestamp of application
+    approved = models.BooleanField(default=False)  # Whether the application has been approved
+    reviewed = models.BooleanField(default=False)  # Whether the application has been reviewed
+
+    class Meta:
+        ordering = ['-created_on']
+
+    def __str__(self):
+        return f"Creator application by {self.user.username}"
+
+    def save(self, *args, **kwargs):
+        # First check if approval has just been granted
+        if self.approved and not self.user.profile.user_type == 'creator':
+            self.user.profile.user_type = 'creator'
+            self.user.profile.save()
+        super().save(*args, **kwargs)
+
+
+# Apply for moderator role
+class ModeratorApplication(models.Model):
+    """
+    Represents a request by a user to become a Moderator.
+    Viewable by admins only.
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='moderator_applications')  # Applicant
+    reason = models.TextField()  # Justification for the role
+    created_on = models.DateTimeField(auto_now_add=True)  # Timestamp of application
+    approved = models.BooleanField(default=False)  # Whether the application has been approved
+    reviewed = models.BooleanField(default=False)  # Whether the application has been reviewed
+
+    class Meta:
+        ordering = ['-created_on']
+
+    def __str__(self):
+        return f"Moderator application by {self.user.username}"
+
+    def save(self, *args, **kwargs):
+        if self.approved and not self.user.profile.user_type == 'moderator':
+            self.user.profile.user_type = 'moderator'
+            self.user.profile.save()
+        super().save(*args, **kwargs)
