@@ -8,4 +8,25 @@
       <h1 class="display-4">Contact Us</h1>
       <p class="lead">Feel free to reach out to us via email or social media.</p>
     </div>
+
+    <!-- Contact Form Section -->
+    <div class="card bg-success shadow p-4">
+      <h3 class="text-warning mb-3">Collaboration & General Enquiries</h3>
+      <form method="post" action="{% url 'contact' %}">
+        {% csrf_token %}
+
+        <div class="mb-3 text-warning">
+          <label for="id_email" class="form-label">Your Email</label>
+          <input type="email" class="form-control" id="id_email" name="email" required>
+        </div>
+
+        <div class="mb-3 text-warning">
+          <label for="id_message" class="form-label">Your Message</label>
+          <textarea class="form-control" id="id_message" name="message" rows="5" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+    </div>
+  </div>
 {% endblock %}
