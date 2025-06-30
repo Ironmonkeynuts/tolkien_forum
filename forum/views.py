@@ -142,6 +142,34 @@ def about(request):
 
 
 def contact(request):
+    if request.method == 'POST':
+        form_type = request.POST.get('form_type')
+
+        if form_type == 'contact':
+            email = request.POST.get('email')
+            message = request.POST.get('message')
+            # Save to DB if needed or email it
+            messages.success(request, "Thank you! Your message has been sent.")
+            return redirect('contact')
+
+        elif form_type == 'apply_creator':
+            reason = request.POST.get('reason_creator')
+            user = request.user
+            # Save to DB (you can create a model like CreatorApplication if desired)
+            messages.success(request, "Your application to become a Content Creator has been submitted.")
+            return redirect('contact')
+
+        elif form_type == 'apply_moderator':
+            reason = request.POST.get('reason_moderator')
+            user = request.user
+            # Save to DB (you can create a model like ModeratorApplication)
+            messages.success(request, "Your application to become a Moderator has been submitted.")
+            return redirect('contact')
+
+        else:
+            messages.error(request, "Invalid form submission.")
+            return redirect('contact')
+
     return render(request, 'forum/contact.html')
 
 
