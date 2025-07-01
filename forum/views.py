@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib import messages
-from .models import Article, Comment, Profile
+from .models import Article, Comment, Profile, ContactMessage, CreatorApplication, ModeratorApplication
 from .forms import CommentForm, ArticleForm, ProfileForm, ApprovalToggleForm
 
 
@@ -130,6 +130,7 @@ class ArticleDetail(generic.DetailView):
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
 
+
 def welcome(request):
     return render(request, 'forum/welcome.html')
 
@@ -150,23 +151,34 @@ def contact(request):
         if form_type == 'contact':
             email = request.POST.get('email')
             message = request.POST.get('message')
-            # Save to DB if needed or email it
+            ContactMessage.objects.create(email=email, message=message)
             messages.success(request, "Thank you! Your message has been sent.")
             return redirect('contact')
 
         elif form_type == 'apply_creator':
+            if not request.user.is_authenticated:
+                return HttpResponseForbidden("Only logged-in users can apply.")
             reason = request.POST.get('reason_creator')
-            user = request.user
-            # Save to DB (you can create a model like CreatorApplication if desired)
-            messages.success(request, "Your application to become a Content Creator has been submitted.")
+            # Prevent duplicate unreviewed applications
+            if CreatorApplication.objects.filter(user=request.user, reviewed=False).exists():
+                messages.warning(request, "You already have a pending application.")
+            else:
+                CreatorApplication.objects.create(user=request.user, reason=reason)
+                messages.success(request, "Your application to become a Content Creator has been submitted.")
             return redirect('contact')
 
         elif form_type == 'apply_moderator':
+            if not request.user.is_authenticated:
+                return HttpResponseForbidden("Only logged-in users can apply.")
             reason = request.POST.get('reason_moderator')
-            user = request.user
-            # Save to DB (you can create a model like ModeratorApplication)
-            messages.success(request, "Your application to become a Moderator has been submitted.")
+            # Prevent duplicate unreviewed applications
+            if ModeratorApplication.objects.filter(user=request.user, reviewed=False).exists():
+                messages.warning(request, "You already have a pending application.")
+            else:
+                ModeratorApplication.objects.create(user=request.user, reason=reason)
+                messages.success(request, "Your application to become a Moderator has been submitted.")
             return redirect('contact')
+
 
         else:
             messages.error(request, "Invalid form submission.")
