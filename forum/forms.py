@@ -35,7 +35,7 @@ class ArticleForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['user_type', 'avatar', 'bio']
+        fields = ['user_type', 'avatar', 'bio']  # User_type to be restricted
         widgets = {
             'user_type': forms.Select(attrs={'class': 'form-select'}),
             'avatar': forms.FileInput(attrs={'class': 'form-control-file'}),
@@ -45,6 +45,15 @@ class ProfileForm(forms.ModelForm):
             'avatar': 'Upload an avatar image for your profile (optional).',
             'bio': 'Write a short bio about yourself (optional).',
         }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Expecting the current user to be passed in
+        super().__init__(*args, **kwargs)
+
+        if not user or not user.is_staff:
+            # Hide the user_type field for non-admins
+            self.fields['user_type'].disabled = True
+
 
 class ApprovalToggleForm(forms.Form):
     object_type = forms.CharField(widget=forms.HiddenInput)
