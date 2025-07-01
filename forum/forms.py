@@ -1,6 +1,6 @@
 from django import forms
 from django_summernote.widgets import SummernoteWidget
-from .models import Comment, Article, Profile
+from .models import Comment, Article, Profile, ContactMessage, CreatorApplication, ModeratorApplication
 
 
 class CommentForm(forms.ModelForm):
@@ -58,3 +58,49 @@ class ProfileForm(forms.ModelForm):
 class ApprovalToggleForm(forms.Form):
     object_type = forms.CharField(widget=forms.HiddenInput)
     object_id = forms.IntegerField(widget=forms.HiddenInput)
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = ['email', 'message']
+        widgets = {
+            'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Your message...'}),
+        }
+        help_texts = {
+            'email': 'Include your email for our reply',
+            'message': 'Describe why you are contacting us. Include your name.',
+        }
+
+
+class CreatorApplicationForm(forms.ModelForm):
+    class Meta:
+        model = CreatorApplication
+        fields = ['reason']
+        widgets = {
+            'reason': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Why do you want to become a Content Creator?'}),
+        }
+        help_texts = {
+            'reason': 'Explain why you want to become a Content Creator. Include your name.',
+        }
+
+
+class ModeratorApplicationForm(forms.ModelForm):
+    class Meta:
+        model = ModeratorApplication
+        fields = ['reason']
+        widgets = {
+            'reason': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Why do you want to become a Moderator?'}),
+        }
+        help_texts = {
+            'reason': 'Explain why you want to become a Moderator. Include your name.',
+        }
