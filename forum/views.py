@@ -4,6 +4,7 @@ from django.utils.decorators import method_decorator
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
+from django.views.decorators.csrf import csrf_protect
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib import messages
@@ -141,6 +142,7 @@ def about(request):
     return render(request, 'forum/about.html')
 
 
+@csrf_protect
 def contact(request):
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
