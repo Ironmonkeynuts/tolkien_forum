@@ -9,7 +9,7 @@ from django.db import models
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib import messages
 from .models import Article, Comment, Profile, ContactMessage, CreatorApplication, ModeratorApplication
-from .forms import CommentForm, ArticleForm, ProfileForm, ApprovalToggleForm
+from .forms import CommentForm, ArticleForm, ProfileForm, ApprovalToggleForm, ContactForm, CreatorApplicationForm, ModeratorApplicationForm
 
 
 # Create your views here.
@@ -145,46 +145,58 @@ def about(request):
 
 @csrf_protect
 def contact(request):
+    contact_form = ContactForm()
+    creator_form = CreatorApplicationForm()
+    moderator_form = ModeratorApplicationForm()
+
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
 
         if form_type == 'contact':
-            email = request.POST.get('email')
-            message = request.POST.get('message')
-            ContactMessage.objects.create(email=email, message=message)
-            messages.success(request, "Thank you! Your message has been sent.")
-            return redirect('contact')
+            contact_form = ContactForm(request.POST)
+            if contact_form.is_valid():
+                contact_form.save()
+                messages.success(request, "Thank you! Your message has been sent.")
+                return redirect('contact')
+            else:
+                messages.error(request, "Please correct the errors in the contact form.")
 
         elif form_type == 'apply_creator':
             if not request.user.is_authenticated:
                 return HttpResponseForbidden("Only logged-in users can apply.")
-            reason = request.POST.get('reason_creator')
-            # Prevent duplicate unreviewed applications
+            creator_form = CreatorApplicationForm(request.POST)
             if CreatorApplication.objects.filter(user=request.user, reviewed=False).exists():
                 messages.warning(request, "You already have a pending application.")
-            else:
-                CreatorApplication.objects.create(user=request.user, reason=reason)
+            elif creator_form.is_valid():
+                app = creator_form.save(commit=False)
+                app.user = request.user  # Set user properly
+                app.save()
                 messages.success(request, "Your application to become a Content Creator has been submitted.")
-            return redirect('contact')
+                return redirect('contact')
+            else:
+                messages.error(request, "Please correct the errors in the creator application form.")
 
         elif form_type == 'apply_moderator':
             if not request.user.is_authenticated:
                 return HttpResponseForbidden("Only logged-in users can apply.")
-            reason = request.POST.get('reason_moderator')
-            # Prevent duplicate unreviewed applications
+            moderator_form = ModeratorApplicationForm(request.POST)
             if ModeratorApplication.objects.filter(user=request.user, reviewed=False).exists():
                 messages.warning(request, "You already have a pending application.")
-            else:
-                ModeratorApplication.objects.create(user=request.user, reason=reason)
+            elif moderator_form.is_valid():
+                app = moderator_form.save(commit=False)
+                app.user = request.user  # Set user properly
+                app.save()
                 messages.success(request, "Your application to become a Moderator has been submitted.")
-            return redirect('contact')
+                return redirect('contact')
+            else:
+                messages.error(request, "Please correct the errors in the moderator application form.")
 
-
-        else:
-            messages.error(request, "Invalid form submission.")
-            return redirect('contact')
-
-    return render(request, 'forum/contact.html')
+    context = {
+        'contact_form': contact_form,
+        'creator_form': creator_form,
+        'moderator_form': moderator_form,
+    }
+    return render(request, 'forum/contact.html', context)
 
 
 @login_required

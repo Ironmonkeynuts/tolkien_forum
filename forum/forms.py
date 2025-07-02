@@ -65,10 +65,13 @@ class ContactForm(forms.ModelForm):
         model = ContactMessage
         fields = ['email', 'message']
         widgets = {
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Your email...'}),
             'message': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 4,
-                'placeholder': 'Your message...'}),
+                'placeholder': 'Describe why you are contacting us. Include your name.'}),
         }
         help_texts = {
             'email': 'Include your email for our reply',
@@ -84,7 +87,7 @@ class CreatorApplicationForm(forms.ModelForm):
             'reason': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 4,
-                'placeholder': 'Why do you want to become a Content Creator?'}),
+                'placeholder': 'Explain why you want to become a Content Creator. Include your name.'}),
         }
         help_texts = {
             'reason': 'Explain why you want to become a Content Creator. Include your name.',
@@ -99,7 +102,7 @@ class ModeratorApplicationForm(forms.ModelForm):
             'reason': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 4,
-                'placeholder': 'Why do you want to become a Moderator?'}),
+                'placeholder': 'Explain why you want to become a Moderator. Include your name.'}),
         }
         help_texts = {
             'reason': 'Explain why you want to become a Moderator. Include your name.',

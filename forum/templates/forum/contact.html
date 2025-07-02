@@ -25,68 +25,73 @@
       <form method="post" action="{% url 'contact' %}">
         {% csrf_token %}
         <input type="hidden" name="form_type" value="contact">
-
+        
         <div class="row mb-3 align-items-center text-warning">
-          <label for="id_email" class="col-sm-1 col-form-label">Your Email</label>
-          <div class="col-sm-11">
-            <input type="email" class="form-control" id="id_email" name="email" required>
+          <label for="{{ contact_form.email.id_for_label }}" class="col-3 col-md-2 col-form-label">Your Email</label>
+          <div class="col-9 col-md-10">
+            {{ contact_form.email }}
+            {{ contact_form.email.errors }}
           </div>
         </div>
 
         <div class="mb-3 text-warning">
-          <label for="id_message" class="form-label">Your Message</label>
-          <textarea class="form-control" id="id_message" name="message" rows="5" required></textarea>
+          <label for="{{ contact_form.message.id_for_label }}" class="form-label">Your Message</label>
+          {{ contact_form.message }}
+          {{ contact_form.message.errors }}
         </div>
 
         <button type="submit" class="btn btn-primary">Send Message</button>
       </form>
     </div>
 
-    <!-- Application Forms Section -->
     {% if user.is_authenticated %}
-    <div class="card bg-success shadow p-3 mb-5">
-      <h3 class="mb-3 text-warning">Apply to Become a Content Creator</h3>
-      <form method="post" action="{% url 'contact' %}">
-        {% csrf_token %}
-        <input type="hidden" name="form_type" value="apply_creator">
+      <!-- Creator Application Form -->
+      <div class="card bg-success shadow p-3 mb-5">
+        <h3 class="mb-3 text-warning">Apply to Become a Content Creator</h3>
+        <form method="post" action="{% url 'contact' %}">
+          {% csrf_token %}
+          <input type="hidden" name="form_type" value="apply_creator">
 
-        <div class="row mb-3 align-items-center text-warning">
-          <label class="col-sm-1 col-form-label">Username</label>
-          <div class="col-sm-11">
-            <input type="text" class="form-control" value="{{ user.username }}" disabled>
+          <div class="row mb-3 align-items-center text-warning">
+            <label class="col-3 col-md-2 col-form-label">Username</label>
+            <div class="col-9 col-md-10">
+              <input type="text" class="form-control" value="{{ user.username }}" disabled>
+            </div>
           </div>
-        </div>
 
-        <div class="mb-3 text-warning">
-          <label for="id_reason_creator" class="form-label">Why do you want to become a Content Creator?</label>
-          <textarea class="form-control" id="id_reason_creator" name="reason_creator" rows="4" required></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit Application</button>
-      </form>
-    </div>
-
-    <div class="card bg-success shadow p-3">
-      <h3 class="mb-3 text-warning">Apply to Become a Moderator</h3>
-      <form method="post" action="{% url 'contact' %}">
-        {% csrf_token %}
-        <input type="hidden" name="form_type" value="apply_moderator">
-
-        <div class="row mb-3 align-items-center text-warning">
-          <label class="col-sm-1 col-form-label">Username</label>
-          <div class="col-sm-11">
-            <input type="text" class="form-control" value="{{ user.username }}" disabled>
+          <div class="mb-3 text-warning">
+            <label for="{{ creator_form.reason.id_for_label }}" class="form-label">Why do you want to become a Content Creator?</label>
+            {{ creator_form.reason }}
+            {{ creator_form.reason.errors }}
           </div>
-        </div>
 
-        <div class="mb-3 text-warning">
-          <label for="id_reason_moderator" class="form-label">Why do you want to become a Moderator?</label>
-          <textarea class="form-control" id="id_reason_moderator" name="reason_moderator" rows="4" required></textarea>
-        </div>
+          <button type="submit" class="btn btn-primary">Submit Application</button>
+        </form>
+      </div>
 
-        <button type="submit" class="btn btn-primary">Submit Application</button>
-      </form>
-    </div>
+      <!-- Moderator Application Form -->
+      <div class="card bg-success shadow p-3">
+        <h3 class="mb-3 text-warning">Apply to Become a Moderator</h3>
+        <form method="post" action="{% url 'contact' %}">
+          {% csrf_token %}
+          <input type="hidden" name="form_type" value="apply_moderator">
+
+          <div class="row mb-3 align-items-center text-warning">
+            <label class="col-3 col-md-2 col-form-label">Username</label>
+            <div class="col-9 col-md-10">
+              <input type="text" class="form-control" value="{{ user.username }}" disabled>
+            </div>
+          </div>
+
+          <div class="mb-3 text-warning">
+            <label for="{{ moderator_form.reason.id_for_label }}" class="form-label">Why do you want to become a Moderator?</label>
+            {{ moderator_form.reason }}
+            {{ moderator_form.reason.errors }}
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit Application</button>
+        </form>
+      </div>
     {% endif %}
   </div>
 {% endblock %}
