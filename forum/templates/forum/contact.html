@@ -6,7 +6,7 @@
   <div class="container py-5">
     <div class="text-center mb-4">
       <h1 class="display-4">Contact Us</h1>
-      <p class="lead">Feel free to reach out to us via email or social media.</p>
+      <p class="lead">Feel free to reach out to us via the form below.</p>
     </div>
 
     <!-- Alert messages for form submission-->
@@ -20,15 +20,17 @@
     {% endif %}
 
     <!-- Contact Form Section -->
-    <div class="card bg-success shadow p-4 mb-5">
+    <div class="card bg-success shadow p-3 mb-5">
       <h3 class="mb-3 text-warning">Collaboration & General Enquiries</h3>
       <form method="post" action="{% url 'contact' %}">
         {% csrf_token %}
         <input type="hidden" name="form_type" value="contact">
 
-        <div class="mb-3 text-warning">
-          <label for="id_email" class="form-label">Your Email</label>
-          <input type="email" class="form-control" id="id_email" name="email" required>
+        <div class="row mb-3 align-items-center text-warning">
+          <label for="id_email" class="col-sm-1 col-form-label">Your Email</label>
+          <div class="col-sm-11">
+            <input type="email" class="form-control" id="id_email" name="email" required>
+          </div>
         </div>
 
         <div class="mb-3 text-warning">
@@ -42,15 +44,17 @@
 
     <!-- Application Forms Section -->
     {% if user.is_authenticated %}
-    <div class="card bg-success shadow p-4 mb-5">
+    <div class="card bg-success shadow p-3 mb-5">
       <h3 class="mb-3 text-warning">Apply to Become a Content Creator</h3>
       <form method="post" action="{% url 'contact' %}">
         {% csrf_token %}
         <input type="hidden" name="form_type" value="apply_creator">
 
-        <div class="mb-3 text-warning">
-          <label class="form-label">Username</label>
-          <input type="text" class="form-control" value="{{ user.username }}" disabled>
+        <div class="row mb-3 align-items-center text-warning">
+          <label class="col-sm-1 col-form-label">Username</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" value="{{ user.username }}" disabled>
+          </div>
         </div>
 
         <div class="mb-3 text-warning">
@@ -62,15 +66,17 @@
       </form>
     </div>
 
-    <div class="card bg-success shadow p-4">
+    <div class="card bg-success shadow p-3">
       <h3 class="mb-3 text-warning">Apply to Become a Moderator</h3>
       <form method="post" action="{% url 'contact' %}">
         {% csrf_token %}
         <input type="hidden" name="form_type" value="apply_moderator">
 
-        <div class="mb-3 text-warning">
-          <label class="form-label">Username</label>
-          <input type="text" class="form-control" value="{{ user.username }}" disabled>
+        <div class="row mb-3 align-items-center text-warning">
+          <label class="col-sm-1 col-form-label">Username</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" value="{{ user.username }}" disabled>
+          </div>
         </div>
 
         <div class="mb-3 text-warning">
