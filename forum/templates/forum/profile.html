@@ -5,28 +5,31 @@
 
 {% block content %}
   <div class="container py-5">
-    <div class="text-center mb-4">
-      <h1 class="display-4">User Profile</h1>
-      <p class="lead">Welcome, {{ user.username }}!</p>
+    <div class="text-center mb-5">
+      <h1 class="display-4">Welcome, {{ user.username }}!</h1>
+      <p class="lead">User Profile</p>
     </div>
   
 
   {% if user.profile %}
-    <div class="mb-3">
-    {% if "placeholder" in user.profile.avatar.url %}
-      <img src="{% static 'images/avatar-placeholder.jpg' %}" alt="Placeholder avatar" class="rounded-circle" style="max-width: 150px;">
-    {% else %}
-      <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar" class="rounded-circle" style="max-width: 150px;">
-    {% endif %}
+    <div class="row mb-4">
+      <div class="col col-md-4 mb-3">
+        {% if "placeholder" in user.profile.avatar.url %}
+          <img src="{% static 'images/avatar-placeholder.jpg' %}" alt="Placeholder avatar" class="rounded-circle" style="max-width: 400px;">
+        {% else %}
+          <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar" class="rounded-circle" style="max-width: 400px;">
+        {% endif %}
+      </div>
+      <div class="col col-md-8">
+        <p><strong>User type:</strong> {{ user.profile.get_user_type_display }}</p>
+        <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+      </div>
     </div>
-
-    <p><strong>User type:</strong> {{ user.profile.get_user_type_display }}</p>
-    <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
-    <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+    <div class="d-flex justify-content-end flex-wrap gap-2 align-items-center mb-3">
       {% if request.user == user or request.user.profile.user_type == "admin" %}
         <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-warning">Edit Profile</a>
       {% endif %}
-
+      <!-- Show approval toggle to moderators and admins -->
       {% if user.profile.user_type == "moderator" or user.profile.user_type == "admin" %}
         <form method="post" action="{% url 'toggle_approval' %}">
           {% csrf_token %}
@@ -66,11 +69,13 @@
             </div>
           </div>
           <div class="d-flex gap-2">
-            <a href="{% url 'edit_article' slug=article.slug %}" class="btn btn-sm btn-warning">Edit</a>
+            <a href="{% url 'edit_article' slug=article.slug %}" class="btn btn-sm btn-warning">
+              Edit Article
+            </a>
 
             <!-- Delete Modal Trigger -->
             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ article.id }}">
-              Delete
+              Delete Article
             </button>
           </div>
         </div>
