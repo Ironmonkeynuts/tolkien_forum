@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Browse Profiles{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h1 class="mb-4">All Profiles</h1>
+
+  <form method="get" class="row g-3 mb-4">
+    <div class="col-md-6">
+      <input type="text" name="search" class="form-control" placeholder="Search by username or bio..." value="{{ search }}">
+    </div>
+    <div class="col-md-4">
+      <select name="sort" class="form-select">
+        <option value="user__username" {% if sort == 'user__username' %}selected{% endif %}>Username A-Z</option>
+        <option value="-user__username" {% if sort == '-user__username' %}selected{% endif %}>Username Z-A</option>
+        <option value="created_on" {% if sort == 'created_on' %}selected{% endif %}>Oldest First</option>
+        <option value="-created_on" {% if sort == '-created_on' %}selected{% endif %}>Newest First</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">Apply</button>
+    </div>
+  </form>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for profile in profiles %}
+    <div class="col">
+      <div class="card bg-success h-100">
+        {% if profile.avatar %}
+          <img src="{{ profile.avatar.url }}" class="card-img-top" alt="{{ profile.user.username }}">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title text-warning">{{ profile.user.username }}</h5>
+          <p class="card-text text-warning">{{ profile.bio|truncatewords:20 }}</p>
+          <a href="{% url 'profile' profile.user.username %}" class="btn btn-primary text-light">View Profile</a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p>No profiles found.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% if is_paginated %}
+  <nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ search }}&sort={{ sort }}">Previous</a>
+      </li>
+      {% endif %}
+      <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ search }}&sort={{ sort }}">Next</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}

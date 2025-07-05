@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.views.decorators.csrf import csrf_protect
 from django.db import models
+from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib import messages
 from .models import Article, Comment, Profile, ContactMessage, CreatorApplication, ModeratorApplication
@@ -348,3 +349,47 @@ def delete_comment(request, pk):
         return redirect('article_detail', slug=comment.article.slug)
 
     return render(request, 'forum/delete_comment_confirm.html', {'comment': comment})
+
+
+class ProfileList(generic.ListView):
+    """
+    View to list all user profiles.
+    """
+    model = Profile
+    template_name = 'forum/profile_list.html'
+    context_object_name = 'profiles'
+    paginate_by = 12
+
+    def get_queryset(self):
+        """
+        Returns queryset of profiles with approved articles.
+        """
+        queryset = Profile.objects.filter(approved=True)
+        search = self.request.GET.get('search', '')
+        sort = self.request.GET.get('sort', 'user__username')
+
+        if search:
+            queryset = queryset.filter(
+                Q(user__username__icontains=search) |
+                Q(bio__icontains=search)
+            )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = self.request.GET.get('search', '')
+        context['sort'] = self.request.GET.get('sort', 'user__username')
+        return context
+
+
+class ProfileDetail(generic.DetailView):
+    """
+    View to display details of a user profile.
+    """
+    model = Profile
+    template_name = 'forum/profile.html'
+    context_object_name = 'profile'
+
+    def get_object(self):
+        username = self.kwargs.get('username')
+        return Profile.objects.select_related('user').get(user__username=username)

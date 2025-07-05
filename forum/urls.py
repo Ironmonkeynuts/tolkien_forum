@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ArticleList
+from .views import ArticleList, ProfileList
 
 urlpatterns = [
     path('', views.welcome, name='welcome'),
@@ -16,5 +16,8 @@ urlpatterns = [
     path('toggle-approval/', views.toggle_approval, name='toggle_approval'),
     path('comment/<int:pk>/edit/', views.edit_comment, name='edit_comment'),
     path('comment/<int:pk>/delete/', views.delete_comment, name='delete_comment'),
+    path('profiles/', ProfileList.as_view(), name='profile_list'),
+    path('profile/<int:pk>/', views.ProfileDetail.as_view(), name='profile'),
+    path('profile/<str:username>/', views.ProfileDetail.as_view(), name='profile'),
 
 ]
