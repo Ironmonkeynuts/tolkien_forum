@@ -43,7 +43,10 @@
             <div class="card-footer d-flex flex-wrap justify-content-between align-items-center text-muted small">
               <div class="mb-2 mb-sm-0 text-light">
                 <!-- Author and date -->
-                by {{ article.author }} on {{ article.created_on|date:"M d, Y" }}
+                by <a href="{% url 'profile' article.author.username %}" class="text-light text-decoration-none">
+                  {{ article.author.username }}
+                </a> on {{ article.created_on|date:"M d, Y" }}
+
                 <!-- Status badges -->
                 {% if article.status == 0 %}
                   <span class="badge bg-danger text-dark">Draft</span>

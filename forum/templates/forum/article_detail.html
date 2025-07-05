@@ -6,7 +6,11 @@
 {% block content %}
   <h1>{{ article.title }}</h1>
   <div class="mt-1">
-    <span class="text-light me-3">By {{ article.author }} | Published on {{ article.created_on|date:"M d, Y" }}</span>
+    <span class="text-light me-3">
+      by <a href="{% url 'profile' article.author.username %}" class="text-light text-decoration-none">
+        {{ article.author.username }}
+      </a> on {{ article.created_on|date:"M d, Y" }}
+    </span>
     <span class="badge {% if article.status == 1 %}bg-primary{% else %}bg-secondary{% endif %}">
       {% if article.status == 1 %}Published{% else %}Draft{% endif %}
     </span>
