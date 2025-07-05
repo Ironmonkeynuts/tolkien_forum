@@ -48,16 +48,16 @@
 
     <hr>
 
-    <!-- Show user's articles -->
-    <h2>{{ profile.user.username }}'s Articles</h2>
+    <!-- Show articles by profile user -->
+    <h2 class="mb-3">{{ profile.user.username }}'s Articles</h2>
 
     {% if articles %}
       <ul class="list-group mb-3">
         {% for article in articles %}
-          <li class="list-group-item bg-success">
+          <li class="list-group-item bg-success text-warning">
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <a href="{% url 'article_detail' slug=article.slug %}" class="fw-bold text-primary text-decoration-none">
+                <a href="{% url 'article_detail' slug=article.slug %}" class="fw-bold text-warning text-decoration-none">
                   {{ article.title }}
                 </a>
                 <div class="mt-1">

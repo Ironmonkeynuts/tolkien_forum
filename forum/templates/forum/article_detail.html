@@ -7,7 +7,7 @@
   <h1>{{ article.title }}</h1>
   <div class="mt-1">
     <span class="text-light me-3">
-      by <a href="{% url 'profile' article.author.username %}" class="text-light text-decoration-none">
+      by <a href="{% url 'profile' username=article.author.username %}" class="text-light text-decoration-none">
         {{ article.author.username }}
       </a> on {{ article.created_on|date:"M d, Y" }}
     </span>

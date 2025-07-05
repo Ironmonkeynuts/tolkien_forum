@@ -392,4 +392,9 @@ class ProfileDetail(generic.DetailView):
 
     def get_object(self):
         username = self.kwargs.get('username')
-        return Profile.objects.select_related('user').get(user__username=username)
+        return get_object_or_404(Profile, user__username=username)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['articles'] = Article.objects.filter(author=self.object.user)
+        return context
