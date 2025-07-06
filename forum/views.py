@@ -24,19 +24,35 @@ class ArticleList(generic.ListView):
 
     def get_queryset(self):
         qs = Article.objects.all()
+        request = self.request
+        search_query = request.GET.get('search', '')
+        sort_option = request.GET.get('sort', '-created_on')
 
         if self.request.user.is_authenticated:
             # Staff see all
             if self.request.user.is_staff or self.request.user.is_superuser: 
-                return qs
+                qs = qs
             else:
                 # Authors see their own drafts and/or unapproved articles
                 own_articles = qs.filter(author=self.request.user)
                 public_articles = qs.filter(status=1, approved=True)
-                return (own_articles | public_articles).distinct()
+                qs = (own_articles | public_articles).distinct()
         else:
             # Public users see only approved published articles
-            return qs.filter(status=1, approved=True)
+            qs = qs.filter(status=1, approved=True)
+
+        if search_query:
+            qs = qs.filter(
+                Q(title__icontains=search_query) |
+                Q(content__icontains=search_query) |
+                Q(author__username__icontains=search_query)
+            )
+
+        if sort_option == 'author':
+            qs = qs.order_by(sort_option)
+
+        return qs
+
     # Prevent 404 if users request invalid page
     def paginate_queryset(self, queryset, page_size):
         try:
@@ -373,6 +389,10 @@ class ProfileList(generic.ListView):
                 Q(user__username__icontains=search) |
                 Q(bio__icontains=search)
             )
+
+        if sort == 'user__username':
+            queryset = queryset.order_by('user__username')
+
         return queryset
 
     def get_context_data(self, **kwargs):
