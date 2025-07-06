@@ -28,13 +28,13 @@ class ArticleList(generic.ListView):
         search_query = request.GET.get('search', '')
         sort_option = request.GET.get('sort', '-created_on')
 
-        if self.request.user.is_authenticated:
+        if request.user.is_authenticated:
             # Staff see all
-            if self.request.user.is_staff or self.request.user.is_superuser: 
+            if request.user.is_staff or request.user.is_superuser: 
                 qs = qs
             else:
                 # Authors see their own drafts and/or unapproved articles
-                own_articles = qs.filter(author=self.request.user)
+                own_articles = qs.filter(author=request.user)
                 public_articles = qs.filter(status=1, approved=True)
                 qs = (own_articles | public_articles).distinct()
         else:
@@ -48,10 +48,20 @@ class ArticleList(generic.ListView):
                 Q(author__username__icontains=search_query)
             )
 
-        if sort_option == 'author':
+        valid_sort_options = ['title', '-created_on', 'created_on', 'author__username']
+        if sort_option in valid_sort_options:
             qs = qs.order_by(sort_option)
+        else:
+            qs = qs.order_by('-created_on')
 
         return qs
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = self.request.GET.get('search', '')
+        context['sort'] = self.request.GET.get('sort', '-created_on')
+
+        return context
 
     # Prevent 404 if users request invalid page
     def paginate_queryset(self, queryset, page_size):
@@ -374,7 +384,7 @@ class ProfileList(generic.ListView):
     model = Profile
     template_name = 'forum/profile_list.html'
     context_object_name = 'profiles'
-    paginate_by = 12
+    paginate_by = 6
 
     def get_queryset(self):
         """
