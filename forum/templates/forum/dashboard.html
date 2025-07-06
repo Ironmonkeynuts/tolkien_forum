@@ -26,11 +26,11 @@
   <!-- Search & Sort Form -->
   <form method="get" class="row g-2 align-items-end mb-4">
     <input type="hidden" name="tab" value="{{ tab }}">
-    <div class="col-md-6">
+    <div class="col-md-8">
       <label for="search" class="form-label">Search (username, message, reason)</label>
       <input type="text" id="search" name="search" class="form-control" value="{{ search }}">
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
       <label for="sort" class="form-label">Sort by</label>
       <select name="sort" id="sort" class="form-select">
         <option value="-created_on" {% if sort == '-created_on' %}selected{% endif %}>Newest</option>
@@ -55,9 +55,9 @@
         <thead class="table-dark">
           <tr>
             {% if tab == 'messages' %}
-              <th>Name</th><th>Email</th><th>Message</th><th>Received</th>
+              <th style="width: 25%;">Email</th><th style="width: 50%;">Message</th><th style="width: 25%;">Received</th>
             {% else %}
-              <th>Username</th><th>Message</th><th>Reviewed</th><th>Approved</th><th>Actions</th>
+              <th style="width: 25%;">Username</th><th style="width: 45%;">Reason</th><th style="width: 10%;">Reviewed</th><th style="width: 10%;">Approved</th><th style="width:10%;">Actions</th>
             {% endif %}
           </tr>
         </thead>
