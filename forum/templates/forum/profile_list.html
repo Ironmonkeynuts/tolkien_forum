@@ -24,21 +24,27 @@
     </div>
   </form>
 
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
     {% for profile in profiles %}
     <div class="col">
-      <div class="card bg-success text-warning border-warning h-100 shadow-sm">
+      <div class="card my-3 bg-success text-warning border-warning h-100 w-100 shadow-sm">
         <!-- Display avatar image if available, otherwise placeholder-->
-        {% if "placeholder" in profile.avatar.url %}
-          <img src="{% static 'images/avatar-placeholder.jpg' %}" alt="Placeholder avatar" class="card-img-top img-fluid">
-        {% else %}
-          <img src="{{ profile.avatar.url }}" class="card-img-top img-fluid" alt="{{ profile.user.username }}">
-        {% endif %}
-        <div class="card-body">
-          <h5 class="card-title text-warning">{{ profile.user.username }}</h5>
-          <p class="card-text text-warning">{{ profile.bio|truncatewords:20 }}</p>
-          <a href="{% url 'profile' username=profile.user.username %}" class="btn btn-primary text-light">View Profile</a>
+        <div class="mt-1 text-center">
+          {% if "placeholder" in profile.avatar.url %}
+            <img src="{% static 'images/avatar-placeholder.jpg' %}" alt="Placeholder avatar" class="card-img-top img-fluid p-3" style="width: 95%;">
+          {% else %}
+            <img src="{{ profile.avatar.url }}" class="card-img-top img-fluid p-3" style="width: 95%;" alt="{{ profile.user.username }}">
+          {% endif %}
         </div>
+        
+        <div class="card-body mt-1">
+          <h5 class="card-title text-warning">{{ profile.user.username }}</h5>
+          <p class="card-text mt-3 text-warning">{{ profile.bio|truncatewords:20 }}</p>
+        </div>
+        <div class="card-footer mt-1 text-center">
+            <a href="{% url 'profile' username=profile.user.username %}" class="btn btn-primary text-light">View Profile</a>
+        </div>
+        
       </div>
     </div>
     {% empty %}
@@ -48,7 +54,7 @@
 
   <!-- Pagination -->
   {% if is_paginated %}
-  <nav aria-label="Page navigation" class="mt-4">
+  <nav aria-label="Page navigation" class="mt-5">
     <ul class="pagination justify-content-center">
 
       {# Previous #}
