@@ -1,5 +1,5 @@
 from django.apps import apps
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
@@ -332,6 +332,7 @@ def toggle_approval(request):
 
         # Toggle approval
         obj.approved = not obj.approved
+        obj.reviewed = True  # Mark as reviewed on moderation
         obj.save()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -427,4 +428,134 @@ class ProfileDetail(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['articles'] = Article.objects.filter(author=self.object.user)
+        return context
+
+
+# Helper function: restrict view access to moderators and admins only
+def is_moderator_or_admin(user):
+    return user.is_authenticated and user.profile.user_type in ['moderator', 'admin']
+
+# Decorator to enforce login and user type restrictions
+@method_decorator([login_required, user_passes_test(is_moderator_or_admin)], name='dispatch')
+class Dashboard(generic.TemplateView):
+    """
+    Dashboard view for moderators and admins.
+    Shows tabs for:
+    - Contact messages (admin only)
+    - Creator applications (moderator + admin)
+    - Moderator applications (admin only)
+    Supports:
+    - Search
+    - Sort
+    - Pagination
+    """
+    template_name = 'forum/dashboard.html'
+    paginate_by = 6  # Items per page
+
+    def get_queryset(self):
+        """
+        Determines the correct queryset based on active tab and user type.
+        Applies optional search and sort parameters.
+        """
+        tab = self.request.GET.get('tab', 'creators')  # Default to 'creators' tab
+        search = self.request.GET.get('search', '').strip().lower()
+        sort = self.request.GET.get('sort', '-created_on')
+        user_type = self.request.user.profile.user_type
+
+        queryset = None
+        filters = Q()
+
+        # Admins can see contact messages
+        if tab == 'messages' and user_type == 'admin':
+            queryset = ContactMessage.objects.all()
+            if search:
+                filters = (
+                    Q(email__icontains=search) |
+                    Q(message__icontains=search)
+                )
+
+        # Moderators and admins can view content creator applications
+        elif tab == 'creators' and user_type in ['admin', 'moderator']:
+            queryset = CreatorApplication.objects.all()
+            if search:
+                filters = (
+                    Q(user__username__icontains=search) |
+                    Q(reason__icontains=search)
+                )
+                if search in ['approved', 'disapproved']:
+                    filters |= Q(approved=(search == 'approved'))
+                if search in ['reviewed', 'unreviewed']:
+                    filters |= Q(reviewed=(search == 'reviewed'))
+
+        # Admins can view moderator applications
+        elif tab == 'moderators' and user_type == 'admin':
+            queryset = ModeratorApplication.objects.all()
+            if search:
+                filters = (
+                    Q(user__username__icontains=search) |
+                    Q(reason__icontains=search)
+                )
+                if search in ['approved', 'disapproved']:
+                    filters |= Q(approved=(search == 'approved'))
+                if search in ['reviewed', 'unreviewed']:
+                    filters |= Q(reviewed=(search == 'reviewed'))
+
+        # Apply search filter
+        if queryset and filters:
+            queryset = queryset.filter(filters)
+
+        # Define valid sort fields including approval/review flags
+        valid_sorts = []
+        if tab == 'messages':
+            valid_sorts = [
+                'created_on', '-created_on',
+                'email', '-email'
+            ]
+        elif tab in ['creators', 'moderators']:
+            valid_sorts = [
+                'created_on', '-created_on',
+                'user__username', '-user__username',
+                'approved', '-approved',
+                'reviewed', '-reviewed'
+            ]
+
+        # Apply sort
+        if queryset:
+            if sort in valid_sorts:
+                queryset = queryset.order_by(sort)
+            else:
+                queryset = queryset.order_by('-created_on')
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        """
+        Adds context to the dashboard:
+        - Active tab
+        - Current search/sort parameters
+        - Paginated results
+        """
+        context = super().get_context_data(**kwargs)
+        tab = self.request.GET.get('tab', 'creators')
+        search = self.request.GET.get('search', '')
+        sort = self.request.GET.get('sort', '-created_on')
+        queryset = self.get_queryset()
+
+        # Apply pagination
+        if queryset:
+            paginator = Paginator(queryset, self.paginate_by)
+            page_number = self.request.GET.get('page', 1)
+            try:
+                page_obj = paginator.get_page(page_number)
+            except EmptyPage:
+                page_obj = paginator.get_page(paginator.num_pages)
+        else:
+            page_obj = None
+
+        context.update({
+            'tab': tab,
+            'search': search,
+            'sort': sort,
+            'page_obj': page_obj,
+        })
         return context
