@@ -57,8 +57,17 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'profile_list' %}">Community</a>
               </li>
+              <!-- Adds dashboard to nav items for moderators and admin -->
+              {% if user.is_authenticated and user.profile.user_type in 'moderator admin' %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+              {% endif %}
+              <!-- Adds a modal to confirm logging out -->
               <li class="nav-item">
-                <a class="nav-link" href="{{ logout_url }}">Logout</a>
+                <button type="button" class="btn nav-link text-warning" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                  Logout
+                </button>
               </li>
             {% else %}
               <li class="nav-item">
@@ -91,6 +100,28 @@
     {% block content %}
     {% endblock %}
   </main>
+
+  <!-- Logout Confirmation Modal -->
+  <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-warning">
+        <div class="modal-header border-warning">
+          <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to log out?
+        </div>
+        <div class="modal-footer border-warning">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <form method="post" action="{{ logout_url }}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer class="text-center text-muted my-4">
     <p>&copy; 2025 Speak, Friend and Enter</p>
