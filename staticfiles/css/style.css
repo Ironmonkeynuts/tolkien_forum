@@ -16,3 +16,11 @@ nav.navbar-dark.bg-dark .navbar-nav .nav-link:hover {
   margin: 0.2rem 0.2rem;
   line-height: 0.75;
 }
+
+/* Set auto height for article content */
+.article-content {
+  width: 100%;
+  height: auto; /* let it grow */
+  overflow: visible;
+  display: block;
+}
