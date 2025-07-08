@@ -7,6 +7,7 @@ from django.views import generic
 from django.views.decorators.csrf import csrf_protect
 from django.db import models
 from django.db.models import Q
+from django.db.models.functions import Lower
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib import messages
 from .models import Article, Comment, Profile, ContactMessage, CreatorApplication, ModeratorApplication
@@ -16,31 +17,33 @@ from .forms import CommentForm, ArticleForm, ProfileForm, ApprovalToggleForm, Co
 # Create your views here.
 class ArticleList(generic.ListView):
     """
-    A view that displays a list of articles.
+    A view that displays a list of articles with search, sort, role-based filtering, and pagination.
     """
-
     template_name = 'forum/forum.html'
+    model = Article
+    context_object_name = 'object_list'
     paginate_by = 6
 
     def get_queryset(self):
         qs = Article.objects.all()
-        request = self.request
-        search_query = request.GET.get('search', '')
-        sort_option = request.GET.get('sort', '-created_on')
+        search_query = self.request.GET.get('search', '')
+        sort_option = self.request.GET.get('sort', '-created_on')
+        user = self.request.user
 
-        if request.user.is_authenticated:
-            # Staff see all
-            if request.user.is_staff or request.user.is_superuser: 
-                qs = qs
+        # Role-based visibility
+        if user.is_authenticated:
+            user_type = getattr(user.profile, 'user_type', 'visitor')
+
+            if user.is_staff or user.is_superuser or user_type == 'admin':
+                pass  # See all
             else:
-                # Authors see their own drafts and/or unapproved articles
-                own_articles = qs.filter(author=request.user)
+                own_articles = qs.filter(author=user)
                 public_articles = qs.filter(status=1, approved=True)
                 qs = (own_articles | public_articles).distinct()
         else:
-            # Public users see only approved published articles
             qs = qs.filter(status=1, approved=True)
 
+        # Search filtering
         if search_query:
             qs = qs.filter(
                 Q(title__icontains=search_query) |
@@ -48,27 +51,41 @@ class ArticleList(generic.ListView):
                 Q(author__username__icontains=search_query)
             )
 
-        valid_sort_options = ['title', '-created_on', 'created_on', 'author__username']
-        if sort_option in valid_sort_options:
-            qs = qs.order_by(sort_option)
+        # Supported sort options
+        valid_sorts = [
+            'title', '-title',
+            'created_on', '-created_on',
+            'author__username', '-author__username'
+        ]
+
+        if sort_option in valid_sorts:
+            if sort_option == 'author__username':
+                qs = qs.order_by(Lower('author__username'))
+            elif sort_option == '-author__username':
+                qs = qs.order_by(Lower('author__username').desc())
+            elif sort_option == 'title':
+                qs = qs.order_by(Lower('title'))
+            elif sort_option == '-title':
+                qs = qs.order_by(Lower('title').desc())
+            else:
+                qs = qs.order_by(sort_option)
         else:
-            qs = qs.order_by('-created_on')
+            qs = qs.order_by('-created_on')  # Default
 
         return qs
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search'] = self.request.GET.get('search', '')
         context['sort'] = self.request.GET.get('sort', '-created_on')
-
         return context
 
-    # Prevent 404 if users request invalid page
+    # Prevent 404 on invalid page numbers
     def paginate_queryset(self, queryset, page_size):
         try:
             return super().paginate_queryset(queryset, page_size)
         except EmptyPage:
-            if hasattr(self, 'paginator'):  # Ensure paginator exists
+            if hasattr(self, 'paginator'):
                 return self.paginator.page(self.paginator.num_pages)
             return super().paginate_queryset(queryset, page_size)
 
@@ -380,7 +397,7 @@ def delete_comment(request, pk):
 
 class ProfileList(generic.ListView):
     """
-    View to list all user profiles.
+    A view that lists approved profiles, with search and sort functionality.
     """
     model = Profile
     template_name = 'forum/profile_list.html'
@@ -389,9 +406,11 @@ class ProfileList(generic.ListView):
 
     def get_queryset(self):
         """
-        Returns queryset of profiles with approved articles.
+        Returns queryset of profiles with approved articles,
+        filtered by search and sorted by selected sort option.
         """
         queryset = Profile.objects.filter(approved=True)
+        queryset = queryset.annotate(username_lower=Lower('user__username'))
         search = self.request.GET.get('search', '')
         sort = self.request.GET.get('sort', 'user__username')
 
@@ -401,12 +420,28 @@ class ProfileList(generic.ListView):
                 Q(bio__icontains=search)
             )
 
+        valid_sort_options = [
+            'user__username', '-user__username',
+            'created_on', '-created_on'
+        ]
+
+        # Apply sort – special case for case-insensitive username
         if sort == 'user__username':
-            queryset = queryset.order_by('user__username')
+            queryset = queryset.order_by('username_lower')
+        elif sort == '-user__username':
+            queryset = queryset.order_by('-username_lower')
+        elif sort in valid_sort_options:
+            queryset = queryset.order_by(sort)
+        else:
+            queryset = queryset.order_by('username_lower')  # Default fallback
 
         return queryset
 
+
     def get_context_data(self, **kwargs):
+        """
+        Add search and sort values to template context for form persistence.
+        """
         context = super().get_context_data(**kwargs)
         context['search'] = self.request.GET.get('search', '')
         context['sort'] = self.request.GET.get('sort', 'user__username')

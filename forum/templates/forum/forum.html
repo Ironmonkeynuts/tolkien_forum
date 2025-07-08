@@ -25,10 +25,12 @@
     <div>
       <label for="sort" class="form-label text-white">Sort by:</label>
       <select id="sort" name="sort" class="form-select">
-        <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Title</option>
-        <option value="-created_on" {% if request.GET.sort == '-created_on' %}selected{% endif %}>Newest First</option>
-        <option value="created_on" {% if request.GET.sort == 'created_on' %}selected{% endif %}>Oldest First</option>
-        <option value="author__username" {% if request.GET.sort == 'author__username' %}selected{% endif %}>Author</option>
+        <option value="title" {% if sort == 'title' %}selected{% endif %}>Title A-Z</option>
+        <option value="-title" {% if sort == '-title' %}selected{% endif %}>Title Z-A</option>
+        <option value="-created_on" {% if sort == '-created_on' %}selected{% endif %}>Newest First</option>
+        <option value="created_on" {% if sort == 'created_on' %}selected{% endif %}>Oldest First</option>
+        <option value="author__username" {% if sort == 'author__username' %}selected{% endif %}>Author A-Z</option>
+        <option value="-author__username" {% if sort == '-author__username' %}selected{% endif %}>Author Z-A</option>
       </select>
     </div>
 
