@@ -17,6 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from forum import views
+from django.shortcuts import render
+
+
+def trigger_404(request):
+    """
+    A view function that raises a 404 error.
+    This function is used for testing purposes.
+    """
+    return render(request, '404.html', status=404)
 
 
 urlpatterns = [
@@ -35,5 +44,6 @@ urlpatterns = [
     # URL for allauth authentication
     path('accounts/', include('django.contrib.auth.urls')),
     # URL for built-in Django authentication
+    path('test-404/', trigger_404),
 
 ]
