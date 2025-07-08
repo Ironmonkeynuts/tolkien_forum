@@ -47,3 +47,5 @@ urlpatterns = [
     path('test-404/', trigger_404),
 
 ]
+
+handler404 = 'forum.views.custom_404'

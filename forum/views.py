@@ -559,3 +559,8 @@ class Dashboard(generic.TemplateView):
             'page_obj': page_obj,
         })
         return context
+
+
+def custom_404(request, exception=None):
+    """Custom 404 error handler."""
+    return render(request, '404.html', status=404)
