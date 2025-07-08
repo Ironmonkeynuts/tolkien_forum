@@ -511,7 +511,10 @@ class Dashboard(generic.TemplateView):
 
         # Moderators and admins can view content creator applications
         elif tab == 'creators' and user_type in ['admin', 'moderator']:
-            queryset = CreatorApplication.objects.all()
+            # Annotate lowercase username for case-insensitive sorting
+            queryset = CreatorApplication.objects.select_related('user').annotate(
+                username_lower=Lower('user__username')
+            )
             if search:
                 filters = (
                     Q(user__username__icontains=search) |
@@ -524,7 +527,10 @@ class Dashboard(generic.TemplateView):
 
         # Admins can view moderator applications
         elif tab == 'moderators' and user_type == 'admin':
-            queryset = ModeratorApplication.objects.all()
+            # Annotate lowercase username for case-insensitive sorting
+            queryset = ModeratorApplication.objects.select_related('user').annotate(
+                username_lower=Lower('user__username')
+            )
             if search:
                 filters = (
                     Q(user__username__icontains=search) |
@@ -540,26 +546,33 @@ class Dashboard(generic.TemplateView):
             queryset = queryset.filter(filters)
 
         # Define valid sort fields including approval/review flags
-        valid_sorts = []
-        if tab == 'messages':
-            valid_sorts = [
+        valid_sorts = {
+            'messages': ['created_on', '-created_on', 'email', '-email'],
+            'creators': [
                 'created_on', '-created_on',
-                'email', '-email'
-            ]
-        elif tab in ['creators', 'moderators']:
-            valid_sorts = [
+                'user__username', '-user__username',
+                'approved', '-approved',
+                'reviewed', '-reviewed'
+            ],
+            'moderators': [
                 'created_on', '-created_on',
                 'user__username', '-user__username',
                 'approved', '-approved',
                 'reviewed', '-reviewed'
             ]
+        }
 
-        # Apply sort
+        # Apply sort only if valid
         if queryset:
-            if sort in valid_sorts:
+            allowed_sorts = valid_sorts.get(tab, [])
+            if sort in ['user__username', '-user__username']:
+                # Use annotated lowercase username for proper sorting
+                direction = '' if sort == 'user__username' else '-'
+                queryset = queryset.order_by(f'{direction}username_lower')
+            elif sort in allowed_sorts:
                 queryset = queryset.order_by(sort)
             else:
-                queryset = queryset.order_by('-created_on')
+                queryset = queryset.order_by('-created_on')  # Default fallback
 
         return queryset
 
