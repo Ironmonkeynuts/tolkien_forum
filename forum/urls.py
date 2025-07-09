@@ -5,7 +5,8 @@ from .views import ArticleList, ProfileList, Dashboard
 urlpatterns = [
     path('', views.welcome, name='welcome'),
     path('forum/', ArticleList.as_view(), name='forum'),
-    path('profile/edit/', views.edit_profile, name='edit_profile'),
+    path('profile/edit/', views.edit_profile, name='edit_own_profile'),  # Own profile edit
+    path('profile/<str:username>/edit/', views.edit_profile, name='edit_profile'),  # Admin editing others    
     path('forum/add/', views.article_form, name='add_article'),
     path('forum/<slug:slug>/', views.ArticleDetail.as_view(), name='article_detail'),
     path('forum/<slug:slug>/edit/', views.article_form, name='edit_article'),

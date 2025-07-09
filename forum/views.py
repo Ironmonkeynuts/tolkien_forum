@@ -1,4 +1,6 @@
 from django.apps import apps
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseForbidden
@@ -307,24 +309,68 @@ class ArticleDelete(generic.DeleteView):
             return qs
         return qs.filter(author=self.request.user)
 
+
 @login_required
-def edit_profile(request):
+def edit_profile(request, username=None):
     """
     Handles editing of user profiles.
+    Allows email updates only if:
+    - Admin or User confirms their password
     """
-    profile = request.user.profile
+    user = request.user
+    # Get target profile: own or by username (if admin)
+    if username and (user.profile.user_type == 'admin' or user.is_staff):
+        target_user = get_object_or_404(User, username=username)
+    else:
+        target_user = user
+
+    profile = target_user.profile
+
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
+
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '')
+
         if form.is_valid():
             form.save()
-            messages.success(request, "Your profile has been updated.")  # Feedback success
-            return redirect('profile')
+
+            # If the email is being changed
+            if email and email != target_user.email:
+                if user == target_user:
+                    # User updating own email: confirm with own password
+                    auth_user = authenticate(username=user.username, password=password)
+                else:
+                    # Admin updating another user's email: confirm with admin's password
+                    auth_user = authenticate(username=user.username, password=password)
+
+                if auth_user:
+                    target_user.email = email
+                    target_user.save()
+                    messages.success(request, f"Email updated for {target_user.username}.")
+                else:
+                    messages.error(request, "Incorrect password. Email not updated.")
+
+            messages.success(request, "Profile updated.")
+            return redirect('profile', username=target_user.username)
         else:
-            messages.error(request, "There was an error updating your profile. Please check the form.")  # Error message
+            messages.error(request, "Please correct the errors below.")
     else:
+        # For GET request — determine if email field should be prefilled
+        email_initial = ''
+        if user == target_user or user.profile.user_type == 'admin':
+            email_initial = target_user.email
+
         form = ProfileForm(instance=profile)
 
-    return render(request, 'forum/edit_profile.html', {'form': form})
+
+    return render(request, 'forum/edit_profile.html', {
+        'form': form,
+        'profile': profile,
+        'editing_other': user != target_user,
+        'target_user': target_user,
+        'email_initial': email_initial
+    })
 
 
 def toggle_approval(request):

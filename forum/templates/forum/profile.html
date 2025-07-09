@@ -28,6 +28,9 @@
       </div>
       <div class="col col-md-8">
         <p><strong>Username:</strong> {{ profile.user.username }}</p>
+        {% if request.user == profile.user or request.user.profile.user_type == 'admin' %}
+          <p><strong>Email:</strong> {{ profile.user.email }}</p>
+        {% endif %}
         <p><strong>User type:</strong> {{ profile.get_user_type_display }}</p>
         <p><strong>Bio:</strong> {{ profile.bio }}</p>
       </div>
@@ -36,7 +39,7 @@
     <!-- Controls for owner or admin/mod -->
     <div class="d-flex justify-content-end flex-wrap gap-2 align-items-center mb-3">
       {% if request.user == profile.user or request.user.profile.is_admin %}
-        <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-warning">Edit Profile</a>
+        <a href="{% url 'edit_profile' username=profile.user.username %}" class="btn btn-sm btn-warning">Edit Profile</a>
       {% endif %}
       <!-- Show approval toggle to moderators and admins -->
       {% if request.user.profile.can_approve_profiles %}

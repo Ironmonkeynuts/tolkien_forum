@@ -13,16 +13,16 @@
     <!-- Avatar preview -->
     <div class="col-md-4 text-center">
       <h5 class="text-light mb-3">Current Avatar</h5>
-      {% if "placeholder" in user.profile.avatar.url %}
+      {% if "placeholder" in profile.avatar.url %}
         <img src="{% static 'images/avatar-placeholder.jpg' %}"
-             class="rounded-circle shadow img-fluid"
-             style="width: 180px; height: 180px; object-fit: {{ user.profile.avatar_fit|default:'cover' }};"
-             alt="Avatar preview">
+            class="rounded-circle shadow img-fluid"
+            style="width: 180px; height: 180px; object-fit: {{ profile.avatar_fit|default:'cover' }};"
+            alt="Avatar preview">
       {% else %}
-        <img src="{{ user.profile.avatar.url }}"
-             class="rounded-circle shadow img-fluid"
-             style="width: 180px; height: 180px; object-fit: {{ user.profile.avatar_fit|default:'cover' }};"
-             alt="Avatar preview">
+        <img src="{{ profile.avatar.url }}"
+            class="rounded-circle shadow img-fluid"
+            style="width: 180px; height: 180px; object-fit: {{ profile.avatar_fit|default:'cover' }};"
+            alt="Avatar preview">
       {% endif %}
     </div>
 
@@ -52,6 +52,19 @@
           <div class="text-danger">{{ error }}</div>
         {% endfor %}
       </div>
+
+      {% if editing_other or user == target_user %}
+        <div class="mb-3">
+          <label for="id_email" class="form-label">Email</label>
+          <input type="email" name="email" value="{{ email_initial }}" class="form-control" id="id_email" required>
+          <div class="form-text">To change email, you must enter the correct password below.</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="id_password" class="form-label">Confirm Password</label>
+          <input type="password" name="password" class="form-control" id="id_password">
+        </div>
+      {% endif %}
 
       <button type="submit" class="btn btn-success">Save Changes</button>
       <a href="{% url 'profile' username=user.username %}" class="btn btn-secondary">Cancel</a>
