@@ -35,12 +35,18 @@
       <select name="sort" id="sort" class="form-select">
         <option value="-created_on" {% if sort == '-created_on' %}selected{% endif %}>Newest</option>
         <option value="created_on" {% if sort == 'created_on' %}selected{% endif %}>Oldest</option>
-        <option value="user__username" {% if sort == 'user__username' %}selected{% endif %}>Username A-Z</option>
-        <option value="-user__username" {% if sort == '-user__username' %}selected{% endif %}>Username Z-A</option>
-        <option value="approved" {% if sort == 'approved' %}selected{% endif %}>Approved</option>
-        <option value="-approved" {% if sort == '-approved' %}selected{% endif %}>Disapproved</option>
-        <option value="reviewed" {% if sort == 'reviewed' %}selected{% endif %}>Reviewed</option>
-        <option value="-reviewed" {% if sort == '-reviewed' %}selected{% endif %}>Unreviewed</option>
+
+        {% if tab == "messages" %}
+          <option value="email" {% if sort == 'email' %}selected{% endif %}>Email A-Z</option>
+          <option value="-email" {% if sort == '-email' %}selected{% endif %}>Email Z-A</option>
+        {% else %}
+          <option value="user__username" {% if sort == 'user__username' %}selected{% endif %}>Username A-Z</option>
+          <option value="-user__username" {% if sort == '-user__username' %}selected{% endif %}>Username Z-A</option>
+          <option value="approved" {% if sort == 'approved' %}selected{% endif %}>Approved</option>
+          <option value="-approved" {% if sort == '-approved' %}selected{% endif %}>Disapproved</option>
+          <option value="reviewed" {% if sort == 'reviewed' %}selected{% endif %}>Reviewed</option>
+          <option value="-reviewed" {% if sort == '-reviewed' %}selected{% endif %}>Unreviewed</option>
+        {% endif %}
       </select>
     </div>
     <div class="col-md-2">
@@ -66,7 +72,19 @@
             <tr>
               {% if tab == 'messages' %}
                 <td>{{ item.email }}</td>
-                <td>{{ item.message|truncatechars:80 }}</td>
+                <td>
+                  {{ item.message|truncatechars:80 }}
+                  {% if item.message|length > 80 %}
+                    <button class="btn btn-sm btn-link p-0 ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#message-{{ item.id }}">
+                      Show full message
+                    </button>
+                    <div class="collapse mt-2" id="message-{{ item.id }}">
+                      <div class="card card-body">
+                        {{ item.message|linebreaks }}
+                      </div>
+                    </div>
+                  {% endif %}
+                </td>
                 <td>{{ item.created_on|date:"M d, Y" }}</td>
               {% else %}
                 <td>{{ item.user.username }}</td>
