@@ -33,7 +33,7 @@ urlpatterns = [
     # URL for deleting an article
     path('accounts/', include('allauth.urls')),
     # URL for allauth authentication
-    path('accounts/', include('django.contrib.auth.urls')),
+    # path('accounts/', include('django.contrib.auth.urls')),
     # URL for built-in Django authentication
 
 ]

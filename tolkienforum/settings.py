@@ -31,7 +31,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = os.environ.get('DEBUG', False) == 'True'
 
 ALLOWED_HOSTS = ['localhost', '.herokuapp.com', '127.0.0.1',]
 
@@ -111,6 +111,20 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.herokuapp.com"
     ]
 
+# Email Configuration
+# For development - prints emails to terminal
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Uncomment below for production email via SMTP
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
+# EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
+# DEFAULT_FROM_EMAIL = 'Your Site <noreply@yoursite.com>'
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -171,3 +185,11 @@ LOGIN_REDIRECT_URL = 'forum'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'welcome'
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# Allauth settings
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+ACCOUNT_LOGIN_METHODS = {'username'}  # Use email to log in
+ACCOUNT_SIGNUP_FIELDS = ['username*', 'email*', 'password1*', 'password2*']  # Fields shown at signup
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+# Password reset token expiration (optional)
+PASSWORD_RESET_TIMEOUT = 60 * 60  # 1 hour in seconds
