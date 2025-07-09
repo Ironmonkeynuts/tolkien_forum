@@ -5,9 +5,13 @@
 
 {% block content %}
 <div class="container py-4">
-  <h1 class="mb-4">All Profiles</h1>
+  <div class="text-center mb-4">
+    <h1 class="display-4">Browse Community Profiles</h1>
+    <p class="lead text-white">Meet other members of the fellowship.</p>
+  </div>
 
-  <form method="get" class="row g-3 mb-4">
+  <!-- Search and sort form -->
+  <form method="get" class="row g-3 mb-4 align-items-end">
     <div class="col-md-6">
       <input type="text" name="search" class="form-control" placeholder="Search by username or bio..." value="{{ search }}">
     </div>
@@ -20,34 +24,49 @@
       </select>
     </div>
     <div class="col-md-2">
-      <button type="submit" class="btn btn-primary w-100">Apply</button>
+      <button type="submit" class="btn btn-warning w-100">Apply</button>
     </div>
   </form>
 
+  <!-- Responsive grid: 1 column on xs, 2 on sm, 3 on md+ -->
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
     {% for profile in profiles %}
     <div class="col">
-      <div class="card my-3 bg-success text-warning border-warning h-100 w-100 shadow-sm">
-        <!-- Display avatar image if available, otherwise placeholder-->
-        <div class="mt-1 text-center">
-          {% if "placeholder" in profile.avatar.url %}
-            <img src="{% static 'images/avatar-placeholder.jpg' %}" alt="Placeholder avatar" class="card-img-top img-fluid p-3" style="width: 95%;">
-          {% else %}
-            <img src="{{ profile.avatar.url }}" class="card-img-top img-fluid p-3" style="width: 95%;" alt="{{ profile.user.username }}">
-          {% endif %}
+      <!-- Full-height card with consistent layout -->
+      <div class="card bg-success text-warning border-warning h-100 shadow-sm d-flex flex-column">
+
+        <!-- Square avatar area with preserved padding -->
+        <div class="p-3">
+          <div class="ratio ratio-1x1">
+            {% if "placeholder" in profile.avatar.url %}
+              <img src="{% static 'images/avatar-placeholder.jpg' %}" alt="Placeholder avatar"
+                class="img-fluid object-fit-cover rounded">
+            {% else %}
+              <img src="{{ profile.avatar.url }}" alt="{{ profile.user.username }}"
+                class="img-fluid object-fit-cover rounded">
+            {% endif %}
+          </div>
         </div>
-        
-        <div class="card-body mt-1">
-          <h5 class="card-title text-warning">{{ profile.user.username }}</h5>
-          <p class="card-text mt-3 text-warning">{{ profile.bio|truncatewords:20 }}</p>
+
+        <!-- Card body: fixed height, ensures equal spacing for all cards -->
+        <div class="card-body d-flex flex-column justify-content-start text-center" style="min-height: 140px;">
+          <h5 class="card-title text-warning mb-2">{{ profile.user.username }}</h5>
+          <p class="card-text text-warning small mt-2 flex-grow-1">
+            {{ profile.bio|default:"No bio available."|truncatewords:20 }}
+          </p>
         </div>
-        <div class="card-footer mt-1 text-center">
-            <a href="{% url 'profile' username=profile.user.username %}" class="btn btn-primary text-light">View Profile</a>
+
+        <!-- Footer pinned to bottom -->
+        <div class="card-footer mt-auto text-center">
+          <a href="{% url 'profile' username=profile.user.username %}" class="btn btn-primary text-light">
+            View Profile
+          </a>
         </div>
-        
+
       </div>
     </div>
     {% empty %}
+    <!-- Message when no profiles found -->
     <div class="col text-center">
       <p class="mt-5 text-light">No profiles found.</p>
     </div>

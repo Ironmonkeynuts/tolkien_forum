@@ -44,37 +44,35 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
       {% for article in object_list %}
         <div class="col">
-          <div class="card bg-success text-warning border-warning h-100 shadow-sm">
+          <div class="card bg-success text-warning border-warning h-100 shadow-sm d-flex flex-column">
             <a href="{% url 'article_detail' slug=article.slug %}">
-            <!-- Display primary image if available, otherwise placeholder -->
-            <div class="mt-1 text-center">
-            {% if "placeholder" in article.primary_image.url %}
-              <img src="{% static 'images/article-placeholder.jpg' %}" class="card-img-top img-fluid p-3" style="width: 95%;" alt="Placeholder">
-            {% else %}
-              <img src="{{ article.primary_image.url }}" class="card-img-top img-fluid p-3" style="width: 95%;" alt="{{ article.title }}">
-            {% endif %}
-            </div>
+              <!-- Square image container using ratio for consistent size -->
+              <div class="ratio ratio-1x1 mt-1 mx-auto" style="width: 95%;">
+                {% if "placeholder" in article.primary_image.url %}
+                  <img src="{% static 'images/article-placeholder.jpg' %}" class="img-fluid p-3 object-fit-cover" alt="Placeholder">
+                {% else %}
+                  <img src="{{ article.primary_image.url }}" class="img-fluid p-3 object-fit-cover" alt="{{ article.title }}">
+                {% endif %}
+              </div>
             </a>
             
-              <div class="card-body d-flex flex-column text-warning text-decoration-none">
-                <h5 class="card-title">
-                  <!-- Article title links to detail view -->
-                  <a href="{% url 'article_detail' slug=article.slug %}" class="text-warning text-decoration-none">
-                    {{ article.title }}
-                  </a>
-                </h5>
-                <!-- Display excerpt, truncated to 100 chars -->
-                <p class="card-text small">{{ article.excerpt|truncatechars:100 }}</p>
-              </div>
+            <!-- Card body with title and excerpt -->
+            <div class="card-body text-warning text-decoration-none d-flex flex-column">
+              <h5 class="card-title">
+                <a href="{% url 'article_detail' slug=article.slug %}" class="text-warning text-decoration-none">
+                  {{ article.title }}
+                </a>
+              </h5>
+              <p class="card-text small">{{ article.excerpt|truncatechars:100 }}</p>
+            </div>
 
-            <div class="card-footer d-flex flex-wrap justify-content-between align-items-center text-muted small">
+            <!-- Card footer remains unchanged -->
+            <div class="card-footer d-flex flex-wrap justify-content-between align-items-center text-muted small mt-auto">
               <div class="mb-2 mb-sm-0 text-light">
-                <!-- Author and date -->
                 by <a href="{% url 'profile' username=article.author.username %}" class="text-light text-decoration-none">
                   {{ article.author.username }}
                 </a> on {{ article.created_on|date:"M d, Y" }}
 
-                <!-- Status badges -->
                 {% if article.status == 0 %}
                   <span class="badge bg-danger text-dark">Draft</span>
                 {% endif %}
@@ -87,15 +85,10 @@
                 {% endif %}
               </div>
 
-              <!-- Show edit/delete buttons for author or staff -->
               {% if user == article.author or user.is_staff %}
               <div class="w-100 mt-2 d-flex justify-content-end">
                 <div class="btn-group btn-group-sm">
-                  <!-- Edit button: smaller size, less padding -->
-                  <a href="{% url 'edit_article' slug=article.slug %}" class="btn btn-warning btn-xs">
-                    Edit
-                  </a>
-                  <!-- Delete button: smaller size, less padding -->
+                  <a href="{% url 'edit_article' slug=article.slug %}" class="btn btn-warning btn-xs">Edit</a>
                   <button type="button" class="btn btn-xs btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ article.id }}">
                     Delete
                   </button>
@@ -105,6 +98,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Modal stays the same -->
         <div class="modal fade" id="deleteModal{{ article.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ article.id }}" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -128,6 +123,7 @@
       {% endfor %}
     </div>
     <!-- End of responsive grid -->
+
 
     <!-- Pagination -->
     {% if is_paginated %}
