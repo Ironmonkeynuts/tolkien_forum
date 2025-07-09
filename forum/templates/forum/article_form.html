@@ -29,11 +29,20 @@
       {% endfor %}
     </div>
 
-        <!-- Primary Image -->
+    <!-- Primary Image -->
     <div class="mb-3">
       {{ form.primary_image.label_tag }}
       {{ form.primary_image }}
       {% for error in form.primary_image.errors %}
+        <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <!-- Primary Image Fit -->
+    <div class="mb-3">
+      {{ form.primary_image_fit.label_tag }}
+      {{ form.primary_image_fit }}
+      {% for error in form.primary_image_fit.errors %}
         <div class="text-danger">{{ error }}</div>
       {% endfor %}
     </div>

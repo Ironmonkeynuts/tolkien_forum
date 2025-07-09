@@ -18,11 +18,12 @@ class CommentForm(forms.ModelForm):
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'excerpt', 'primary_image', 'content', 'status']
+        fields = ['title', 'excerpt', 'primary_image', 'primary_image_fit', 'content', 'status']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'excerpt': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
             'primary_image': forms.FileInput(attrs={'class': 'form-control-file'}),
+            'primary_image_fit': forms.Select(attrs={'class': 'form-select'}),
             'content': SummernoteWidget(),
             'status': forms.Select(attrs={'class': 'form-select'}),
         }
@@ -35,10 +36,11 @@ class ArticleForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['user_type', 'avatar', 'bio']  # User_type to be restricted
+        fields = ['user_type', 'avatar', 'avatar_fit', 'bio']  # User_type to be restricted
         widgets = {
             'user_type': forms.Select(attrs={'class': 'form-select'}),
             'avatar': forms.FileInput(attrs={'class': 'form-control-file'}),
+            'avatar_fit': forms.Select(attrs={'class': 'form-select'}),
             'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
         help_texts = {

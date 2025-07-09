@@ -1,12 +1,61 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block title %}Edit Profile{% endblock %}
+
 {% block content %}
 <div class="container mt-4">
-  <h1>Edit Profile</h1>
-  <form method="post" enctype="multipart/form-data">
+  <h1 class="mb-4">Edit Profile</h1>
+
+  <form method="post" enctype="multipart/form-data" class="row g-4">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Save</button>
+
+    <!-- Avatar preview -->
+    <div class="col-md-4 text-center">
+      <h5 class="text-light mb-3">Current Avatar</h5>
+      {% if "placeholder" in user.profile.avatar.url %}
+        <img src="{% static 'images/avatar-placeholder.jpg' %}"
+             class="rounded-circle shadow img-fluid"
+             style="width: 180px; height: 180px; object-fit: {{ user.profile.avatar_fit|default:'cover' }};"
+             alt="Avatar preview">
+      {% else %}
+        <img src="{{ user.profile.avatar.url }}"
+             class="rounded-circle shadow img-fluid"
+             style="width: 180px; height: 180px; object-fit: {{ user.profile.avatar_fit|default:'cover' }};"
+             alt="Avatar preview">
+      {% endif %}
+    </div>
+
+    <!-- Profile form fields -->
+    <div class="col-md-8">
+      <div class="mb-3">
+        {{ form.avatar.label_tag }}
+        {{ form.avatar }}
+        {% for error in form.avatar.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        {{ form.avatar_fit.label_tag }}
+        {{ form.avatar_fit }}
+        <div class="form-text text-light">Control how your avatar fits in the circular frame.</div>
+        {% for error in form.avatar_fit.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        {{ form.bio.label_tag }}
+        {{ form.bio }}
+        {% for error in form.bio.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="btn btn-success">Save Changes</button>
+      <a href="{% url 'profile' username=user.username %}" class="btn btn-secondary">Cancel</a>
+    </div>
   </form>
 </div>
 {% endblock %}

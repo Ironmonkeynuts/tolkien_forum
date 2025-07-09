@@ -17,8 +17,22 @@ class Article(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='articles')
-    # related_name is used to access the articles from the user
+    # Related_name is used to access the articles from the user
     primary_image = CloudinaryField('image', default='placeholder', blank=True, null=True)
+    # New field to control how the image fits (cover, contain, etc.)
+    IMAGE_FIT_CHOICES = [
+        ('cover', 'Cover'),
+        ('contain', 'Contain'),
+        ('fill', 'Fill'),
+        ('none', 'None'),
+        ('scale-down', 'Scale Down'),
+    ]
+    primary_image_fit = models.CharField(
+        max_length=20,
+        choices=IMAGE_FIT_CHOICES,
+        default='cover',
+        help_text="How should the primary image fit inside its container?"
+    )
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
@@ -79,6 +93,20 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_type = models.CharField(max_length=20, choices=USER_TYPES, default='visitor')
     avatar = CloudinaryField('image', default='placeholder', blank=True, null=True)
+    # Control fit of avatar
+    AVATAR_FIT_CHOICES = [
+        ('cover', 'Cover'),
+        ('contain', 'Contain'),
+        ('fill', 'Fill'),
+        ('none', 'None'),
+        ('scale-down', 'Scale Down'),
+    ]
+    avatar_fit = models.CharField(
+        max_length=20,
+        choices=AVATAR_FIT_CHOICES,
+        default='cover',
+        help_text="Control how your avatar fits in the frame."
+    )
     bio = models.TextField(blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=True)
