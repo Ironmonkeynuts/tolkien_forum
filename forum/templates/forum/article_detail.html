@@ -20,11 +20,11 @@
     </span>
   </div>
   <hr>
-  <div class="text-center">
+  <div class="ratio ratio-16x9 mb-4">
     {% if "placeholder" in article.primary_image.url %}
-      <img src="{% static 'images/article-placeholder.jpg' %}" class="card-img-top img-fluid" style="max-height: 600px; width: auto;" alt="Placeholder">
+      <img src="{% static 'images/article-placeholder.jpg' %}" class="img-fluid object-fit-cover rounded" alt="Placeholder">
     {% else %}
-      <img src="{{ article.primary_image.url }}" class="card-img-top img-fluid" style="max-height: 600px; width: auto;" alt="{{ article.title }}">
+      <img src="{{ article.primary_image.url }}" class="img-fluid object-fit-cover rounded" alt="{{ article.title }}">
     {% endif %}
   </div>
   <div class="article-content">
