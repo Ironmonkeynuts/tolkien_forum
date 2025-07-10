@@ -57,6 +57,15 @@ class ProfileForm(forms.ModelForm):
             self.fields['user_type'].disabled = True
 
 
+class UserTypeForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['user_type']
+        widgets = {
+            'user_type': forms.Select(attrs={'class': 'form-select'}),
+        }
+
+
 class ApprovalToggleForm(forms.Form):
     object_type = forms.CharField(widget=forms.HiddenInput)
     object_id = forms.IntegerField(widget=forms.HiddenInput)

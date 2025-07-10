@@ -12,9 +12,14 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib import messages
-from .models import Article, Comment, Profile, ContactMessage, CreatorApplication, ModeratorApplication
-from .forms import CommentForm, ArticleForm, ProfileForm, ApprovalToggleForm, ContactForm, CreatorApplicationForm, ModeratorApplicationForm
-
+from .models import (
+    Article, Comment, Profile, ContactMessage,
+    CreatorApplication, ModeratorApplication
+)
+from .forms import (
+    CommentForm, ArticleForm, ProfileForm, ApprovalToggleForm, ContactForm,
+    CreatorApplicationForm, ModeratorApplicationForm, UserTypeForm
+)
 
 # Create your views here.
 class ArticleList(generic.ListView):
@@ -314,8 +319,8 @@ class ArticleDelete(generic.DeleteView):
 def edit_profile(request, username=None):
     """
     Handles editing of user profiles.
-    Allows email updates only if:
-    - Admin or User confirms their password
+    Allows email updates only if Admin or User confirms their .
+    Admins can also update a user's user_type.
     """
     user = request.user
     # Get target profile: own or by username (if admin)
@@ -323,8 +328,12 @@ def edit_profile(request, username=None):
         target_user = get_object_or_404(User, username=username)
     else:
         target_user = user
-
+    
+    editing_other = user != target_user
     profile = target_user.profile
+
+    # Only allow user_type form if current user is admin
+    user_type_form = UserTypeForm(request.POST or None, instance=profile) if user.profile.user_type == 'admin' else None
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
@@ -333,43 +342,55 @@ def edit_profile(request, username=None):
         password = request.POST.get('password', '')
 
         if form.is_valid():
-            form.save()
-
-            # If the email is being changed
+            # First check if email is being changed
             if email and email != target_user.email:
                 if user == target_user:
-                    # User updating own email: confirm with own password
+                    # User must confirm with own password
                     auth_user = authenticate(username=user.username, password=password)
                 else:
-                    # Admin updating another user's email: confirm with admin's password
+                    # Admin confirms with admin's password
                     auth_user = authenticate(username=user.username, password=password)
 
                 if auth_user:
                     target_user.email = email
-                    target_user.save()
-                    messages.success(request, f"Email updated for {target_user.username}.")
                 else:
                     messages.error(request, "Incorrect password. Email not updated.")
+                    return redirect('edit_profile', username=target_user.username if editing_other else None)
+
+            # Now save the profile and user_type
+            form.save()
+            # Admin only
+            if user_type_form and user_type_form.is_valid():
+                user_type_form.save()
+
+            target_user.save()
 
             messages.success(request, "Profile updated.")
             return redirect('profile', username=target_user.username)
+
         else:
             messages.error(request, "Please correct the errors below.")
     else:
         # For GET request — determine if email field should be prefilled
-        email_initial = ''
-        if user == target_user or user.profile.user_type == 'admin':
-            email_initial = target_user.email
+        # email_initial = ''
+        # if user == target_user or user.profile.user_type == 'admin':
+        #    email_initial = target_user.email
 
         form = ProfileForm(instance=profile)
 
+    # Non-admins see user_type as readonly display value
+    email_initial = target_user.email if user == target_user or user.profile.user_type == 'admin' else ''
+    readonly_user_type = profile.get_user_type_display()
 
     return render(request, 'forum/edit_profile.html', {
         'form': form,
+        'user_type_form': user_type_form,
         'profile': profile,
         'editing_other': user != target_user,
         'target_user': target_user,
-        'email_initial': email_initial
+        'email_initial': email_initial,
+        'readonly_user_type': readonly_user_type,
+
     })
 
 

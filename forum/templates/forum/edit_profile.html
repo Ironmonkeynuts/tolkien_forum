@@ -66,6 +66,23 @@
         </div>
       {% endif %}
 
+      {% if user_type_form %}
+        <!-- Admins editing user_type -->
+        <div class="mb-3">
+          {{ user_type_form.user_type.label_tag }}
+          {{ user_type_form.user_type }}
+          {% for error in user_type_form.user_type.errors %}
+            <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <!-- Non-admins just see their user type as static text -->
+        <div class="mb-3 text-light">
+          <label class="form-label">User Role</label>
+          <div class="form-control bg-dark text-light" readonly>{{ readonly_user_type }}</div>
+        </div>
+      {% endif %}
+
       <button type="submit" class="btn btn-success">Save Changes</button>
       <a href="{% url 'profile' username=user.username %}" class="btn btn-secondary">Cancel</a>
     </div>
