@@ -213,18 +213,23 @@ In this section, you should go over the different parts of your project, and des
 | Register | Authentication is handled by allauth, allowing users to register accounts. | ![screenshot](documentation/features/register.png) |
 | Login | Authentication is handled by allauth, allowing users to log in to their existing accounts. | ![screenshot](documentation/features/login.png) |
 | Logout | Authentication is handled by allauth, allowing users to log out of their accounts. | ![screenshot](documentation/features/logout.png) |
-| forum List | The homepage displays basic information about forum articles, including image, title, author, date, and a brief excerpt. | ![screenshot](documentation/features/forum-list.png) |
+| forum List | The forum page displays basic information about forum articles, including image, title, author, date, and a brief excerpt. | ![screenshot](documentation/features/forum-list.png) |
 | View article | Users can view the full forum article details, including any comments. | ![screenshot](documentation/features/view-article.png) |
 | Pagination | forum articles are displayed in pages, with six articles per page. This provides better navigation for users through the article list. | ![screenshot](documentation/features/pagination.png) |
 | Add Comments | Authenticated visitors can comment on forum articles; comments require approval before being published. | ![screenshot](documentation/features/add-comment.png) |
 | Edit Comments | Authenticated visitors can edit their own comments. | ![screenshot](documentation/features/edit-comment.png) |
 | Delete Comments | Authenticated visitors can delete their own comments. | ![screenshot](documentation/features/delete-comment.png) |
-| Comment Approvals | Admins can approve or disapprove comments submitted by users before they are visible on the forum article. | ![screenshot](documentation/features/comment-approval.png) |
-| Create article | Site owners can create/publish forum articles, including setting a featured image using Cloudinary, all from the Django admin dashboard. | ![screenshot](documentation/features/create-article.png) |
-| Update article | Site owners can update/manage forum articles from the Django admin dashboard. | ![screenshot](documentation/features/update-article.png) |
-| Delete article | Site owners can delete forum articles from the Django admin dashboard. | ![screenshot](documentation/features/delete-article.png) |
-| About Page | The About page displays the latest information about the site author, along with the option for visitors to send collaboration requests. | ![screenshot](documentation/features/about.png) |
-| Collaboration Requests | Visitors can submit collaboration requests from the *About* page, which are later reviewed by the admin. | ![screenshot](documentation/features/collaboration.png) |
+| Content Approvals | Admins can approve or disapprove articles, comments and profiles submitted by users. By default they are visible on the website. | ![screenshot](documentation/features/comment-approval.png) |
+| Create article | Content Creators owners can create/publish forum articles, including setting a featured image using Cloudinary, all from the Django admin dashboard. | ![screenshot](documentation/features/create-article.png) |
+| Update article | Content Creators can update/manage forum articles from the Django admin dashboard. | ![screenshot](documentation/features/update-article.png) |
+| Delete article | Content Creators can delete forum articles from the Django admin dashboard. | ![screenshot](documentation/features/delete-article.png) |
+| About Page | The About page displays the scope, aims and mission statement of the forum website | ![screenshot](documentation/features/about.png) |
+| Contact Page | The Contact page displays the scope, aims and mission statement of the forum website | ![screenshot](documentation/features/contact.png) |
+| Contact Messages | Visitors can submit messages along with their email, which are later reviewed by the admin. | ![screenshot](documentation/features/contact-messages.png) |
+| Creator Application | Authenticated users can submit an application with reasons, which are later reviewed by the admin or moderators. | ![screenshot](documentation/features/creator-application.png) |
+| Moderator Application | Authenticated users can submit an application with reasons, which are later reviewed by the admin. | ![screenshot](documentation/features/creator-application.png) |
+| View Profile | The Profile page displays the username, user type, avatar and bio of a users profile. Email is visible only to the profile owner and admin | ![screenshot](documentation/features/profile.png) |
+| Community Page | The Community page lists the profiles of all registered users showing username, avatar and bio snippet of a users profile. | ![screenshot](documentation/features/community.png) |
 | User Feedback | Clear and obvious Django messages are used to provide feedback to user actions. | ![screenshot](documentation/features/messages.png) |
 | Heroku Deployment | The site is fully deployed to Heroku, making it accessible online and easy to manage. | ![screenshot](documentation/features/heroku.png) |
 | 404 | The 404 error page will indicate when a user has navigated to a page that doesn't exist, replacing the default Heroku 404 page with one that ties into the site's look and feel. | ![screenshot](documentation/features/404.png) |
@@ -297,23 +302,6 @@ Entity Relationship Diagrams (ERD) help to visualize database architecture befor
 
 ![screenshot](documentation/erd.png)
 
-⚠️ INSTRUCTIONS ⚠️
-
-Using your defined models, create an ERD with the relationships identified. A couple of recommendations for building your own free ERDs:
-- [Lucidchart](https://www.lucidchart.com/pages/ER-diagram-symbols-and-meaning)
-- [Draw.io](https://draw.io)
-
-Looking for an interactive version of your ERD? Consider using a [`Mermaid flowchart`](https://mermaid.live). To simplify the process, you can ask ChatGPT (or similar) the following prompt:
-
-> ChatGPT Prompt:
-> "Generate a Markdown syntax Mermaid ERD using my Django models"
-> [paste-your-django-models-into-ChatGPT]
-
-The "I Think Therefore I forum" sample ERD in Markdown syntax using Mermaid can be seen below as an example.
-
-**NOTE**: A Markdown Preview tool doesn't show the interactive ERD; you must first commit/push the code to your GitHub repository in order to see it live in action.
-
-⚠️ --- END --- ⚠️
 
 I have used `Mermaid` to generate an interactive ERD of my project.
 ```mermaid
@@ -383,49 +371,11 @@ erDiagram
     }
 ```
 
-
-
 source: [Mermaid](https://mermaid.live/edit#pako:eNqNUstuwjAQ_BVrz6EiVIiSG21zg9LyuFSRkImXxGpsR45TkQb-vU4C5REq4Yut2dnZnfWWECqG4AHqV04jTUUgiT3LuT8ju12no0ryPp0viEcCoLmJlc4CaHNeppOJ_9bQQiUESoMnZq1wgxnTS0rZvKuTGc1lRAw3CbbQLMmjExgmKmdcUl2QDVKTa2QrLmh0lmdwa0iobFPSXKG4DVGnZyijBg0XSEJt1ayWkjeCecpaQS6N7dB2kDXYvrmOjsurymvFijvLrpVKCE1Trb6RXYiPnqfLOwZ3NiMrsuEJ3jeif_3-eRuPbQuz0cKf-R9L_-YnSiraf4iC8uSqvMAsu2iq9m3ncfQMDgjUNpPZla0LBWBitPJQ7ROj-qtaqIpnl1XNCxmCZ3SODjQGDksO3oYmmUVTKsErYQue-zR8cN2B2-t3h73BY2_Qd6AAr7t34Ecpm-HW7M_63UhqlUfxQWr_C_zI_7I)
-
-⚠️ RECOMMENDED ⚠️
-
-Alternatively, or in addition to, a more comprehensive ERD can be auto-generated once you're at the end of your development stages, just before you submit. Follow the steps below to obtain a thorough ERD that you can include. Feel free to leave the steps below in the README for future use to yourself.
-
-⚠️ --- END --- ⚠️
-
-I have used `pygraphviz` and `django-extensions` to auto-generate an ERD.
-
-The steps taken were as follows:
-- In the terminal: `sudo apt update`
-- then: `sudo apt-get install python3-dev graphviz libgraphviz-dev pkg-config`
-- then type `Y` to proceed
-- then: `pip3 install django-extensions pygraphviz`
-- in my `settings.py` file, I added the following to my `INSTALLED_APPS`:
-```python
-INSTALLED_APPS = [
-    ...
-    'django_extensions',
-    ...
-]
-```
-- back in the terminal: `python3 manage.py graph_models -a -o erd.png`
-- drag the new `erd.png` file into my `documentation/` folder
-- removed `'django_extensions',` from my `INSTALLED_APPS`
-- finally, in the terminal: `pip3 uninstall django-extensions pygraphviz -y`
-
-![screenshot](documentation/advanced-erd.png)
-
-source: [medium.com](https://medium.com/@yathomasi1/1-using-django-extensions-to-visualize-the-database-diagram-in-django-application-c5fa7e710e16)
 
 ## Agile Development Process
 
 ### GitHub Projects
-
-⚠️ TIP ⚠️
-
-Consider adding screenshots of your Projects Board(s), Issues (open and closed), and Milestone tasks.
-
-⚠️ --- END ---⚠️
 
 [GitHub Projects](https://www.github.com/Ironmonkeynuts/tolkien_forum/projects) served as an Agile tool for this project. Through it, EPICs, User Stories, issues/bugs, and Milestone tasks were planned, then subsequently tracked on a regular basis using the Kanban project board.
 
@@ -470,13 +420,6 @@ Deployment steps are as follows, after account setup:
 
 > [!IMPORTANT]
 > This is a sample only; you would replace the values with your own if cloning/forking my repository.
-
-🛑 !!! ATTENTION Ironmonkeynuts !!! 🛑
-
-⚠️ DO NOT update the environment variables to your own! These should never be public; only use the demo values below! ⚠️
-⚠️ Replace the keys below with your own actual keys used; example: if not using Cloudinary, then remove those keys, or replace with whatever ones you're using. ⚠️
-
-🛑 --- END --- 🛑
 
 | Key | Value |
 | --- | --- |
@@ -589,13 +532,6 @@ You will need to create a new file called `env.py` at the root-level, and includ
 
 > [!IMPORTANT]
 > This is a sample only; you would replace the values with your own if cloning/forking my repository.
-
-🛑 !!! ATTENTION Ironmonkeynuts !!! 🛑
-
-⚠️ DO NOT update the environment variables to your own! These should never be public; only use the demo values below! ⚠️
-⚠️ Replace the keys below with your own actual keys used; example: if not using Cloudinary | AWS, then replace those keys with whatever keys you're using. ⚠️
-
-🛑 --- END --- 🛑
 
 Sample `env.py` file:
 
