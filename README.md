@@ -76,7 +76,7 @@ source: [tolkien_forum amiresponsive](https://ui.dev/amiresponsive?url=https://i
 **[Features](#features)** (see below)
 
 **Content Requirements**
-- Forum post management (create, update, delete, and preview).
+- Forum article management (create, update, delete, and preview).
 - Comment moderation and management tools.
 - User account features (register, log in, edit/delete comments).
 - Notification system for comment approval status.
@@ -86,7 +86,7 @@ source: [tolkien_forum amiresponsive](https://ui.dev/amiresponsive?url=https://i
 
 **Information Architecture**
 - **Navigation Menu**:
-  - Links to Home, forum articles, Login/Register, and Dashboard (for forum owners).
+  - Links to Welcome, Forum articles, Login/Register, and Dashboard (for moderators and admin).
 - **Hierarchy**:
   - Forum content displayed prominently for easy browsing.
   - Clear call-to-action buttons for account creation and engagement (e.g., commenting).
@@ -158,10 +158,11 @@ I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wirefram
 | --- | --- | --- | --- |
 | Register | ![screenshot](documentation/wireframes/mobile-register.png) | ![screenshot](documentation/wireframes/tablet-register.png) | ![screenshot](documentation/wireframes/desktop-register.png) |
 | Login | ![screenshot](documentation/wireframes/mobile-login.png) | ![screenshot](documentation/wireframes/tablet-login.png) | ![screenshot](documentation/wireframes/desktop-login.png) |
-| Home | ![screenshot](documentation/wireframes/mobile-home.png) | ![screenshot](documentation/wireframes/tablet-home.png) | ![screenshot](documentation/wireframes/desktop-home.png) |
-| Add forum | ![screenshot](documentation/wireframes/mobile-add-forum.png) | ![screenshot](documentation/wireframes/tablet-add-forum.png) | ![screenshot](documentation/wireframes/desktop-add-forum.png) |
-| Edit forum | ![screenshot](documentation/wireframes/mobile-edit-forum.png) | ![screenshot](documentation/wireframes/tablet-edit-forum.png) | ![screenshot](documentation/wireframes/desktop-edit-forum.png) |
-| forum Post | ![screenshot](documentation/wireframes/mobile-forum-post.png) | ![screenshot](documentation/wireframes/tablet-forum-post.png) | ![screenshot](documentation/wireframes/desktop-forum-post.png) |
+| Welcome | ![screenshot](documentation/wireframes/mobile-home.png) | ![screenshot](documentation/wireframes/tablet-home.png) | ![screenshot](documentation/wireframes/desktop-home.png) |
+| Forum | ![screenshot](documentation/wireframes/mobile-add-forum.png) | ![screenshot](documentation/wireframes/tablet-add-forum.png) | ![screenshot](documentation/wireframes/desktop-add-forum.png) |
+| Add/Edit Article | ![screenshot](documentation/wireframes/mobile-edit-forum.png) | ![screenshot](documentation/wireframes/tablet-edit-forum.png) | ![screenshot](documentation/wireframes/desktop-edit-forum.png) |
+| Article Detail | ![screenshot](documentation/wireframes/mobile-forum-post.png) | ![screenshot](documentation/wireframes/tablet-forum-post.png) | ![screenshot](documentation/wireframes/desktop-forum-post.png) |
+| Contact | ![screenshot](documentation/wireframes/mobile-contact.png) | ![screenshot](documentation/wireframes/tablet-contact.png) | ![screenshot](documentation/wireframes/desktop-contact.png) |
 | 404 | ![screenshot](documentation/wireframes/mobile-404.png) | ![screenshot](documentation/wireframes/tablet-404.png) | ![screenshot](documentation/wireframes/desktop-404.png) |
 
 ## User Stories
@@ -315,40 +316,74 @@ The "I Think Therefore I forum" sample ERD in Markdown syntax using Mermaid can 
 ⚠️ --- END --- ⚠️
 
 I have used `Mermaid` to generate an interactive ERD of my project.
-
 ```mermaid
 erDiagram
-    USER ||--o{ POST : "authors"
-    USER ||--o{ COMMENT : "commenters"
-    POST ||--o{ COMMENT : "has"
-    POST {
+
+    USER ||--o{ ARTICLE : writes
+    USER ||--o{ COMMENT : makes
+    USER ||--|| PROFILE : has
+    USER ||--o{ CREATORAPPLICATION : submits
+    USER ||--o{ MODERATORAPPLICATION : submits
+
+    ARTICLE ||--o{ COMMENT : contains
+
+    ARTICLE {
+        int id PK
         string title
-        string slug
-        cloudinary featured_image
+        slug slug
         text content
         text excerpt
+        image primary_image
+        string primary_image_fit
         datetime created_on
         datetime updated_on
         int status
+        boolean approved
     }
+
     COMMENT {
+        int id PK
         text body
         datetime created_on
-        bool approved
+        boolean approved
     }
-    ABOUT {
-        string title
-        cloudinary profile_image
-        text content
-        datetime updated_on
+
+    PROFILE {
+        int id PK
+        image avatar
+        string avatar_fit
+        text bio
+        string user_type
+        datetime created_on
+        boolean approved
     }
-    COLLABORATEREQUEST {
-        string name
-        string email
+
+    CONTACTMESSAGE {
+        int id PK
+        email email
         text message
-        bool read
+        datetime created_on
+        boolean read
+    }
+
+    CREATORAPPLICATION {
+        int id PK
+        text reason
+        datetime created_on
+        boolean approved
+        boolean reviewed
+    }
+
+    MODERATORAPPLICATION {
+        int id PK
+        text reason
+        datetime created_on
+        boolean approved
+        boolean reviewed
     }
 ```
+
+
 
 source: [Mermaid](https://mermaid.live/edit#pako:eNqNUstuwjAQ_BVrz6EiVIiSG21zg9LyuFSRkImXxGpsR45TkQb-vU4C5REq4Yut2dnZnfWWECqG4AHqV04jTUUgiT3LuT8ju12no0ryPp0viEcCoLmJlc4CaHNeppOJ_9bQQiUESoMnZq1wgxnTS0rZvKuTGc1lRAw3CbbQLMmjExgmKmdcUl2QDVKTa2QrLmh0lmdwa0iobFPSXKG4DVGnZyijBg0XSEJt1ayWkjeCecpaQS6N7dB2kDXYvrmOjsurymvFijvLrpVKCE1Trb6RXYiPnqfLOwZ3NiMrsuEJ3jeif_3-eRuPbQuz0cKf-R9L_-YnSiraf4iC8uSqvMAsu2iq9m3ncfQMDgjUNpPZla0LBWBitPJQ7ROj-qtaqIpnl1XNCxmCZ3SODjQGDksO3oYmmUVTKsErYQue-zR8cN2B2-t3h73BY2_Qd6AAr7t34Ecpm-HW7M_63UhqlUfxQWr_C_zI_7I)
 
