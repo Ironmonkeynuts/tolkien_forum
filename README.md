@@ -9,12 +9,6 @@ Developer: David Doyle-Owen ([Ironmonkeynuts](https://www.github.com/Ironmonkeyn
 
 A fully functional community-driven Django web forum inspired by J.R.R. Tolkien’s world. Users can discuss Middle-earth lore, post articles, comment, and apply for elevated roles in a secure and moderated environment.
 
-⚠️ PROJECT INTRODUCTION⚠️
-
-In this section, include a few paragraphs providing an overview of your project. Essentially, this part is your "sales pitch". Describe what the project hopes to accomplish, who it is intended to target, and how it will be useful to the target audience.
-
-⚠️ --- END --- 
-
 Speak, Friend and Enter is an online forum dedicated to celebrating the rich and timeless works of J.R.R. Tolkien. From The Lord of the Rings and The Hobbit to The Silmarillion and his vast legendarium, this community offers a welcoming space where fans, scholars, and newcomers alike can gather to discuss, explore, and appreciate Tolkien’s enduring legacy. Whether you are here to debate the finer points of Elvish linguistics, analyze the themes of heroism and loss, or simply share your favorite moments from the books or films, you will find kindred spirits within our fellowship.
 
 Our aim is to foster thoughtful, respectful, and engaging discussion about all aspects of Tolkien’s world. We encourage contributions from a wide range of perspectives — literary analysis, artistic interpretations, adaptations in film and media, gaming, and creative works inspired by Middle-earth. We provide dedicated sections for lore deep-dives, fan fiction, art galleries, language studies, and real-world influences on Tolkien’s writing. By bringing together enthusiasts of varied backgrounds, we hope to create a vibrant community that honors Tolkien’s spirit of fellowship, discovery, and wonder.
@@ -58,11 +52,12 @@ source: [tolkien_forum amiresponsive](https://ui.dev/amiresponsive?url=https://i
 #### 1. Strategy
 
 **Purpose**
-- Provide forum owners with tools to create, manage, and moderate engaging forum content and user interactions.
+- Provide content creators with tools to create, manage, and moderate engaging forum content and user interactions.
 - Offer users and guests an intuitive platform to explore, engage, and contribute to forum discussions.
 
 **Primary User Needs**
-- Forum owners need seamless tools for publishing and managing articles and comments.
+- Content creators need seamless tools for publishing and managing articles.
+- Admin and moderators need seemless tools for managing and moderating profiles and content.
 - Registered users need the ability to engage with forum content through comments and account features.
 - Guests need the ability to browse and enjoy forum content without registration.
 
@@ -77,9 +72,9 @@ source: [tolkien_forum amiresponsive](https://ui.dev/amiresponsive?url=https://i
 
 **Content Requirements**
 - Forum article management (create, update, delete, and preview).
-- Comment moderation and management tools.
-- User account features (register, log in, edit/delete comments).
-- Notification system for comment approval status.
+- Content moderation and management tools.
+- User account features (register, log in, write/edit/delete comments).
+- Notification system for content approval status.
 - 404 error page for lost users.
 
 #### 3. Structure
@@ -96,11 +91,12 @@ source: [tolkien_forum amiresponsive](https://ui.dev/amiresponsive?url=https://i
 2. Guest users register for an account → become a Member, gain a profile and log in to leave comments.
 3. Members leave comments → receive a pending approval notification.
 4. Members view own profile → add an avatar and write a bio.
+5. Members browse community profiles of other members → read bios and view articles of profiles belonging to Content Creators
 5. Members apply to be Content Creators → receive a pending approval notification.
-6. Content Creators create, update, and manage articles → present ideas to start conversations.
+6. Content Creators create, update, and manage articles → present ideas to start fresh conversations.
 7. Content Creators view existing own articles in profile → edit own articles.
 8. Members and Content Creators apply to become a Moderator → receive a pending approval notification.
-9. Moderators approve or disapprove articles, comments and profiles → manage user interactions.
+9. Moderators and Admin approve or disapprove articles, comments and profiles → manage user interactions.
 
 #### 4. Skeleton
 
@@ -114,14 +110,6 @@ source: [tolkien_forum amiresponsive](https://ui.dev/amiresponsive?url=https://i
 
 ### Colour Scheme
 
-⚠️INSTRUCTIONS ⚠️
-
-Explain your colors and color scheme. Consider adding a link and screenshot for your color scheme using [coolors](https://coolors.co/generate).
-
-When you add a color to the palette, the URL is dynamically updated, making it easier for you to return back to your color palette later if needed. See example below:
-
-⚠️ --- END --- ⚠️
-
 I used [Bootstrap 5 ](https://getbootstrap.com/docs/5.0/utilities/colors/) to generate my color scheme.
 
 - `text-warning` primary text.
@@ -134,22 +122,10 @@ I used [Bootstrap 5 ](https://getbootstrap.com/docs/5.0/utilities/colors/) to ge
 
 ### Typography
 
-⚠️ INSTRUCTIONS ⚠️
-
-Explain any fonts and icon libraries used, like **Google Fonts**, **Font Awesome**, etc. Consider adding a link to each font used, the Font Awesome site (if used), or similar icon library.
-
-⚠️ --- END --- ⚠️
-
 - [Bootstrap Font stack - $font-family-sans-serif](https://getbootstrap.com/docs/5.0/content/reboot/#native-font-stack) was used for all text. This stack adapts to device and browser type applied throughout the <body>.
 
 
 ## Wireframes
-
-⚠️ INSTRUCTIONS ⚠️
-
-If you've created wireframes or mock-ups, use this section to display screenshots of your wireframes. The example table below uses sample pages from the walkthrough project to give you some inspiration for your own project, so please adjust accordingly.
-
-⚠️ --- END --- ⚠️
 
 To follow best practice, wireframes were developed for mobile, tablet, and desktop sizes.
 I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wireframes.
@@ -158,32 +134,28 @@ I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wirefram
 | --- | --- | --- | --- |
 | Register | ![screenshot](documentation/wireframes/mobile-register.png) | ![screenshot](documentation/wireframes/tablet-register.png) | ![screenshot](documentation/wireframes/desktop-register.png) |
 | Login | ![screenshot](documentation/wireframes/mobile-login.png) | ![screenshot](documentation/wireframes/tablet-login.png) | ![screenshot](documentation/wireframes/desktop-login.png) |
-| Welcome | ![screenshot](documentation/wireframes/mobile-home.png) | ![screenshot](documentation/wireframes/tablet-home.png) | ![screenshot](documentation/wireframes/desktop-home.png) |
+| Welcome | ![screenshot](documentation/wireframes/mobile-welcome.png) | ![screenshot](documentation/wireframes/tablet-welcome.png) | ![screenshot](documentation/wireframes/desktop-welcome.png) |
 | Forum | ![screenshot](documentation/wireframes/mobile-add-forum.png) | ![screenshot](documentation/wireframes/tablet-add-forum.png) | ![screenshot](documentation/wireframes/desktop-add-forum.png) |
-| Add/Edit Article | ![screenshot](documentation/wireframes/mobile-edit-forum.png) | ![screenshot](documentation/wireframes/tablet-edit-forum.png) | ![screenshot](documentation/wireframes/desktop-edit-forum.png) |
-| Article Detail | ![screenshot](documentation/wireframes/mobile-forum-post.png) | ![screenshot](documentation/wireframes/tablet-forum-post.png) | ![screenshot](documentation/wireframes/desktop-forum-post.png) |
+| Add/Edit Article | ![screenshot](documentation/wireframes/mobile-edit-article.png) | ![screenshot](documentation/wireframes/tablet-edit-article.png) | ![screenshot](documentation/wireframes/desktop-edit-article.png) |
+| Article Detail | ![screenshot](documentation/wireframes/mobile-article-detail.png) | ![screenshot](documentation/wireframes/tablet-article-detail.png) | ![screenshot](documentation/wireframes/desktop-article-detail.png) |
+| Profile | ![screenshot](documentation/wireframes/mobile-profile.png) | ![screenshot](documentation/wireframes/tablet-profile.png) | ![screenshot](documentation/wireframes/desktop-profile.png) |
+| Community List | ![screenshot](documentation/wireframes/mobile-community.png) | ![screenshot](documentation/wireframes/tablet-community.png) | ![screenshot](documentation/wireframes/desktop-community.png) |
 | Contact | ![screenshot](documentation/wireframes/mobile-contact.png) | ![screenshot](documentation/wireframes/tablet-contact.png) | ![screenshot](documentation/wireframes/desktop-contact.png) |
 | 404 | ![screenshot](documentation/wireframes/mobile-404.png) | ![screenshot](documentation/wireframes/tablet-404.png) | ![screenshot](documentation/wireframes/desktop-404.png) |
 
 ## User Stories
 
-⚠️ INSTRUCTIONS ⚠️
-
-In this section, list all of your possible user stories for the project. Samples have been provided below using the example walkthrough project for your inspiration. Make sure to adjust to match your own project features!
-
-⚠️ --- END --- ⚠️
-
 | Target | Expectation | Outcome |
 | --- | --- | --- |
-| As a forum owner | I would like to create new forum articles with a title, featured image, and content | so that I can share my experiences with my audience. |
-| As a forum owner | I would like to update existing forum articles | so that I can correct or add new information to my previous stories. |
-| As a forum owner | I would like to delete forum articles | so that I can remove outdated or irrelevant content from my forum. |
-| As a forum owner | I would like to retrieve a list of all my published forum articles | so that I can manage them from a central dashboard. |
-| As a forum owner | I would like to preview a article as draft before publishing it | so that I can ensure formatting and content appear correctly. |
-| As a forum owner | I would like to review comments before they are published | so that I can filter out spam or inappropriate content. |
-| As a forum owner | I would like to approve or reject comments from users | so that I can maintain control over the discussion on my articles. |
-| As a forum owner | I would like to view a list of all comments (both approved and pending) | so that I can manage user engagement effectively. |
-| As a forum owner | I would like to edit or delete user comments | so that I can clean up or remove inappropriate responses after they've been posted. |
+| As a content creator | I would like to create new forum articles with a title, featured image, and content | so that I can share my experiences with my audience. |
+| As a content creator | I would like to update my existing forum articles | so that I can correct or add new information to my previous stories. |
+| As a content creator | I would like to delete my forum articles | so that I can remove outdated or irrelevant content from the forum. |
+| As a content creator | I would like to retrieve a list of all my published forum articles | so that I can manage them from a central dashboard. |
+| As a content creator | I would like to preview a article as draft before publishing it | so that I can ensure formatting and content appear correctly. |
+| As a moderator or admin | I would like to review comments before they are published | so that I can filter out spam or inappropriate content. |
+| As a moderator or admin | I would like to approve or disapprove content from users | so that I can maintain control over the discussion on the forum. |
+| As a content creator | I would like to view a list of all comments (both approved and pending) | so that I can manage user engagement effectively. |
+| As an admin | I would like to edit or delete user content | so that I can clean up or remove inappropriate responses after they've been posted. |
 | As a registered user | I would like to log in to the site | so that I can leave comments on forum articles. |
 | As a registered user | I would like to register for an account | so that I can become part of the community and engage with the forum. |
 | As a registered user | I would like to leave a comment on a forum article | so that I can share my thoughts or ask questions about the owner's experiences. |
@@ -197,14 +169,6 @@ In this section, list all of your possible user stories for the project. Samples
 | As a user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. |
 
 ## Features
-
-⚠️ INSTRUCTIONS ⚠️
-
-In this section, you should go over the different parts of your project, and describe each feature. You should explain what value each of the features provides for the user, focusing on your target audience, what they want to achieve, and how your project can help them achieve these things.
-
-**IMPORTANT**: Remember to always include a screenshot of each individual feature!
-
-⚠️ --- END --- ⚠️
 
 ### Existing Features
 
