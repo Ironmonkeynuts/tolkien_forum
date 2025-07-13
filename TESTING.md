@@ -230,14 +230,18 @@ Please note, there are services out there that can test multiple browser compati
 
 I've tested my deployed project on multiple browsers to check for compatibility issues.
 
-| Page | Chrome | Firefox | Safari | Notes |
+| Page | Chrome | Edge | Safari | Notes |
 | --- | --- | --- | --- | --- |
-| Register | ![screenshot](documentation/browsers/chrome-register.png) | ![screenshot](documentation/browsers/firefox-register.png) | ![screenshot](documentation/browsers/safari-register.png) | Works as expected |
-| Login | ![screenshot](documentation/browsers/chrome-login.png) | ![screenshot](documentation/browsers/firefox-login.png) | ![screenshot](documentation/browsers/safari-login.png) | Works as expected |
-| Home | ![screenshot](documentation/browsers/chrome-home.png) | ![screenshot](documentation/browsers/firefox-home.png) | ![screenshot](documentation/browsers/safari-home.png) | Works as expected |
-| Add Blog | ![screenshot](documentation/browsers/chrome-add-blog.png) | ![screenshot](documentation/browsers/firefox-add-blog.png) | ![screenshot](documentation/browsers/safari-add-blog.png) | Works as expected |
-| Edit Blog | ![screenshot](documentation/browsers/chrome-edit-blog.png) | ![screenshot](documentation/browsers/firefox-edit-blog.png) | ![screenshot](documentation/browsers/safari-edit-blog.png) | Works as expected |
-| Blog Post | ![screenshot](documentation/browsers/chrome-blog-post.png) | ![screenshot](documentation/browsers/firefox-blog-post.png) | ![screenshot](documentation/browsers/safari-blog-post.png) | Works as expected |
+| Register | ![screenshot](documentation/browsers/chrome-register.png) | ![screenshot](documentation/browsers/edge-register.png) | ![screenshot](documentation/browsers/safari-register.png) | Works as expected |
+| Login | ![screenshot](documentation/browsers/chrome-login.png) | ![screenshot](documentation/browsers/edge-login.png) | ![screenshot](documentation/browsers/safari-login.png) | Works as expected |
+| Welcome | ![screenshot](documentation/browsers/chrome-welcome.png) | ![screenshot](documentation/browsers/edge-welcome.png) | ![screenshot](documentation/browsers/safari-home.png) | Works as expected |
+| Forum | ![screenshot](documentation/browsers/chrome-forum.png) | ![screenshot](documentation/browsers/edge-forum.png) | ![screenshot](documentation/browsers/safari-forum.png) | Works as expected |
+| Article | ![screenshot](documentation/browsers/chrome-article.png) | ![screenshot](documentation/browsers/edge-article.png) | ![screenshot](documentation/browsers/safari-article.png) | Works as expected |
+| Add/Edit Article | ![screenshot](documentation/browsers/chrome-edit-article.png) | ![screenshot](documentation/browsers/edge-edit-article.png) | ![screenshot](documentation/browsers/safari-edit-article.png) | Works as expected |
+| Profile | ![screenshot](documentation/browsers/chrome-profile.png) | ![screenshot](documentation/browsers/firefox-profile.png) | ![screenshot](documentation/browsers/safari-profile.png) | Works as expected |
+| Community | ![screenshot](documentation/browsers/chrome-community.png) | ![screenshot](documentation/browsers/firefox-community.png) | ![screenshot](documentation/browsers/safari-community.png) | Works as expected |
+| Contact | ![screenshot](documentation/browsers/chrome-contact.png) | ![screenshot](documentation/browsers/firefox-contact.png) | ![screenshot](documentation/browsers/safari-contact.png) | Works as expected |
+| Dashboard | ![screenshot](documentation/browsers/chrome-dashboard.png) | ![screenshot](documentation/browsers/firefox-dashboard.png) | ![screenshot](documentation/browsers/safari-dashboard.png) | Works as expected |
 | 404 | ![screenshot](documentation/browsers/chrome-404.png) | ![screenshot](documentation/browsers/firefox-404.png) | ![screenshot](documentation/browsers/safari-404.png) | Works as expected |
 
 ## Lighthouse Audit
@@ -258,10 +262,14 @@ I've tested my deployed project using the Lighthouse Audit tool to check for any
 | --- | --- | --- |
 | Register | ![screenshot](documentation/lighthouse/mobile-register.png) | ![screenshot](documentation/lighthouse/desktop-register.png) |
 | Login | ![screenshot](documentation/lighthouse/mobile-login.png) | ![screenshot](documentation/lighthouse/desktop-login.png) |
-| Home | ![screenshot](documentation/lighthouse/mobile-home.png) | ![screenshot](documentation/lighthouse/desktop-home.png) |
-| Add Blog | ![screenshot](documentation/lighthouse/mobile-add-blog.png) | ![screenshot](documentation/lighthouse/desktop-add-blog.png) |
-| Edit Blog | ![screenshot](documentation/lighthouse/mobile-edit-blog.png) | ![screenshot](documentation/lighthouse/desktop-edit-blog.png) |
-| Blog Post | ![screenshot](documentation/lighthouse/mobile-blog-post.png) | ![screenshot](documentation/lighthouse/desktop-blog-post.png) |
+| Welcome | ![screenshot](documentation/lighthouse/mobile-welcome.png) | ![screenshot](documentation/lighthouse/desktop-welcome.png) |
+| Forum | ![screenshot](documentation/lighthouse/chrome-forum.png) | ![screenshot](documentation/lighthouse/edge-forum.png) | ![screenshot](documentation/lighthouse/safari-forum.png) |
+| Article | ![screenshot](documentation/lighthouse/mobile-article.png) | ![screenshot](documentation/lighthouse/desktop-article.png) |
+| Add/Edit Article | ![screenshot](documentation/lighthouse/mobile-edit-article.png) | ![screenshot](documentation/lighthouse/desktop-edit-article.png) |
+| Profile | ![screenshot](documentation/lighthouse/mobile-profile.png) | ![screenshot](documentation/lighthouse/desktop-profile.png) |
+| Community | ![screenshot](documentation/lighthouse/mobile-community.png) | ![screenshot](documentation/lighthouse/desktop-community.png) |
+| Contact | ![screenshot](documentation/lighthouse/mobile-contact.png) | ![screenshot](documentation/lighthouse/desktop-contact.png) |
+| Dashboard | ![screenshot](documentation/lighthouse/mobile-dashboard.png) | ![screenshot](documentation/lighthouse/desktop-dashboard.png) |
 | 404 | ![screenshot](documentation/lighthouse/mobile-404.png) | ![screenshot](documentation/lighthouse/desktop-404.png) |
 
 ## Defensive Programming
@@ -338,26 +346,26 @@ Most of your project's **Features** should already align with the **User Stories
 
 | Target | Expectation | Outcome | Screenshot |
 | --- | --- | --- | --- |
-| As a blog owner | I would like to create new blog posts with a title, featured image, and content | so that I can share my experiences with my audience. | ![screenshot](documentation/features/feature01.png) |
-| As a blog owner | I would like to update existing blog posts | so that I can correct or add new information to my previous stories. | ![screenshot](documentation/features/feature02.png) |
-| As a blog owner | I would like to delete blog posts | so that I can remove outdated or irrelevant content from my blog. | ![screenshot](documentation/features/feature03.png) |
-| As a blog owner | I would like to retrieve a list of all my published blog posts | so that I can manage them from a central dashboard. | ![screenshot](documentation/features/feature04.png) |
-| As a blog owner | I would like to preview a post as draft before publishing it | so that I can ensure formatting and content appear correctly. | ![screenshot](documentation/features/feature05.png) |
-| As a blog owner | I would like to review comments before they are published | so that I can filter out spam or inappropriate content. | ![screenshot](documentation/features/feature06.png) |
-| As a blog owner | I would like to approve or reject comments from users | so that I can maintain control over the discussion on my posts. | ![screenshot](documentation/features/feature07.png) |
-| As a blog owner | I would like to view a list of all comments (both approved and pending) | so that I can manage user engagement effectively. | ![screenshot](documentation/features/feature08.png) |
-| As a blog owner | I would like to edit or delete user comments | so that I can clean up or remove inappropriate responses after they've been posted. | ![screenshot](documentation/features/feature09.png) |
-| As a registered user | I would like to log in to the site | so that I can leave comments on blog posts. | ![screenshot](documentation/features/feature10.png) |
-| As a registered user | I would like to register for an account | so that I can become part of the community and engage with the blog. | ![screenshot](documentation/features/feature11.png) |
-| As a registered user | I would like to leave a comment on a blog post | so that I can share my thoughts or ask questions about the owner's experiences. | ![screenshot](documentation/features/feature12.png) |
-| As a registered user | I would like my comment to show my name and the timestamp | so that others can see who I am and when I left the comment. | ![screenshot](documentation/features/feature13.png) |
-| As a registered user | I would like to receive a notification or message saying my comment is pending approval | so that I understand it hasn't been posted immediately. | ![screenshot](documentation/features/feature14.png) |
-| As a registered user | I would like to edit or delete my own comments | so that I can fix mistakes or retract my statement. | ![screenshot](documentation/features/feature15.png) |
-| As a guest user | I would like to read blog posts without registering | so that I can enjoy the content without needing to log in. | ![screenshot](documentation/features/feature16.png) |
-| As a guest user | I would like to browse past posts | so that I can explore the blog's full content history. | ![screenshot](documentation/features/feature17.png) |
-| As a guest user | I would like to register for an account | so that I can participate in the community by leaving comments on posts. | ![screenshot](documentation/features/feature18.png) |
-| As a guest user | I would like to see the names of other commenters on posts | so that I can get a sense of community interaction before registering. | ![screenshot](documentation/features/feature19.png) |
-| As a user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. | ![screenshot](documentation/features/feature20.png) |
+| As a content creator | I would like to create new forum articles with a title, featured image, and content | so that I can share my experiences with my audience. | ![screenshot](documentation/features/feature01.png) |
+| As a content creator | I would like to update my existing forum articles | so that I can correct or add new information to my previous stories. | ![screenshot](documentation/features/feature02.png) |
+| As a content creator | I would like to delete my forum articles | so that I can remove outdated or irrelevant content from the forum. | ![screenshot](documentation/features/feature03.png) |
+| As a content creator | I would like to retrieve a list of all my published forum articles | so that I can manage them from a central dashboard. | ![screenshot](documentation/features/feature04.png) |
+| As a content creator | I would like to preview a article as draft before publishing it | so that I can ensure formatting and content appear correctly. | ![screenshot](documentation/features/feature05.png) |
+| As a moderator or admin | I would like to review comments before they are published | so that I can filter out spam or inappropriate content. | ![screenshot](documentation/features/feature06.png) |
+| As a moderator or admin | I would like to approve or disapprove content from users | so that I can maintain control over the discussion on the forum. | ![screenshot](documentation/features/feature07.png) |
+| As a content creator | I would like to view a list of all comments (both approved and pending) | so that I can manage user engagement effectively. | ![screenshot](documentation/features/feature08.png) |
+| As an admin | I would like to edit or delete user content | so that I can clean up or remove inappropriate responses after they've been posted. | ![screenshot](documentation/features/feature09.png) |
+| As a registered user | I would like to log in to the site | so that I can leave comments on forum articles. |  ![screenshot](documentation/features/feature10.png) |
+| As a registered user | I would like to register for an account | so that I can become part of the community and engage with the forum. |  ![screenshot](documentation/features/feature11.png) |
+| As a registered user | I would like to leave a comment on a forum article | so that I can share my thoughts or ask questions about the owner's experiences. |  ![screenshot](documentation/features/feature12.png) |
+| As a registered user | I would like my comment to show my name and the timestamp | so that others can see who I am and when I left the comment. |  ![screenshot](documentation/features/feature13.png) |
+| As a registered user | I would like to receive a notification or message saying my comment is pending approval | so that I understand it hasn't been posted immediately. |  ![screenshot](documentation/features/feature14.png) |
+| As a registered user | I would like to edit or delete my own comments | so that I can fix mistakes or retract my statement. |
+| As a guest user | I would like to read forum articles without registering | so that I can enjoy the content without needing to log in. |  ![screenshot](documentation/features/feature15.png) |
+| As a guest user | I would like to browse past articles | so that I can explore the forum's full content history. |  ![screenshot](documentation/features/feature16.png) |
+| As a guest user | I would like to register for an account | so that I can participate in the community by leaving comments on articles. |  ![screenshot](documentation/features/feature17.png) |
+| As a guest user | I would like to see the names of other commenters on articles | so that I can get a sense of community interaction before registering. |  ![screenshot](documentation/features/feature18.png) |
+| As a user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. |  ![screenshot](documentation/features/feature19.png) |
 
 ## Automated Testing
 
