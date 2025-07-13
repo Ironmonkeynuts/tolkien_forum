@@ -25,7 +25,7 @@
 </head>
 <body class="bg-dark text-warning">
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
       <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="{{ welcome_url }}">
           <img src="{% static 'images/forum-logo-notext.png' %}" class="img-fluid" style="max-height: 40px;" alt="Forum Logo">
@@ -58,7 +58,11 @@
                 <a class="nav-link" href="{% url 'profile_list' %}">Community</a>
               </li>
               <!-- Adds dashboard to nav items for moderators and admin -->
-              {% if user.is_authenticated and user.profile.user_type in 'moderator admin' %}
+              {% if user.is_authenticated and user.profile.user_type == 'moderator' %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+              {% elif user.is_authenticated and user.profile.user_type == 'admin' %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
@@ -84,7 +88,7 @@
   </header>
 
 
-  <main class="container my-4">
+  <main class="container my-4" role="main">
     <!-- Flash messages -->
     {% if messages %}
       <div class="mt-3">
