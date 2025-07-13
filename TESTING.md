@@ -40,18 +40,17 @@ I have used the recommended [HTML W3C Validator](https://validator.w3.org) to va
 
 | Directory | File | URL | Screenshot | Notes |
 | --- | --- | --- | --- | --- |
-| forum | [about.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/about.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum-about.png) | Notes (if applicable) |
-| forum | [article_detail.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/article_detail.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum-article_detail.png) | Notes (if applicable) |
-| forum | [article_form.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/article_form.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum-article_form.png) | Notes (if applicable) |
-| forum | [article_list.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/article_list.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum-article_list.png) | Notes (if applicable) |
-| forum | [contact.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/contact.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum-contact.png) | Notes (if applicable) |
-| forum | [dashboard.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/dashboard.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum-dashboard.png) | Notes (if applicable) |
-| forum | [edit_profile.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/edit_profile.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum-edit_profile.png) | Notes (if applicable) |
-| forum | [forum.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/forum.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum-forum.png) | Notes (if applicable) |
-| forum | [profile.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/profile.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum-profile.png) | Notes (if applicable) |
-| forum | [profile_list.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/profile_list.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum-profile_list.png) | Notes (if applicable) |
-| forum | [welcome.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/welcome.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum-welcome.png) | Notes (if applicable) |
-| templates | [404.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/templates/404.html) | Link (if applicable) | ![screenshot](documentation/validation/html-templates-404.png) | Notes (if applicable) |
+| forum | [about.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/about.html) | Link (if applicable) | ![screenshot](documentation/validation/html-about.png) | Notes (if applicable) |
+| forum | [article_detail.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/article_detail.html) | Link (if applicable) | ![screenshot](documentation/validation/html-article_detail.png) | Notes (if applicable) |
+| forum | [article_form.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/article_form.html) | Link (if applicable) | ![screenshot](documentation/validation/html-article_form.png) | Notes (if applicable) |
+| forum | [contact.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/contact.html) | Link (if applicable) | ![screenshot](documentation/validation/html-contact.png) | Notes (if applicable) |
+| forum | [dashboard.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/dashboard.html) | Link (if applicable) | ![screenshot](documentation/validation/html-dashboard.png) | Notes (if applicable) |
+| forum | [edit_profile.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/edit_profile.html) | Link (if applicable) | ![screenshot](documentation/validation/html-edit_profile.png) | Notes (if applicable) |
+| forum | [forum.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/forum.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum.png) | Notes (if applicable) |
+| forum | [profile.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/profile.html) | Link (if applicable) | ![screenshot](documentation/validation/html-profile.png) | Notes (if applicable) |
+| forum | [profile_list.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/profile_list.html) | Link (if applicable) | ![screenshot](documentation/validation/html-profile_list.png) | Notes (if applicable) |
+| forum | [welcome.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/welcome.html) | Link (if applicable) | ![screenshot](documentation/validation/html-welcome.png) | Notes (if applicable) |
+| templates | [404.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/templates/404.html) | Link (if applicable) | ![screenshot](documentation/validation/html-404.png) | Validated by input |
 
 
 ### CSS
@@ -77,7 +76,8 @@ I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-val
 
 | Directory | File | URL | Screenshot | Notes |
 | --- | --- | --- | --- | --- |
-| static | [style.css](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/static/css/style.css) | Link (if applicable) | ![screenshot](documentation/validation/css-static-style.png) | Notes (if applicable) |
+| static | [style.css](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/static/css/style.css) | https://jigsaw.w3.org/css-validator/validator?lang=en&profile=css3svg&uri=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2F&usermedium=all&vextwarning=&warning=1
+ | ![screenshot](documentation/validation/css-static-style.png) | Notes (if applicable) |
 
 
 ### JavaScript
