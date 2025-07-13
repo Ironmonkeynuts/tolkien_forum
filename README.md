@@ -132,16 +132,16 @@ I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wirefram
 
 | Page | Mobile | Tablet | Desktop |
 | --- | --- | --- | --- |
-| Register | ![screenshot](documentation/wireframes/mobile-register.png) | ![screenshot](documentation/wireframes/tablet-register.png) | ![screenshot](documentation/wireframes/desktop-register.png) |
-| Login | ![screenshot](documentation/wireframes/mobile-login.png) | ![screenshot](documentation/wireframes/tablet-login.png) | ![screenshot](documentation/wireframes/desktop-login.png) |
-| Welcome | ![screenshot](documentation/wireframes/mobile-welcome.png) | ![screenshot](documentation/wireframes/tablet-welcome.png) | ![screenshot](documentation/wireframes/desktop-welcome.png) |
-| Forum | ![screenshot](documentation/wireframes/mobile-add-forum.png) | ![screenshot](documentation/wireframes/tablet-add-forum.png) | ![screenshot](documentation/wireframes/desktop-add-forum.png) |
-| Add/Edit Article | ![screenshot](documentation/wireframes/mobile-edit-article.png) | ![screenshot](documentation/wireframes/tablet-edit-article.png) | ![screenshot](documentation/wireframes/desktop-edit-article.png) |
-| Article Detail | ![screenshot](documentation/wireframes/mobile-article-detail.png) | ![screenshot](documentation/wireframes/tablet-article-detail.png) | ![screenshot](documentation/wireframes/desktop-article-detail.png) |
-| Profile | ![screenshot](documentation/wireframes/mobile-profile.png) | ![screenshot](documentation/wireframes/tablet-profile.png) | ![screenshot](documentation/wireframes/desktop-profile.png) |
-| Community List | ![screenshot](documentation/wireframes/mobile-community.png) | ![screenshot](documentation/wireframes/tablet-community.png) | ![screenshot](documentation/wireframes/desktop-community.png) |
-| Contact | ![screenshot](documentation/wireframes/mobile-contact.png) | ![screenshot](documentation/wireframes/tablet-contact.png) | ![screenshot](documentation/wireframes/desktop-contact.png) |
-| 404 | ![screenshot](documentation/wireframes/mobile-404.png) | ![screenshot](documentation/wireframes/tablet-404.png) | ![screenshot](documentation/wireframes/desktop-404.png) |
+| Register | ![screenshot](documentation/wireframes/register-mobile.png) | ![screenshot](documentation/wireframes/register-tablet.png) | ![screenshot](documentation/wireframes/register-desktop.png) |
+| Login | ![screenshot](documentation/wireframes/login-mobile.png) | ![screenshot](documentation/wireframes/login-tablet.png) | ![screenshot](documentation/wireframes/login-desktop.png) |
+| Welcome | ![screenshot](documentation/wireframes/welcome-mobile.png) | ![screenshot](documentation/wireframes/welcome-tablet.png) | ![screenshot](documentation/wireframes/welcome-desktop.png) |
+| Forum | ![screenshot](documentation/wireframes/forum-mobile.png) | ![screenshot](documentation/wireframes/forum-tablet.png) | ![screenshot](documentation/wireframes/forum-desktop.png) |
+| Add/Edit Article | ![screenshot](documentation/wireframes/edit-article-mobile.png) | ![screenshot](documentation/wireframes/edit-article-tablet.png) | ![screenshot](documentation/wireframes/edit-article-desktop.png) |
+| Article Detail | ![screenshot](documentation/wireframes/article-detail-mobile.png) | ![screenshot](documentation/wireframes/article-detail-tablet.png) | ![screenshot](documentation/wireframes/article-detail-desktop.png) |
+| Profile | ![screenshot](documentation/wireframes/profile-mobile.png) | ![screenshot](documentation/wireframes/profile-tablet.png) | ![screenshot](documentation/wireframes/profile-desktop.png) |
+| Community List | ![screenshot](documentation/wireframes/community-mobile.png) | ![screenshot](documentation/wireframes/community-tablet.png) | ![screenshot](documentation/wireframes/community-desktop.png) |
+| Contact | ![screenshot](documentation/wireframes/contact.png) | ![screenshot](documentation/wireframes/contact.png) | ![screenshot](documentation/wireframes/contact.png) |
+| 404 | ![screenshot](documentation/wireframes/404-mobile.png) | ![screenshot](documentation/wireframes/404-tablet.png) | ![screenshot](documentation/wireframes/404-desktop.png) |
 
 ## User Stories
 
