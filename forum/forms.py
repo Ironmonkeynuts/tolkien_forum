@@ -18,17 +18,20 @@ class CommentForm(forms.ModelForm):
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'excerpt', 'primary_image', 'primary_image_fit', 'content', 'status']
+        fields = ['title', 'excerpt', 'primary_image',
+                  'primary_image_fit', 'content', 'status']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'excerpt': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
-            'primary_image': forms.FileInput(attrs={'class': 'form-control-file'}),
+            'excerpt': forms.Textarea(
+                attrs={'class': 'form-control', 'rows': 2}),
+            'primary_image': forms.FileInput(
+                attrs={'class': 'form-control-file'}),
             'primary_image_fit': forms.Select(attrs={'class': 'form-select'}),
             'content': SummernoteWidget(),
             'status': forms.Select(attrs={'class': 'form-select'}),
         }
         help_texts = {
-            'primary_image': 'Upload a primary image for the article (optional).',
+            'primary_image': 'Upload a primary image for the article.',
             'content': 'Write your article content here.',
         }
 
@@ -36,7 +39,8 @@ class ArticleForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['user_type', 'avatar', 'avatar_fit', 'bio']  # User_type to be restricted
+        # User_type to be restricted
+        fields = ['user_type', 'avatar', 'avatar_fit', 'bio']
         widgets = {
             'user_type': forms.Select(attrs={'class': 'form-select'}),
             'avatar': forms.FileInput(attrs={'class': 'form-control-file'}),
@@ -49,7 +53,8 @@ class ProfileForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)  # Expecting the current user to be passed in
+        # Expecting the current user to be passed in
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
 
         if not user or not user.is_staff:
@@ -82,11 +87,13 @@ class ContactForm(forms.ModelForm):
             'message': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 4,
-                'placeholder': 'Describe why you are contacting us. Include your name.'}),
+                'placeholder': (
+                    'Describe why you are contacting us. Include your name.')
+                }),
         }
         help_texts = {
             'email': 'Include your email for our reply',
-            'message': 'Describe why you are contacting us. Include your name.',
+            'message': 'Describe why you are contacting us. Include your name.'
         }
 
 
@@ -98,10 +105,17 @@ class CreatorApplicationForm(forms.ModelForm):
             'reason': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 4,
-                'placeholder': 'Explain why you want to become a Content Creator. Include your name.'}),
+                'placeholder': (
+                    'Explain why you want to become a Content Creator. '
+                    'Include your name.'
+                )
+            }),
         }
         help_texts = {
-            'reason': 'Explain why you want to become a Content Creator. Include your name.',
+            'reason': (
+                'Explain why you want to become a Content Creator. '
+                'Include your name.'
+            )
         }
 
 
@@ -113,8 +127,13 @@ class ModeratorApplicationForm(forms.ModelForm):
             'reason': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 4,
-                'placeholder': 'Explain why you want to become a Moderator. Include your name.'}),
+                'placeholder': (
+                    'Explain why you want to become a Moderator. '
+                    'Include your name.'
+                )
+            }),
         }
         help_texts = {
-            'reason': 'Explain why you want to become a Moderator. Include your name.',
+            'reason': 'Explain why you want to become a Moderator. '
+            'Include your name.',
         }
