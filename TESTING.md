@@ -76,8 +76,7 @@ I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-val
 
 | Directory | File | URL | Screenshot | Notes |
 | --- | --- | --- | --- | --- |
-| static | [style.css](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/static/css/style.css) | https://jigsaw.w3.org/css-validator/validator?lang=en&profile=css3svg&uri=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2F&usermedium=all&vextwarning=&warning=1
- | ![screenshot](documentation/validation/css-static-style.png) | Notes (if applicable) |
+| static | [style.css](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/static/css/style.css) | https://jigsaw.w3.org/css-validator/validator?lang=en&profile=css3svg&uri=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2F&usermedium=all&vextwarning=&warning=1 | ![screenshot](documentation/validation/css-static-style.png) | Notes (if applicable) |
 
 
 ### JavaScript
