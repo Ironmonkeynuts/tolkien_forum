@@ -1,6 +1,9 @@
 from django import forms
 from django_summernote.widgets import SummernoteWidget
-from .models import Comment, Article, Profile, ContactMessage, CreatorApplication, ModeratorApplication
+from .models import (
+    Comment, Article, Profile,
+    ContactMessage, CreatorApplication, ModeratorApplication
+)
 
 
 class CommentForm(forms.ModelForm):
