@@ -25,7 +25,7 @@
 </head>
 <body class="bg-dark text-warning">
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="{{ welcome_url }}">
           <img src="{% static 'images/forum-logo-notext.png' %}" class="img-fluid" style="max-height: 40px;" alt="Forum Logo">
@@ -88,7 +88,7 @@
   </header>
 
 
-  <main class="container my-4" role="main">
+  <main class="container my-4">
     <!-- Flash messages -->
     {% if messages %}
       <div class="mt-3">
