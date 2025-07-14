@@ -83,7 +83,7 @@ I've tested my deployed project on multiple browsers to check for compatibility 
 | --- | --- | --- | --- | --- |
 | Register | ![screenshot](documentation/browsers/chrome-register.png) | ![screenshot](documentation/browsers/edge-register.png) | ![screenshot](documentation/browsers/safari-register.png) | Works as expected |
 | Login | ![screenshot](documentation/browsers/chrome-login.png) | ![screenshot](documentation/browsers/edge-login.png) | ![screenshot](documentation/browsers/safari-login.png) | Works as expected |
-| Welcome | ![screenshot](documentation/browsers/chrome-welcome.png) | ![screenshot](documentation/browsers/edge-welcome.png) | ![screenshot](documentation/browsers/safari-home.png) | Works as expected |
+| Welcome | ![screenshot](documentation/browsers/chrome-welcome.png) | ![screenshot](documentation/browsers/edge-welcome.png) | ![screenshot](documentation/browsers/safari-welcome.png) | Works as expected |
 | Forum | ![screenshot](documentation/browsers/chrome-forum.png) | ![screenshot](documentation/browsers/edge-forum.png) | ![screenshot](documentation/browsers/safari-forum.png) | Works as expected |
 | Article | ![screenshot](documentation/browsers/chrome-article.png) | ![screenshot](documentation/browsers/edge-article.png) | ![screenshot](documentation/browsers/safari-article.png) | Works as expected |
 | Add/Edit Article | ![screenshot](documentation/browsers/chrome-edit-article.png) | ![screenshot](documentation/browsers/edge-edit-article.png) | ![screenshot](documentation/browsers/safari-edit-article.png) | Works as expected |
