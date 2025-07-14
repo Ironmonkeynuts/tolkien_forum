@@ -87,11 +87,11 @@ I've tested my deployed project on multiple browsers to check for compatibility 
 | Forum | ![screenshot](documentation/browsers/chrome-forum.png) | ![screenshot](documentation/browsers/edge-forum.png) | ![screenshot](documentation/browsers/safari-forum.png) | Works as expected |
 | Article | ![screenshot](documentation/browsers/chrome-article.png) | ![screenshot](documentation/browsers/edge-article.png) | ![screenshot](documentation/browsers/safari-article.png) | Works as expected |
 | Add/Edit Article | ![screenshot](documentation/browsers/chrome-edit-article.png) | ![screenshot](documentation/browsers/edge-edit-article.png) | ![screenshot](documentation/browsers/safari-edit-article.png) | Works as expected |
-| Profile | ![screenshot](documentation/browsers/chrome-profile.png) | ![screenshot](documentation/browsers/firefox-profile.png) | ![screenshot](documentation/browsers/safari-profile.png) | Works as expected |
-| Community | ![screenshot](documentation/browsers/chrome-community.png) | ![screenshot](documentation/browsers/firefox-community.png) | ![screenshot](documentation/browsers/safari-community.png) | Works as expected |
-| Contact | ![screenshot](documentation/browsers/chrome-contact.png) | ![screenshot](documentation/browsers/firefox-contact.png) | ![screenshot](documentation/browsers/safari-contact.png) | Works as expected |
-| Dashboard | ![screenshot](documentation/browsers/chrome-dashboard.png) | ![screenshot](documentation/browsers/firefox-dashboard.png) | ![screenshot](documentation/browsers/safari-dashboard.png) | Works as expected |
-| 404 | ![screenshot](documentation/browsers/chrome-404.png) | ![screenshot](documentation/browsers/firefox-404.png) | ![screenshot](documentation/browsers/safari-404.png) | Works as expected |
+| Profile | ![screenshot](documentation/browsers/chrome-profile.png) | ![screenshot](documentation/browsers/edge-profile.png) | ![screenshot](documentation/browsers/safari-profile.png) | Works as expected |
+| Community | ![screenshot](documentation/browsers/chrome-community.png) | ![screenshot](documentation/browsers/edge-community.png) | ![screenshot](documentation/browsers/safari-community.png) | Works as expected |
+| Contact | ![screenshot](documentation/browsers/chrome-contact.png) | ![screenshot](documentation/browsers/edge-contact.png) | ![screenshot](documentation/browsers/safari-contact.png) | Works as expected |
+| Dashboard | ![screenshot](documentation/browsers/chrome-dashboard.png) | ![screenshot](documentation/browsers/edge-dashboard.png) | ![screenshot](documentation/browsers/safari-dashboard.png) | Works as expected |
+| 404 | ![screenshot](documentation/browsers/chrome-404.png) | ![screenshot](documentation/browsers/edge-404.png) | ![screenshot](documentation/browsers/safari-404.png) | Works as expected |
 
 ## Lighthouse Audit
 
