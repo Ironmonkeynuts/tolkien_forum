@@ -10,23 +10,25 @@
       <p class="lead">User Profile</p>
     </div>
 
-
     {% if profile %}
-    <div class="row mb-4">
-      <div class="col col-md-4 mb-3 text-center">
+    <div class="row mb-4 align-items-start gx-4 gy-4">
+      <!-- Avatar column -->
+      <div class="col-12 col-md-5 col-lg-4 text-center">
         {% if "placeholder" in profile.avatar.url %}
           <img src="{% static 'images/avatar-placeholder.jpg' %}"
               alt="Placeholder avatar"
-              class="rounded-circle shadow"
-              style="width: 300px; height: 300px; object-fit: {{ profile.avatar_fit|default:'cover' }};">
+              class="rounded-circle shadow img-fluid"
+              style="max-width: 100%; height: auto; object-fit: {{ profile.avatar_fit|default:'cover' }};">
         {% else %}
           <img src="{{ profile.avatar.url }}"
               alt="{{ profile.user.username }} avatar"
-              class="rounded-circle shadow"
-              style="width: 300px; height: 300px; object-fit: {{ profile.avatar_fit|default:'cover' }};">
+              class="rounded-circle shadow img-fluid"
+              style="max-width: 100%; height: auto; object-fit: {{ profile.avatar_fit|default:'cover' }};">
         {% endif %}
       </div>
-      <div class="col col-md-8">
+
+      <!-- Info column -->
+      <div class="col-12 col-md-7 col-lg-8">
         <p><strong>Username:</strong> {{ profile.user.username }}</p>
         {% if request.user == profile.user or request.user.profile.user_type == 'admin' %}
           <p><strong>Email:</strong> {{ profile.user.email }}</p>
@@ -35,6 +37,7 @@
         <p><strong>Bio:</strong> {{ profile.bio }}</p>
       </div>
     </div>
+
 
     <!-- Controls for owner or admin/mod -->
     <div class="d-flex justify-content-end flex-wrap gap-2 align-items-center mb-3">
