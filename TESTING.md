@@ -59,55 +59,23 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 
 ## Responsiveness
 
-⚠️ INSTRUCTIONS ⚠️
-
-Use this space to discuss testing the live/deployed site on various device sizes.
-
-The minimum requirement is to test the following 3 sizes:
-
-- Mobile
-- Tablet
-- Desktop
-
-**IMPORTANT**: You must provide screenshots of your results, to "prove" that you've actually tested them.
-
-Using the [amiresponsive](http://ami.responsivedesign.is) mockup images (*or similar*) does not meet the requirements. Consider using some of the built-in device sizes from the Developer Tools.
-
-If you have tested the project on your actual mobile phone or tablet, consider also including screenshots of these as well. It showcases a higher level of manual tests, and can be seen as a positive inclusion!
-
-⚠️ --- END --- ⚠️
-
 I've tested my deployed project to check for responsiveness issues.
 
 | Page | Mobile | Tablet | Desktop | Notes |
 | --- | --- | --- | --- | --- |
 | Register | ![screenshot](documentation/responsiveness/mobile-register.png) | ![screenshot](documentation/responsiveness/tablet-register.png) | ![screenshot](documentation/responsiveness/desktop-register.png) | Works as expected |
 | Login | ![screenshot](documentation/responsiveness/mobile-login.png) | ![screenshot](documentation/responsiveness/tablet-login.png) | ![screenshot](documentation/responsiveness/desktop-login.png) | Works as expected |
-| Home | ![screenshot](documentation/responsiveness/mobile-home.png) | ![screenshot](documentation/responsiveness/tablet-home.png) | ![screenshot](documentation/responsiveness/desktop-home.png) | Works as expected |
-| Add Blog | ![screenshot](documentation/responsiveness/mobile-add-blog.png) | ![screenshot](documentation/responsiveness/tablet-add-blog.png) | ![screenshot](documentation/responsiveness/desktop-add-blog.png) | Works as expected |
-| Edit Blog | ![screenshot](documentation/responsiveness/mobile-edit-blog.png) | ![screenshot](documentation/responsiveness/tablet-edit-blog.png) | ![screenshot](documentation/responsiveness/desktop-edit-blog.png) | Works as expected |
-| Blog Post | ![screenshot](documentation/responsiveness/mobile-blog-post.png) | ![screenshot](documentation/responsiveness/tablet-blog-post.png) | ![screenshot](documentation/responsiveness/desktop-blog-post.png) | Works as expected |
+| Welcome | ![screenshot](documentation/responsiveness/mobile-welcome.png) | ![screenshot](documentation/responsiveness/tablet-welcome.png) | ![screenshot](documentation/responsiveness/desktop-welcome.png) | Works as expected |
+| Forum | ![screenshot](documentation/responsiveness/mobile-forum.png) | ![screenshot](documentation/responsiveness/tablet-forum.png) | ![screenshot](documentation/responsiveness/desktop-add-blog.png) | Works as expected |
+| Article | ![screenshot](documentation/responsiveness/mobile-article.png) | ![screenshot](documentation/responsiveness/tablet-article.png) | ![screenshot](documentation/responsiveness/desktop-article.png) | Works as expected |
+| Add/Edit Article | ![screenshot](documentation/responsiveness/mobile-edit-article.png) | ![screenshot](documentation/responsiveness/tablet-edit-article.png) | ![screenshot](documentation/responsiveness/desktop-edit-article.png) | Works as expected |
+| Profile | ![screenshot](documentation/responsiveness/mobile-profile.png) | ![screenshot](documentation/responsiveness/tablet-profile.png) | ![screenshot](documentation/responsiveness/desktop-profile.png) | Works as expected |
+| Community | ![screenshot](documentation/responsiveness/mobile-community.png) | ![screenshot](documentation/responsiveness/tablet-community.png) | ![screenshot](documentation/responsiveness/desktop-community.png) | Works as expected |
+| Contact | ![screenshot](documentation/responsiveness/mobile-contact.png) | ![screenshot](documentation/responsiveness/tablet-contact.png) | ![screenshot](documentation/responsiveness/desktop-contact.png) | Works as expected |
+| Dashboard | ![screenshot](documentation/responsiveness/mobile-dashboard.png) | ![screenshot](documentation/responsiveness/tablet-dashboard.png) | ![screenshot](documentation/responsiveness/desktop-dashboard.png) | Works as expected |
 | 404 | ![screenshot](documentation/responsiveness/mobile-404.png) | ![screenshot](documentation/responsiveness/tablet-404.png) | ![screenshot](documentation/responsiveness/desktop-404.png) | Works as expected |
 
 ## Browser Compatibility
-
-⚠️ INSTRUCTIONS ⚠️
-
-Use this space to discuss testing the live/deployed site on various browsers. Consider testing at least 3 different browsers, if available on your system. You DO NOT need to use all of the browsers below, just pick any 3 (minimum).
-
-Recommended browsers to consider:
-- [Chrome](https://www.google.com/chrome)
-- [Firefox (Developer Edition)](https://www.mozilla.org/firefox/developer)
-- [Edge](https://www.microsoft.com/edge)
-- [Safari](https://support.apple.com/downloads/safari)
-- [Brave](https://brave.com/download)
-- [Opera](https://www.opera.com/download)
-
-**IMPORTANT**: You must provide screenshots of the browsers you've tested, to "prove" that you've actually tested them.
-
-Please note, there are services out there that can test multiple browser compatibilities at the same time. Some of these are paid services, but some are free. If you use these, you must provide a link to the source used for attribution, and multiple screenshots of the results.
-
-⚠️ --- END --- ⚠️
 
 I've tested my deployed project on multiple browsers to check for compatibility issues.
 
@@ -144,7 +112,7 @@ I've tested my deployed project using the Lighthouse Audit tool to check for any
 | Register | ![screenshot](documentation/lighthouse/mobile-register.png) | ![screenshot](documentation/lighthouse/desktop-register.png) |
 | Login | ![screenshot](documentation/lighthouse/mobile-login.png) | ![screenshot](documentation/lighthouse/desktop-login.png) |
 | Welcome | ![screenshot](documentation/lighthouse/mobile-welcome.png) | ![screenshot](documentation/lighthouse/desktop-welcome.png) |
-| Forum | ![screenshot](documentation/lighthouse/chrome-forum.png) | ![screenshot](documentation/lighthouse/edge-forum.png) | ![screenshot](documentation/lighthouse/safari-forum.png) |
+| Forum | ![screenshot](documentation/lighthouse/chrome-forum.png) | ![screenshot](documentation/lighthouse/edge-forum.png) |
 | Article | ![screenshot](documentation/lighthouse/mobile-article.png) | ![screenshot](documentation/lighthouse/desktop-article.png) |
 | Add/Edit Article | ![screenshot](documentation/lighthouse/mobile-edit-article.png) | ![screenshot](documentation/lighthouse/desktop-edit-article.png) |
 | Profile | ![screenshot](documentation/lighthouse/mobile-profile.png) | ![screenshot](documentation/lighthouse/desktop-profile.png) |
