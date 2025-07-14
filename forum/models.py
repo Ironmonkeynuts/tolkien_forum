@@ -18,7 +18,11 @@ class Article(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='articles')
     # Related_name is used to access the articles from the user
-    primary_image = CloudinaryField('image', default='placeholder', blank=True, null=True)
+    primary_image = CloudinaryField(
+        'image',
+        default='placeholder',
+        blank=True, null=True
+        )
     # New field to control how the image fits (cover, contain, etc.)
     IMAGE_FIT_CHOICES = [
         ('cover', 'Cover'),
