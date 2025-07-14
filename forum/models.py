@@ -77,22 +77,31 @@ class Comment(models.Model):
     # Enable more user friendly comment naming
     def __str__(self):
         # Prevent too long a comment
-        return f"Comment '{self.body[:30]}...' by {self.author} on {self.article.title}"
+        return f"Comment '{self.body[:30]}...' by {self.author} on {
+            self.article.title}"
 
 
 # New Model
 class Profile(models.Model):
     USER_TYPES = (
-        ('visitor', 'Visitor'),  # Default user type, not logged in
-        ('member', 'Member'),  # Can comment/reply, and edit/delete own comments
-        ('creator', 'Content Creator'),  # Can add articles, and edit/delete own articles
-        ('moderator', 'Moderator'),  # Can approve/disapprove comments and articles
-        ('admin', 'Admin'),  #  Full control(is_staff/is_superuser). Can manage users, and edit/delete any content
+        # Default user type, not logged in
+        ('visitor', 'Visitor'),
+        # Can comment/reply, and edit/delete own comments
+        ('member', 'Member'),
+        # Can add articles, and edit/delete own articles
+        ('creator', 'Content Creator'),
+        # Can approve/disapprove profiles, comments and articles
+        ('moderator', 'Moderator'),
+        # Can manage users, and edit/delete any content
+        ('admin', 'Admin'),
+
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    user_type = models.CharField(max_length=20, choices=USER_TYPES, default='visitor')
-    avatar = CloudinaryField('image', default='placeholder', blank=True, null=True)
+    user_type = models.CharField(
+        max_length=20, choices=USER_TYPES, default='visitor')
+    avatar = CloudinaryField(
+        'image', default='placeholder', blank=True, null=True)
     # Control fit of avatar
     AVATAR_FIT_CHOICES = [
         ('cover', 'Cover'),
@@ -114,7 +123,7 @@ class Profile(models.Model):
     # Enable more user friendly profile naming
     def __str__(self):
         return f"{self.user.username} Profile | {self.get_user_type_display()}"
-    
+
     # Individual permissions
     def can_view(self):
         return True  # Everyone can view
@@ -145,10 +154,10 @@ class Profile(models.Model):
 
     def can_approve_comments(self):
         return self.user_type in ['moderator', 'admin']
-    
+
     def can_approve_profiles(self):
         return self.user_type in ['moderator', 'admin']
-    
+
     def can_approve_content(self):
         return (
             self.can_approve_articles()
@@ -166,22 +175,29 @@ class Profile(models.Model):
             or self.user.is_superuser
         )
 
+
 # Contact for collaboration and enquiry
 class ContactMessage(models.Model):
     """
     Stores general enquiries and collaboration requests submitted by users.
     Accessible to admins for reading and follow-up.
     """
-    email = models.EmailField()  # User's email for follow-up
-    message = models.TextField()  # The message body
-    created_on = models.DateTimeField(auto_now_add=True)  # Timestamp of submission
-    read = models.BooleanField(default=False)  # Track whether admin has read the message
+    # User's email for follow-up
+    email = models.EmailField()
+    # The message body
+    message = models.TextField()
+    # Timestamp of submission
+    created_on = models.DateTimeField(auto_now_add=True)
+    # Track whether admin has read the message
+    read = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['-created_on']  # Newest messages first
+        # Newest messages first
+        ordering = ['-created_on']
 
     def __str__(self):
-        return f"Message from {self.email} at {self.created_on.strftime('%Y-%m-%d %H:%M')}"
+        return f"Message from {self.email} at {
+            self.created_on.strftime('%Y-%m-%d %H:%M')}"
 
 
 # Apply for Content Creator role
@@ -190,11 +206,17 @@ class CreatorApplication(models.Model):
     Represents a request by a user to become a Content Creator.
     Viewable by moderators and admins.
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='creator_applications')  # Applicant
-    reason = models.TextField()  # Justification for the role
-    created_on = models.DateTimeField(auto_now_add=True)  # Timestamp of application
-    approved = models.BooleanField(default=False)  # Whether the application has been approved
-    reviewed = models.BooleanField(default=False)  # Whether the application has been reviewed
+    # Applicant
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='creator_applications')
+    # Justification for the role
+    reason = models.TextField()
+    # Timestamp of application
+    created_on = models.DateTimeField(auto_now_add=True)
+    # Whether the application has been approved
+    approved = models.BooleanField(default=False)
+    # Whether the application has been reviewed
+    reviewed = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-created_on']
@@ -216,11 +238,17 @@ class ModeratorApplication(models.Model):
     Represents a request by a user to become a Moderator.
     Viewable by admins only.
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='moderator_applications')  # Applicant
-    reason = models.TextField()  # Justification for the role
-    created_on = models.DateTimeField(auto_now_add=True)  # Timestamp of application
-    approved = models.BooleanField(default=False)  # Whether the application has been approved
-    reviewed = models.BooleanField(default=False)  # Whether the application has been reviewed
+    # Applicant
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='moderator_applications')
+    # Justification for the role
+    reason = models.TextField()
+    # Timestamp of application
+    created_on = models.DateTimeField(auto_now_add=True)
+    # Whether the application has been approved
+    approved = models.BooleanField(default=False)
+    # Whether the application has been reviewed
+    reviewed = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-created_on']
