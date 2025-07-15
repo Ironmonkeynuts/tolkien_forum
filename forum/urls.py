@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ArticleList, ProfileList, Dashboard
+from .views import ArticleList, ProfileList, Dashboard, redirect_to_own_profile
 
 urlpatterns = [
     path('', views.welcome, name='welcome'),
@@ -25,19 +25,26 @@ urlpatterns = [
     ),
 
     # Profile management
-    path('profile/', views.profile, name='profile'),
-    path('profile/edit/', views.edit_profile, name='edit_own_profile'),
+    path(
+        'profile/edit/',
+        views.edit_profile,
+        name='edit_own_profile'
+        ),
     path(
         'profile/<str:username>/edit/',
         views.edit_profile,
-        name='edit_profile',
-    ),
+        name='edit_profile'
+        ),
+    path(
+        'profile/',
+        views.redirect_to_own_profile,
+        name='redirect_to_own_profile'
+        ),
     path(
         'profile/<str:username>/',
-        views.ProfileDetail.as_view(),
-        name='profile',
-    ),
+        views.ProfileDetail.as_view(), name='profile'),
     path('profiles/', ProfileList.as_view(), name='profile_list'),
+
 
     # Comments
     path(

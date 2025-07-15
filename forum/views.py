@@ -203,8 +203,10 @@ def welcome(request):
     return render(request, 'forum/welcome.html')
 
 
-def profile(request):
-    return render(request, 'forum/profile.html')
+def redirect_to_own_profile(request):
+    if not request.user.is_authenticated:
+        return redirect('forum')  # Redirect to /forum/ if not logged in
+    return redirect('profile', username=request.user.username)
 
 
 def about(request):
@@ -385,8 +387,12 @@ def edit_profile(request, username=None):
     Admins can also update a user's user_type.
     """
     user = request.user
+
+    # If no username is provided, assume own profile
+    if username is None:
+        username = user.username
     # If username is not authenticated user, redirect to self with username
-    if username != user.username:
+    if username != user.username and not (user.profile.user_type == 'admin' or user.is_staff):
         return redirect('edit_profile', username=user.username)
 
     # Determine if editing own profile or another's (admin only)

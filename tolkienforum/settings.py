@@ -157,6 +157,7 @@ LOGIN_REDIRECT_URL = 'forum'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'welcome'
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+LOGIN_URL = '/accounts/login/'
 
 # Allauth settings
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
