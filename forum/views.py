@@ -619,7 +619,7 @@ class ProfileDetail(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Chack if user is owner or admin
+        # Check if user is owner or admin
         profile = self.object
         user = self.request.user
 
