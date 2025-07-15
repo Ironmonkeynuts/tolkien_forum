@@ -13,6 +13,7 @@ from django.db.models.functions import Lower
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import (
     Article, Comment, Profile, ContactMessage,
     CreatorApplication, ModeratorApplication
@@ -384,11 +385,14 @@ def edit_profile(request, username=None):
     Admins can also update a user's user_type.
     """
     user = request.user
+    # If username is not authenticated user, redirect to self with username
+    if username != user.username:
+        return redirect('edit_profile', username=user.username)
 
     # Determine if editing own profile or another's (admin only)
     if username and (user.profile.user_type == 'admin' or user.is_staff):
         target_user = get_object_or_404(User, username=username)
-    else:
+    else: 
         target_user = user
 
     editing_other = user.id != target_user.id
@@ -547,7 +551,7 @@ def delete_comment(request, pk):
         request, 'forum/delete_comment_confirm.html', {'comment': comment})
 
 
-class ProfileList(generic.ListView):
+class ProfileList(LoginRequiredMixin, generic.ListView):
     """
     A view that lists approved profiles, with search and sort functionality.
     """
@@ -600,7 +604,7 @@ class ProfileList(generic.ListView):
         return context
 
 
-class ProfileDetail(generic.DetailView):
+class ProfileDetail(LoginRequiredMixin, generic.DetailView):
     """
     View to display details of a user profile.
     """
@@ -614,7 +618,22 @@ class ProfileDetail(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['articles'] = Article.objects.filter(author=self.object.user)
+
+        # Chack if user is owner or admin
+        profile = self.object
+        user = self.request.user
+
+        is_owner = user == profile.user
+        is_admin = hasattr(user, "profile") and user.profile.is_admin()
+
+        if is_owner or is_admin:
+            # Show all articles for owner or admin
+            articles = Article.objects.filter(author=profile.user)
+        else:
+            # Non-admins see only approved articles
+            articles = Article.objects.filter(
+                author=profile.user, status=1)
+        context['articles'] = articles
         return context
 
 
