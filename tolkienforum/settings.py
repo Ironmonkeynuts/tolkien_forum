@@ -151,7 +151,13 @@ MEDIA_URL = '/media/'
 
 cloudinary.config(
     cloudinary_url=os.environ.get('CLOUDINARY_URL')
-)
+    )
+if not cloudinary.config().cloud_name:
+    cloudinary.config(
+        cloud_name='demo',
+        api_key='123456',
+        api_secret='abcde',
+    )
 
 
 # Default primary key field type

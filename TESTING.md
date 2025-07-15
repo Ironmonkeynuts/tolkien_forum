@@ -228,7 +228,7 @@ To create the coverage report, I would then run the following commands:
 
 - `pip3 install coverage`
 - `pip3 freeze --local > requirements.txt`
-- `coverage run --omit=*/site-packages/*,*/migrations/*,*/__init__.py,env.py,.env manage.py test`
+- `coverage run --omit="*/site-packages/*,*/migrations/*,*/__init__.py,env.py,.env" manage.py test`
 - `coverage report`
 
 To see the HTML version of the reports, and find out whether some pieces of code were missing, I ran the following commands:
@@ -247,6 +247,10 @@ Below are the results from the full coverage report on my application that I've 
 Use this section to list any known issues you ran into while writing your Python unit tests. Remember to include screenshots (where possible), and a solution to the issue (if known). This can be used for both "fixed" and "unresolved" issues. Remove this sub-section entirely if you somehow didn't run into any issues while working with your tests.
 
 ⚠️ --- END --- ⚠️
+
+I have 1 failing test and 3 succesful tests. The failing test activity is succesful when tested manually.
+
+![screenshot](documentation/automation/unit-tests-results.png)
 
 ## Bugs
 
