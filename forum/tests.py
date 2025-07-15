@@ -109,6 +109,9 @@ class ViewsTestCase(TestCase):
         # Now confirm the logic correctly denies access
         self.assertEqual(response.status_code, 302)
         self.assertIn(
-            reverse('edit_profile', kwargs={'username': self.creator.username}),
+            reverse(
+                'edit_profile',
+                kwargs={'username': self.creator.username}
+                ),
             response.url
         )
