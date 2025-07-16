@@ -90,28 +90,14 @@ class ViewsTestCase(TestCase):
 
     def test_regular_user_cannot_edit_other_profile(self):
         """
-        Regular (non-admin, non-staff) users should receive 403 
-        when trying to access another user's profile edit page.
+        Regular users are redirected back to the original user's profile with an error message.
         """
         self.client.login(username='creator', password='creatorpass')
 
-        # Double-check user_type to avoid stale profile cache
-        self.creator.refresh_from_db()
-        self.other_user.refresh_from_db()
-        self.assertEqual(self.creator.profile.user_type, 'content_creator')
-        self.assertNotEqual(self.creator.id, self.other_user.id)
+        url = reverse('edit_profile', kwargs={'username': 'otheruser'})
+        response = self.client.get(url, follow=True)
 
-        # Simulate attempt to edit another user's profile
-        url = reverse(
-            'edit_profile', kwargs={'username': self.other_user.username})
-        response = self.client.get(url)
+        expected_url = reverse('profile', kwargs={'username': 'otheruser'})
+        self.assertRedirects(response, expected_url)
 
-        # Now confirm the logic correctly denies access
-        self.assertEqual(response.status_code, 302)
-        self.assertIn(
-            reverse(
-                'edit_profile',
-                kwargs={'username': self.creator.username}
-                ),
-            response.url
-        )
+        self.assertContains(response, "You do not have permission to edit this profile.")
