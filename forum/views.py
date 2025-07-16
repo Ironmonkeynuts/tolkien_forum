@@ -1,9 +1,10 @@
 from django.apps import apps
-from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.views import generic
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
@@ -12,7 +13,6 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import (
     Article, Comment, Profile, ContactMessage,
@@ -383,37 +383,31 @@ class ArticleDelete(generic.DeleteView):
 def edit_profile(request, username=None):
     """
     Handles editing of user profiles.
-    Allows email updates only if Admin or User confirms their .
-    Admins can also update a user's user_type.
+    Admins can edit any profile. Users can edit their own.
+    Email updates require password confirmation.
     """
     user = request.user
 
-    # If no username is provided, assume own profile
-    if username is None:
-        username = user.username
-    # If username is not authenticated user, redirect to self with username
-    if username != user.username and not (user.profile.user_type == 'admin' or user.is_staff):
-        return redirect('edit_profile', username=user.username)
-
-    # Determine if editing own profile or another's (admin only)
-    if username and (user.profile.user_type == 'admin' or user.is_staff):
+    # Get target user: from URL or default to current user
+    if username:
         target_user = get_object_or_404(User, username=username)
-    else: 
+    else:
         target_user = user
 
     editing_other = user.id != target_user.id
+
+    # Show alert instead of raising 403
+    if editing_other and not (user.profile.user_type == 'admin' or user.is_staff):
+        messages.error(request, "You do not have permission to edit this profile.")
+        return redirect('profile', username=target_user.username)
+
     profile = target_user.profile
 
-    # Only allow editing others if admin or staff
-    if editing_other and not (user.profile.user_type == 'admin'
-                              or user.is_staff):
-        return HttpResponseForbidden(
-            "You do not have permission to edit this profile.")
-
-    # Only allow user_type form if current user is admin
+    # Only allow user_type changes if admin
     user_type_form = (
         UserTypeForm(request.POST or None, instance=profile)
-        if user.profile.user_type == 'admin' else None)
+        if user.profile.user_type == 'admin' else None
+    )
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
@@ -421,94 +415,96 @@ def edit_profile(request, username=None):
         password = request.POST.get('password', '')
 
         if form.is_valid():
-            # First check if email is being changed
+            # Handle email update securely
             if email and email != target_user.email:
-                if user == target_user:
-                    # User must confirm with own password
-                    auth_user = authenticate(
-                        username=user.username, password=password)
-                else:
-                    # Admin confirms with admin's password
-                    auth_user = authenticate(
-                        username=user.username, password=password)
-
+                auth_user = authenticate(
+                    username=user.username,
+                    password=password
+                )
                 if auth_user:
                     target_user.email = email
                 else:
-                    messages.error(
-                        request, "Incorrect password. Email not updated.")
-                    return redirect(
-                        'edit_profile',
-                        username=(target_user.username
-                                  if editing_other else None)
-                        )
+                    messages.error(request, "Incorrect password. Email not updated.")
+                    return redirect('edit_profile', username=target_user.username)
 
-            # Now save the profile and user_type
+            # Save profile and user
             form.save()
-
-            # Admin only
             if user_type_form and user_type_form.is_valid():
                 user_type_form.save()
-
             target_user.save()
 
             messages.success(request, "Profile updated.")
             return redirect('profile', username=target_user.username)
-
         else:
             messages.error(request, "Please correct the errors below.")
     else:
         form = ProfileForm(instance=profile)
 
-    # Non-admins see user_type as readonly display value
-    email_initial = (target_user.email if user == target_user
-                     or user.profile.user_type == 'admin' else '')
     readonly_user_type = profile.get_user_type_display()
+    email_initial = (
+        target_user.email if not editing_other or user.profile.user_type == 'admin'
+        else ''
+    )
 
     return render(request, 'forum/edit_profile.html', {
         'form': form,
         'user_type_form': user_type_form,
         'profile': profile,
-        'editing_other': user != target_user,
+        'editing_other': editing_other,
         'target_user': target_user,
         'email_initial': email_initial,
         'readonly_user_type': readonly_user_type,
-
     })
-
 
 @require_POST
 def toggle_approval(request):
     """
-    Handles toggling of content approval.
+    Handles toggling of approval for articles, comments, profiles,
+    creator applications, and moderator applications.
     """
     form = ApprovalToggleForm(request.POST)
     if form.is_valid():
         model_name = form.cleaned_data['object_type']
         object_id = form.cleaned_data['object_id']
 
-        # Security: Ensure only known models are allowed
-        if model_name not in ['Article', 'Comment', 'Profile']:
+        # Security: Only allow known model types
+        allowed_models = [
+            'Article', 'Comment', 'Profile',
+            'CreatorApplication', 'ModeratorApplication'
+        ]
+
+        if model_name not in allowed_models:
             return HttpResponseForbidden("Invalid object type.")
 
         model = apps.get_model('forum', model_name)
         obj = model.objects.get(pk=object_id)
 
-        # Permissions
-        if isinstance(obj, Article) and not (request.user.profile.
-                                             can_approve_articles()):
-            return HttpResponseForbidden("You can't approve articles.")
-        elif isinstance(obj, Comment) and not (request.user.profile.
-                                               can_approve_comments()):
-            return HttpResponseForbidden("You can't approve comments.")
-        elif isinstance(obj, Profile) and not (request.user.profile.
-                                               can_approve_profiles()):
-            return HttpResponseForbidden("You can't approve profiles.")
+        # Permission checks per model
+        if isinstance(obj, Article):
+            if not request.user.profile.can_approve_articles():
+                return HttpResponseForbidden("You can't approve articles.")
+        elif isinstance(obj, Comment):
+            if not request.user.profile.can_approve_comments():
+                return HttpResponseForbidden("You can't approve comments.")
+        elif isinstance(obj, Profile):
+            if not request.user.profile.can_approve_profiles():
+                return HttpResponseForbidden("You can't approve profiles.")
+        elif isinstance(obj, CreatorApplication):
+            if request.user.profile.user_type not in ['moderator', 'admin']:
+                return HttpResponseForbidden("You can't approve creator applications.")
+        elif isinstance(obj, ModeratorApplication):
+            if request.user.profile.user_type != 'admin':
+                return HttpResponseForbidden("You can't approve moderator applications.")
 
-        # Toggle approval
+        # Toggle approval and mark as reviewed
         obj.approved = not obj.approved
-        obj.reviewed = True  # Mark as reviewed on moderation
+        obj.reviewed = True
         obj.save()
+
+        messages.success(
+            request,
+            f"{model_name} approval status updated."
+        )
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
@@ -649,9 +645,7 @@ def is_moderator_or_admin(user):
         'moderator', 'admin']
 
 
-# Decorator to enforce login and user type restrictions
-@method_decorator(
-    [login_required, user_passes_test(is_moderator_or_admin)], name='dispatch')
+@method_decorator(login_required, name='dispatch')
 class Dashboard(generic.TemplateView):
     """
     Dashboard view for moderators and admins.
@@ -666,6 +660,13 @@ class Dashboard(generic.TemplateView):
     """
     template_name = 'forum/dashboard.html'
     paginate_by = 6  # Items per page
+
+    def dispatch(self, request, *args, **kwargs):
+        # Only allow moderators and admins
+        if request.user.profile.user_type not in ['moderator', 'admin']:
+            messages.error(request, "You do not have permission to access the dashboard.")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('forum')))
+        return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         """
