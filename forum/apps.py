@@ -7,4 +7,3 @@ class ForumConfig(AppConfig):
 
     def ready(self):
         import forum.signals
-
