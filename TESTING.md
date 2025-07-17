@@ -184,26 +184,24 @@ Most of your project's **Features** should already align with the **User Stories
 
 | Target | Expectation | Outcome | Screenshot |
 | --- | --- | --- | --- |
-| As a content creator | I would like to create new forum articles with a title, featured image, and content | so that I can share my experiences with my audience. | ![screenshot](documentation/features/feature01.png) |
-| As a content creator | I would like to update my existing forum articles | so that I can correct or add new information to my previous stories. | ![screenshot](documentation/features/feature02.png) |
-| As a content creator | I would like to delete my forum articles | so that I can remove outdated or irrelevant content from the forum. | ![screenshot](documentation/features/feature03.png) |
-| As a content creator | I would like to retrieve a list of all my published forum articles | so that I can manage them from a central dashboard. | ![screenshot](documentation/features/feature04.png) |
+| As a content creator | I would like to create new forum articles with a title, featured image, and content | so that I can share my experiences with my audience. | ![screenshot](documentation/features/create-article.png) |
+| As a content creator | I would like to update my existing forum articles | so that I can correct or add new information to my previous stories. | ![screenshot](documentation/features/edit-article.png) |
+| As a content creator | I would like to delete my forum articles | so that I can remove outdated or irrelevant content from the forum. | ![screenshot](documentation/features/delete-article.png) |
+| As a content creator | I would like to retrieve a list of all my published forum articles | so that I can manage them from a central dashboard. | ![screenshot](documentation/features/profile.png) |
 | As a content creator | I would like to preview a article as draft before publishing it | so that I can ensure formatting and content appear correctly. | ![screenshot](documentation/features/feature05.png) |
-| As a moderator or admin | I would like to review comments when they are posted | so that I can filter out spam or inappropriate content. | ![screenshot](documentation/features/feature06.png) |
-| As a moderator or admin | I would like to approve or disapprove content from users | so that I can maintain control over the discussion on the forum. | ![screenshot](documentation/features/feature07.png) |
-| As a content creator | I would like to view a list of all comments (both approved and pending) | so that I can manage user engagement effectively. | ![screenshot](documentation/features/feature08.png) |
-| As an admin | I would like to edit or delete user content | so that I can clean up or remove inappropriate responses after they've been posted. | ![screenshot](documentation/features/feature09.png) |
-| As a registered user | I would like to log in to the site | so that I can leave comments on forum articles. |  ![screenshot](documentation/features/feature10.png) |
-| As a registered user | I would like to register for an account | so that I can become part of the community and engage with the forum. |  ![screenshot](documentation/features/feature11.png) |
-| As a registered user | I would like to leave a comment on a forum article | so that I can share my thoughts or ask questions about the owner's experiences. |  ![screenshot](documentation/features/feature12.png) |
-| As a registered user | I would like my comment to show my name and the timestamp | so that others can see who I am and when I left the comment. |  ![screenshot](documentation/features/feature13.png) |
-| As a registered user | I would like to receive a notification or message saying my comment is pending approval | so that I understand it hasn't been posted immediately. |  ![screenshot](documentation/features/feature14.png) |
-| As a registered user | I would like to edit or delete my own comments | so that I can fix mistakes or retract my statement. |
-| As a site user | I would like to read forum articles without registering | so that I can enjoy the content without needing to log in. |  ![screenshot](documentation/features/feature15.png) |
-| As a site user | I would like to browse past articles | so that I can explore the forum's full content history. |  ![screenshot](documentation/features/feature16.png) |
-| As a site user | I would like to register for an account | so that I can participate in the community by leaving comments on articles. |  ![screenshot](documentation/features/feature17.png) |
-| As a site user | I would like to see the names of other commenters on articles | so that I can get a sense of community interaction before registering. |  ![screenshot](documentation/features/feature18.png) |
-| As a site user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. |  ![screenshot](documentation/features/feature19.png) |
+| As a moderator or admin | I would like to review comments when they are posted | so that I can filter out spam or inappropriate content. | ![screenshot](documentation/features/comment-approval.png) |
+| As a moderator or admin | I would like to approve or disapprove content from users | so that I can maintain control over the discussion on the forum. | ![screenshot](documentation/features/) |
+| As an admin | I would like to edit or delete user content | so that I can clean up or remove inappropriate responses after they've been posted. | ![screenshot](documentation/features/) |
+| As a registered user | I would like to log in to the site | so that I can leave comments on forum articles. |  ![screenshot](documentation/features/login.png) |
+| As a registered user | I would like to leave a comment on a forum article | so that I can share my thoughts or ask questions about the owner's experiences. |  ![screenshot](documentation/features/add-comment.png) |
+| As a registered user | I would like my comment to show my name and the timestamp | so that others can see who I am and when I left the comment. |  ![screenshot](documentation/features/) |
+| As a registered user | I would like to edit or delete my own comments | so that I can fix mistakes or retract my statement. |![screenshot](documentation/features/edit-comment.png) |
+| As a site user | I would like to read forum articles without registering | so that I can enjoy the content without needing to log in. | ![screenshot](documentation/features/view-article.png) |
+| Moderator Application | Authenticated users can submit an application with reasons, which are later reviewed by the admin. | ![screenshot](documentation/features/creator-application.png) |
+| As a site user | I would like to browse past articles | so that I can explore the forum's full content history. |  ![screenshot](documentation/features/forum.png) |
+| As a site user | I would like to register for an account | so that I can participate in the community by leaving comments on articles. |  ![screenshot](documentation/features/register.png) |
+| As a site user | I would like to see the names of other commenters on articles | so that I can get a sense of community interaction before registering. |  ![screenshot](documentation/features/) |
+| As a site user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. |  ![screenshot](documentation/features/404.png) |
 
 ## Automated Testing
 
