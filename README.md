@@ -145,7 +145,6 @@ I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wirefram
 
 | Target | Expectation | Outcome |
 | --- | --- | --- |
-From TESTING
 | As a content creator | I would like to create new forum articles with a title, featured image, and content | so that I can share my experiences with my audience. |
 | As a content creator | I would like to update my existing forum articles | so that I can correct or add new information to my previous stories. |
 | As a content creator | I would like to delete my forum articles | so that I can remove outdated or irrelevant content from the forum. |
@@ -162,7 +161,7 @@ From TESTING
 | As a registered user | I would like to receive a notification or message saying my comment is pending approval | so that I understand it hasn't been posted immediately. |
 | As a registered user | I would like to edit or delete my own comments | so that I can fix mistakes or retract my statement. |
 | As a site user | I would like to read forum articles without registering | so that I can enjoy the content without needing to log in. |
-| As a site user | I would like to browse past articles | so that I can explore the forum's full content history. |  ![screenshot](documentation/features/feature16.png) |
+| As a site user | I would like to browse past articles | so that I can explore the forum's full content history. |  
 | As a site user | I would like to register for an account | so that I can participate in the community by leaving comments on articles. |
 | As a site user | I would like to see the names of other commenters on articles | so that I can get a sense of community interaction before registering. |
 | As a site user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. |
@@ -190,21 +189,23 @@ Future:
 | Register | Authentication is handled by allauth, allowing users to register accounts. | ![screenshot](documentation/features/register.png) |
 | Login | Authentication is handled by allauth, allowing users to log in to their existing accounts. | ![screenshot](documentation/features/login.png) |
 | Logout | Authentication is handled by allauth, allowing users to log out of their accounts. | ![screenshot](documentation/features/logout.png) |
-| forum List | The forum page displays basic information about forum articles, including image, title, author, date, and a brief excerpt. | ![screenshot](documentation/features/forum-list.png) |
+| Forum | The forum page displays basic information about forum articles, including image, title, author, date, and a brief excerpt. | ![screenshot](documentation/features/forum.png) |
 | View article | Users can view the full forum article details, including any comments. | ![screenshot](documentation/features/view-article.png) |
 | Pagination | forum articles are displayed in pages, with six articles per page. This provides better navigation for users through the article list. | ![screenshot](documentation/features/pagination.png) |
 | Add Comments | Authenticated visitors can comment on forum articles; comments require approval before being published. | ![screenshot](documentation/features/add-comment.png) |
 | Edit Comments | Authenticated visitors can edit their own comments. | ![screenshot](documentation/features/edit-comment.png) |
 | Delete Comments | Authenticated visitors can delete their own comments. | ![screenshot](documentation/features/delete-comment.png) |
 | Content Approvals | Admins can approve or disapprove articles, comments and profiles submitted by users. By default they are visible on the website. | ![screenshot](documentation/features/comment-approval.png) |
-| Create article | Content Creators owners can create/publish forum articles, including setting a featured image using Cloudinary, all from the Django admin dashboard. | ![screenshot](documentation/features/create-article.png) |
-| Update article | Content Creators can update/manage forum articles from the Django admin dashboard. | ![screenshot](documentation/features/update-article.png) |
-| Delete article | Content Creators can delete forum articles from the Django admin dashboard. | ![screenshot](documentation/features/delete-article.png) |
+| Create article | Content Creators can create/publish forum articles, including setting a featured image using Cloudinary. | ![screenshot](documentation/features/create-article.png) |
+| Update article | Content Creators can update/manage their forum articles. | ![screenshot](documentation/features/update-article.png) |
+| Delete article | Content Creators can delete forum articles. | ![screenshot](documentation/features/delete-article.png) |
+| Manage Forum | Site Admin can manage users, articles, and profiles from the Django admin dashboard. [screenshot](documentation/features/manage-forum.png) |
 | About Page | The About page displays the scope, aims and mission statement of the forum website | ![screenshot](documentation/features/about.png) |
-| Contact Page | The Contact page displays the scope, aims and mission statement of the forum website | ![screenshot](documentation/features/contact.png) |
+| Contact Page | A page for users to communicate with the admin of the site. | ![screenshot](documentation/features/contact.png) |
 | Contact Messages | Visitors can submit messages along with their email, which are later reviewed by the admin. | ![screenshot](documentation/features/contact-messages.png) |
 | Creator Application | Authenticated users can submit an application with reasons, which are later reviewed by the admin or moderators. | ![screenshot](documentation/features/creator-application.png) |
 | Moderator Application | Authenticated users can submit an application with reasons, which are later reviewed by the admin. | ![screenshot](documentation/features/creator-application.png) |
+| Moderator Dashboard | Authenticated authorised users can review messages and applications. They can also  approve/disapprove application for roles. | ![screenshot](documentation/features/moderator-dashboard.png) |
 | View Profile | The Profile page displays the username, user type, avatar and bio of a users profile. Email is visible only to the profile owner and admin | ![screenshot](documentation/features/profile.png) |
 | Community Page | The Community page lists the profiles of all registered users showing username, avatar and bio snippet of a users profile. | ![screenshot](documentation/features/community.png) |
 | User Feedback | Clear and obvious Django messages are used to provide feedback to user actions. | ![screenshot](documentation/features/messages.png) |
@@ -580,15 +581,7 @@ There are no remaining major differences between the local version when compared
 | Source | Notes |
 | --- | --- |
 | [favicon.io](https://favicon.io) | Generating the favicon |
-| [I Think Therefore I forum](https://codeinstitute.net) | Sample images provided from the walkthrough projects |
-| [Font Awesome](https://fontawesome.com) | Icons used throughout the site |
-| [Pexels](https://images.pexels.com/photos/416160/pexels-photo-416160.jpeg) | Hero image |
-| [Wallhere](https://c.wallhere.com/images/9c/c8/da4b4009f070c8e1dfee43d25f99-2318808.jpg!d) | Background wallpaper |
-| [Pixabay](https://cdn.pixabay.com/photo/2017/09/04/16/58/passport-2714675_1280.jpg) | Background wallpaper |
 | [DALL-E 3](https://openai.com/index/dall-e-3) | AI generated artwork |
-| [TinyPNG](https://tinypng.com) | Compressing images < 5MB |
-| [CompressPNG](https://compresspng.com) | Compressing images > 5MB |
-| [CloudConvert](https://cloudconvert.com/webp-converter) | Converting images to `.webp` |
 
 ### Acknowledgements
 
