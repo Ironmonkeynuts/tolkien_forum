@@ -138,7 +138,7 @@ I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wirefram
 | Article Detail | ![screenshot](documentation/wireframes/article-detail-mobile.png) | ![screenshot](documentation/wireframes/article-detail-tablet.png) | ![screenshot](documentation/wireframes/article-detail-desktop.png) |
 | Profile | ![screenshot](documentation/wireframes/profile-mobile.png) | ![screenshot](documentation/wireframes/profile-tablet.png) | ![screenshot](documentation/wireframes/profile-desktop.png) |
 | Community | ![screenshot](documentation/wireframes/community-mobile.png) | ![screenshot](documentation/wireframes/community-tablet.png) | ![screenshot](documentation/wireframes/community-desktop.png) |
-| Contact | ![screenshot](documentation/wireframes/contact.png) | ![screenshot](documentation/wireframes/contact.png) | ![screenshot](documentation/wireframes/contact.png) |
+| Contact | ![screenshot](documentation/wireframes/-mobile.png) | ![screenshot](documentation/wireframes/contact-tablet.png) | ![screenshot](documentation/wireframes/contact-desktop.png) |
 | 404 | ![screenshot](documentation/wireframes/404-mobile.png) | ![screenshot](documentation/wireframes/404-tablet.png) | ![screenshot](documentation/wireframes/404-desktop.png) |
 
 ## User Stories
