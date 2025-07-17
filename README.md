@@ -145,12 +145,13 @@ I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wirefram
 
 | Target | Expectation | Outcome |
 | --- | --- | --- |
+From TESTING
 | As a content creator | I would like to create new forum articles with a title, featured image, and content | so that I can share my experiences with my audience. |
 | As a content creator | I would like to update my existing forum articles | so that I can correct or add new information to my previous stories. |
 | As a content creator | I would like to delete my forum articles | so that I can remove outdated or irrelevant content from the forum. |
 | As a content creator | I would like to retrieve a list of all my published forum articles | so that I can manage them from a central dashboard. |
 | As a content creator | I would like to preview a article as draft before publishing it | so that I can ensure formatting and content appear correctly. |
-| As a moderator or admin | I would like to review comments before they are published | so that I can filter out spam or inappropriate content. |
+| As a moderator or admin | I would like to review comments when they are posted | so that I can filter out spam or inappropriate content. |
 | As a moderator or admin | I would like to approve or disapprove content from users | so that I can maintain control over the discussion on the forum. |
 | As a content creator | I would like to view a list of all comments (both approved and pending) | so that I can manage user engagement effectively. |
 | As an admin | I would like to edit or delete user content | so that I can clean up or remove inappropriate responses after they've been posted. |
@@ -160,11 +161,25 @@ I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wirefram
 | As a registered user | I would like my comment to show my name and the timestamp | so that others can see who I am and when I left the comment. |
 | As a registered user | I would like to receive a notification or message saying my comment is pending approval | so that I understand it hasn't been posted immediately. |
 | As a registered user | I would like to edit or delete my own comments | so that I can fix mistakes or retract my statement. |
-| As a guest user | I would like to read forum articles without registering | so that I can enjoy the content without needing to log in. |
-| As a guest user | I would like to browse past articles | so that I can explore the forum's full content history. |
-| As a guest user | I would like to register for an account | so that I can participate in the community by leaving comments on articles. |
-| As a guest user | I would like to see the names of other commenters on articles | so that I can get a sense of community interaction before registering. |
-| As a user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. |
+| As a site user | I would like to read forum articles without registering | so that I can enjoy the content without needing to log in. |
+| As a site user | I would like to browse past articles | so that I can explore the forum's full content history. |  ![screenshot](documentation/features/feature16.png) |
+| As a site user | I would like to register for an account | so that I can participate in the community by leaving comments on articles. |
+| As a site user | I would like to see the names of other commenters on articles | so that I can get a sense of community interaction before registering. |
+| As a site user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. |
+
+Future:
+| As a moderator or admin | I can block a member | so that the member may not make comments. |
+| As an admin | I can suspend a member | so that they may not access the forum temporarily. |
+| As an admin | I can reinstate a member | so that they may access the forum again. | 
+| As a moderator or admin | I can unblock a member| so that the member may make comments again. |
+| As a content creator | I would like to view a list of all comments (both approved and pending) | so that I can manage user engagement effectively. |
+| As a content creator | I can upload prepared text file to my article | so that it is easier to add large amounts of text. |
+| As an admin | I can delete and ban a member | so that they may not access the forum permanantly. |
+| As a site owner | I can give or remove site admin permissions to a member | so that they can manage the site. |
+| As an admin | I can verify email of users on registration | so that I can ensure users can recieve password reset emails. |
+| As a moderator | I can block a member for a fixed period | so that |
+| As a registered user | I can report an article or comment as breaking the site rules | so that suspected undesirable content is reviewed for removal. |
+
 
 ## Features
 
@@ -585,39 +600,39 @@ There are no remaining major differences between the local version when compared
 
 
 
-User Stories
+Old User Stories
 
-As a Site User, I can register to become an member of the site so that I can comment on articles and take part in discussion.
-Future feature: verify email on registeration.
-As a Site User, I can view a list of articles so that I can choose content to read.
-As a Site User, I can filter articles by category, creator or date created so that I may view a filtered sample of articles.
-As a Site User, I can view comments made about articles so that I may read the discussion so far.
-
-As a Member, I can apply to become a Content Creator so that I may post articles in addition to member permissions.
-As a Member, I can comment on an article so that I can add to the discussion.
-As a Member, I can edit or delete my comment so that I may modify the content.
-
-As a Content Creator, I can post an article so that I can share my ideas with the community.
-As a Content Creator, I can add/replace 1 image to my article so that I can give greater visualisation.
-Future: As a Content Creator, I can upload prepared text file to my article so that it is easier to add large amounts of text.
-As a Content Creator, I can edit my article so that I can make modifications to my content.
-As a Content Creator, I can delete my article so that I can remove content from the site.
-Future?: As a Member/Admin, I can report an article or comment as breaking the site rules so that suspected undesirable content is removed.
-
-As a Moderator, I can delete an article or comment so that I can remove unwanted content from the site.
-As a Moderator, I can give Content Creator permissions to a member so that they may post articles.
-As a Moderator, I can remove Content Creator permissions to a member so that they may not post articles.
-As a Moderator, I can block a member so that the member may not make comments.
-As a Moderator, I can unblock a member so that the member may make comments again.
-Future: blocked member for a fixed period.
-
-As a Site Admin, I can post an article so that I can share 
-As a Site Admin, I can give or remove moderator permissions to a member so that they can moderate the content and discussion.
-As a Site Admin, I can suspend a member so that they may not access the forum temporarily.
-As a Site Admin, I can reinstate a member so that they may access the forum again.
-
-Future:
-As a Site Admin, I can delete and ban a member so that they may not access the forum permenantly.
-
-Future:
-As a Site Owner, I can give or remove site admin permissions to a member so that they can manage the site.
+| As a site user | I would like to read forum articles without registering | so that I can enjoy the content without needing to log in. |
+| As a site user | I would like to see the names of other commenters on articles | so that I can get a sense of community interaction before registering. |
+| As a site user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. |
+break
+| As a site user | I can register to become an member of the site | so that I can comment on articles and take part in discussion. |
+| As a site user | I can browse a list of articles | so that I can explore and choose content to read. |
+| As a site user | I can filter articles by category, creator or date created | so that I may view a filtered sample of articles. |
+| As a site user | I can view comments made about articles | so that I may read the discussion so far. |
+| As a site user | I would like to see alerts informing me of results of actions | so that I know if my activity is succesful or not. |
+break
+| As a registered user | I would like to log in to the site | so that I can leave comments on forum articles. |
+| As a registered user | I would like to leave a comment on a forum article | so that I can share my thoughts or ask questions about the owner's experiences. |
+| As a registered user | I would like to edit or delete my own comments | so that I can fix mistakes or retract my statement. |
+| As a registered user | I can apply to become a Content Creator | so that I may post articles in addition to member permissions. |
+break
+| As a content creator | I would like to create new forum articles with a title, featured image, and content | so that I can share my experiences with my audience. |
+| As a content creator | I would like to update my existing forum articles | so that I can correct or add new information to my previous stories. |
+| As a content creator | I would like to delete my forum articles | so that I can remove outdated or irrelevant content from the forum. |
+| As a content creator | I would like to retrieve a list of all my published forum articles | so that I can manage them from a central dashboard. |
+| As a content creator | I would like to preview an article as draft before publishing it | so that I can ensure formatting and content appear correctly. |
+break
+| As a content creator | I can post an article | so that I can share my ideas with the community. |
+| As a content creator | I can add/replace 1 image to my article so that I can give greater visualisation. |
+| As a content creator | I can edit my article | so that I can make modifications to my content. |
+| As a content creator | I can delete my article | so that I can remove content from the site. |
+break
+| As a moderator or admin | I would like to review comments before they are published | so that I can filter out spam or inappropriate content. |
+| As a moderator or admin | I would like to approve or disapprove content from users | so that I can maintain control over the discussion on the forum. |
+| As a moderator or admin | I can delete an article or comment | so that I can remove unwanted content from the site. |
+| As a moderator or admin | I can give content creator permissions to a member | so that they may post articles. |
+| As a moderator or admin | I can remove content creator permissions to a member | so that they may not post articles. |
+break
+| As an admin | I can give or remove moderator permissions to a member | so that they can moderate the content and discussion. |
+| As an admin | I would like to edit user profiles | so that I can clean up or help add missing information to a profile. |

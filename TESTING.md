@@ -189,7 +189,7 @@ Most of your project's **Features** should already align with the **User Stories
 | As a content creator | I would like to delete my forum articles | so that I can remove outdated or irrelevant content from the forum. | ![screenshot](documentation/features/feature03.png) |
 | As a content creator | I would like to retrieve a list of all my published forum articles | so that I can manage them from a central dashboard. | ![screenshot](documentation/features/feature04.png) |
 | As a content creator | I would like to preview a article as draft before publishing it | so that I can ensure formatting and content appear correctly. | ![screenshot](documentation/features/feature05.png) |
-| As a moderator or admin | I would like to review comments before they are published | so that I can filter out spam or inappropriate content. | ![screenshot](documentation/features/feature06.png) |
+| As a moderator or admin | I would like to review comments when they are posted | so that I can filter out spam or inappropriate content. | ![screenshot](documentation/features/feature06.png) |
 | As a moderator or admin | I would like to approve or disapprove content from users | so that I can maintain control over the discussion on the forum. | ![screenshot](documentation/features/feature07.png) |
 | As a content creator | I would like to view a list of all comments (both approved and pending) | so that I can manage user engagement effectively. | ![screenshot](documentation/features/feature08.png) |
 | As an admin | I would like to edit or delete user content | so that I can clean up or remove inappropriate responses after they've been posted. | ![screenshot](documentation/features/feature09.png) |
@@ -199,11 +199,11 @@ Most of your project's **Features** should already align with the **User Stories
 | As a registered user | I would like my comment to show my name and the timestamp | so that others can see who I am and when I left the comment. |  ![screenshot](documentation/features/feature13.png) |
 | As a registered user | I would like to receive a notification or message saying my comment is pending approval | so that I understand it hasn't been posted immediately. |  ![screenshot](documentation/features/feature14.png) |
 | As a registered user | I would like to edit or delete my own comments | so that I can fix mistakes or retract my statement. |
-| As a guest user | I would like to read forum articles without registering | so that I can enjoy the content without needing to log in. |  ![screenshot](documentation/features/feature15.png) |
-| As a guest user | I would like to browse past articles | so that I can explore the forum's full content history. |  ![screenshot](documentation/features/feature16.png) |
-| As a guest user | I would like to register for an account | so that I can participate in the community by leaving comments on articles. |  ![screenshot](documentation/features/feature17.png) |
-| As a guest user | I would like to see the names of other commenters on articles | so that I can get a sense of community interaction before registering. |  ![screenshot](documentation/features/feature18.png) |
-| As a user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. |  ![screenshot](documentation/features/feature19.png) |
+| As a site user | I would like to read forum articles without registering | so that I can enjoy the content without needing to log in. |  ![screenshot](documentation/features/feature15.png) |
+| As a site user | I would like to browse past articles | so that I can explore the forum's full content history. |  ![screenshot](documentation/features/feature16.png) |
+| As a site user | I would like to register for an account | so that I can participate in the community by leaving comments on articles. |  ![screenshot](documentation/features/feature17.png) |
+| As a site user | I would like to see the names of other commenters on articles | so that I can get a sense of community interaction before registering. |  ![screenshot](documentation/features/feature18.png) |
+| As a site user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. |  ![screenshot](documentation/features/feature19.png) |
 
 ## Automated Testing
 
