@@ -145,26 +145,23 @@ I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wirefram
 
 | Target | Expectation | Outcome |
 | --- | --- | --- |
-| As a content creator | I would like to create new forum articles with a title, featured image, and content | so that I can share my experiences with my audience. |
-| As a content creator | I would like to update my existing forum articles | so that I can correct or add new information to my previous stories. |
-| As a content creator | I would like to delete my forum articles | so that I can remove outdated or irrelevant content from the forum. |
-| As a content creator | I would like to retrieve a list of all my published forum articles | so that I can manage them from a central dashboard. |
-| As a content creator | I would like to preview a article as draft before publishing it | so that I can ensure formatting and content appear correctly. |
-| As a moderator or admin | I would like to review comments when they are posted | so that I can filter out spam or inappropriate content. |
-| As a moderator or admin | I would like to approve or disapprove content from users | so that I can maintain control over the discussion on the forum. |
-| As a content creator | I would like to view a list of all comments (both approved and pending) | so that I can manage user engagement effectively. |
-| As an admin | I would like to edit or delete user content | so that I can clean up or remove inappropriate responses after they've been posted. |
+| As a site user | I can view a list of articles | so that I can choose content to read. |
+| As a site user | I can filter articles by title, author or date created | so that I may view a filtered sample of articles. |
+| As a site user | I can click on an article | so that I can read the full text. |
+| As a site user | I can view comments made about articles | so that I may read the discussion so far. |
+| As a site user | I can see author and timestamp on articles and comments | so that I can see who created content and when it was created. |
+| As a site user | I can contact the site admin | so that we can discuss collaboration or other topic. |
+| As a site user | I  can register to become an member of the site | so that I can comment on articles and take part in discussion. |
 | As a registered user | I would like to log in to the site | so that I can leave comments on forum articles. |
-| As a registered user | I would like to register for an account | so that I can become part of the community and engage with the forum. |
-| As a registered user | I would like to leave a comment on a forum article | so that I can share my thoughts or ask questions about the owner's experiences. |
-| As a registered user | I would like my comment to show my name and the timestamp | so that others can see who I am and when I left the comment. |
-| As a registered user | I would like to receive a notification or message saying my comment is pending approval | so that I understand it hasn't been posted immediately. |
-| As a registered user | I would like to edit or delete my own comments | so that I can fix mistakes or retract my statement. |
-| As a site user | I would like to read forum articles without registering | so that I can enjoy the content without needing to log in. |
-| As a site user | I would like to browse past articles | so that I can explore the forum's full content history. |  
-| As a site user | I would like to register for an account | so that I can participate in the community by leaving comments on articles. |
-| As a site user | I would like to see the names of other commenters on articles | so that I can get a sense of community interaction before registering. |
-| As a site user | I would like to see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. |
+| As a registered user | I can comment on an article | so that I can add to the discussion. |
+| As a registered user | I can edit or delete my comment | so that I may modify the content. |
+| As a registered user | I can apply to become a Content Creator | so that I may post articles in addition to member permissions. |
+| As a registered user | I can apply to become a Moderator | so that I can enforce the site rules. |
+| As a content creator | I can create, read, update and delete own articles with a title, featured image, and content | so that I can share my experiences with my audience. |
+| As a content creator | I can create draft articles | so that I can finish writing the content later. |
+| As a content creator | I can view a list of all my published forum articles | so that I can manage them from profile |
+| As a moderator/admin | I can create, read, update, delete and moderate articles | so that I can manage the content of the site. |
+| As a site user | I can see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. | 
 
 Future:
 | As a moderator or admin | I can block a member | so that the member may not make comments. |
@@ -574,14 +571,14 @@ There are no remaining major differences between the local version when compared
 | [Cloudinary API](https://cloudinary.com) | Cloud storage for static/media files |
 | [Whitenoise](https://whitenoise.readthedocs.io) | Static file service |
 | [Python Tutor](https://pythontutor.com) | Additional Python help |
-| [ChatGPT](https://chatgpt.com) | Help with code logic and explanations. Generated some sample articles. Created logo images. |
+| [ChatGPT](https://chatgpt.com) | Help with code logic and explanations. Generated some sample articles. Created logo images and artwork |
 
 ### Media
 
 | Source | Notes |
 | --- | --- |
 | [favicon.io](https://favicon.io) | Generating the favicon |
-| [DALL-E 3](https://openai.com/index/dall-e-3) | AI generated artwork |
+| [GPT-4o](https://chatgpt.com) | AI generated images |
 
 ### Acknowledgements
 
