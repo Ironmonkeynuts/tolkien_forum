@@ -227,22 +227,25 @@ def contact(request):
             if contact_form.is_valid():
                 contact_form.save()
                 messages.success(
-                    request, "Thank you! Your message has been sent.")
+                    request, "Thank you! Your message has been sent."
+                )
                 return redirect('contact')
             else:
                 messages.error(
-                    request, "Please correct the errors in the contact form.")
+                    request, "Please correct the errors in the contact form."
+                )
 
         elif form_type == 'apply_creator':
             if not request.user.is_authenticated:
                 return HttpResponseForbidden("Only logged-in users can apply.")
             creator_form = CreatorApplicationForm(request.POST)
             if CreatorApplication.objects.filter(
-                    user=request.user, reviewed=False).exists():
+                user=request.user, reviewed=False
+            ).exists():
                 messages.warning(
                     request,
                     "You already have a pending application."
-                    )
+                )
             elif creator_form.is_valid():
                 app = creator_form.save(commit=False)
                 app.user = request.user  # Set user properly
@@ -251,14 +254,14 @@ def contact(request):
                     request,
                     ("Your application to become a "
                         "Content Creator has been submitted.")
-                    )
+                )
                 return redirect('contact')
             else:
                 messages.error(
                     request,
                     ("Please correct the errors "
                         "in the creator application form.")
-                    )
+                )
 
         elif form_type == 'apply_moderator':
             if not request.user.is_authenticated:
@@ -269,7 +272,7 @@ def contact(request):
                 messages.warning(
                     request,
                     "You already have a pending application."
-                    )
+                )
             elif moderator_form.is_valid():
                 app = moderator_form.save(commit=False)
                 # Set user properly
@@ -279,14 +282,14 @@ def contact(request):
                     request,
                     ("Your application to become a Moderator "
                         "has been submitted.")
-                    )
+                )
                 return redirect('contact')
             else:
                 messages.error(
                     request,
                     ("Please correct the errors in "
                         "the moderator application form.")
-                    )
+                )
 
     context = {
         'contact_form': contact_form,
@@ -313,11 +316,13 @@ def article_form(request, slug=None):
             or request.user.profile.is_admin()
         ):
             return HttpResponseForbidden(
-                "You do not have permission to edit this article.")
+                "You do not have permission to edit this article."
+            )
     else:
         if not request.user.profile.can_add_articles():
             return HttpResponseForbidden(
-                "You do not have permission to add articles.")
+                "You do not have permission to add articles."
+            )
         article = None
 
     if request.method == 'POST':
@@ -332,7 +337,7 @@ def article_form(request, slug=None):
                 messages.info(
                     request,
                     "Your article is saved as draft or awaiting approval."
-                    )
+                )
                 return redirect('forum')
             # Feedback success
             messages.success(
@@ -344,7 +349,7 @@ def article_form(request, slug=None):
                 request,
                 ("There was an error saving your article. "
                     "Please check the form.")
-                )
+            )
     else:
         form = ArticleForm(instance=article)
     return render(
@@ -432,10 +437,11 @@ def edit_profile(request, username=None):
                     messages.error(
                         request,
                         "Incorrect password. Email not updated."
-                        )
+                    )
                     return redirect(
                         'edit_profile',
-                        username=target_user.username)
+                        username=target_user.username
+                    )
 
             # Save profile and user
             form.save()
@@ -503,11 +509,13 @@ def toggle_approval(request):
         elif isinstance(obj, CreatorApplication):
             if request.user.profile.user_type not in ['moderator', 'admin']:
                 return HttpResponseForbidden(
-                    "You can't approve creator applications.")
+                    "You can't approve creator applications."
+                )
         elif isinstance(obj, ModeratorApplication):
             if request.user.profile.user_type != 'admin':
                 return HttpResponseForbidden(
-                    "You can't approve moderator applications.")
+                    "You can't approve moderator applications."
+                )
 
         # Toggle approval and mark as reviewed
         obj.approved = not obj.approved
