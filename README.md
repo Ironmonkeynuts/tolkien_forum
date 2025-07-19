@@ -170,7 +170,7 @@ Future:
 | Create article | Content Creators can create/publish forum articles, including setting a featured image using Cloudinary. | ![screenshot](documentation/features/create-article.png) |
 | Update article | Content Creators can update/manage their forum articles. | ![screenshot](documentation/features/update-article.png) |
 | Delete article | Content Creators can delete forum articles. | ![screenshot](documentation/features/delete-article.png) |
-| Manage Forum | Site Admin can manage users, articles, and profiles from the Django admin dashboard. [screenshot](documentation/features/manage-forum.png) |
+| Manage Forum | Site Admin can manage users, articles, and profiles from the Django admin dashboard. | ![screenshot](documentation/features/manage-forum.png) |
 | About Page | The About page displays the scope, aims and mission statement of the forum website | ![screenshot](documentation/features/about.png) |
 | Contact Page | A page for users to communicate with the admin of the site. | ![screenshot](documentation/features/contact.png) |
 | Contact Messages | Visitors can submit messages along with their email, which are later reviewed by the admin. | ![screenshot](documentation/features/contact-messages.png) |
