@@ -234,8 +234,15 @@ Below are the results from the full coverage report on my application that I've 
 #### Unit Test Issues
 
 I have 4 succesful automated tests. One was failing but I was able to resolve the issue in the test and the related view.
+
+
+Initially, test_regular_user_cannot_edit_other_profile was failing:
+![screenshot](documentation/automation/unit-tests-with-fail.png)
+
+Resolved by improving view for edit_profile and the test:
 ![screenshot](documentation/automation/unit-test-issue01.png)
 
+Now all passing:
 ![screenshot](documentation/automation/unit-tests-results.png)
 
 ## Bugs
