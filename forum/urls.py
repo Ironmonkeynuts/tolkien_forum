@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ArticleList, ProfileList, Dashboard, redirect_to_own_profile
+from .views import ArticleList, ProfileList, Dashboard
 
 urlpatterns = [
     path('', views.welcome, name='welcome'),
