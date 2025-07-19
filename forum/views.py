@@ -397,8 +397,13 @@ def edit_profile(request, username=None):
     editing_other = user.id != target_user.id
 
     # Show alert instead of raising 403
-    if editing_other and not (user.profile.user_type == 'admin' or user.is_staff):
-        messages.error(request, "You do not have permission to edit this profile.")
+    if editing_other and not (
+        user.profile.user_type == 'admin' or user.is_staff
+    ):
+        messages.error(
+            request,
+            "You do not have permission to edit this profile."
+        )
         return redirect('profile', username=target_user.username)
 
     profile = target_user.profile
@@ -424,8 +429,13 @@ def edit_profile(request, username=None):
                 if auth_user:
                     target_user.email = email
                 else:
-                    messages.error(request, "Incorrect password. Email not updated.")
-                    return redirect('edit_profile', username=target_user.username)
+                    messages.error(
+                        request,
+                        "Incorrect password. Email not updated."
+                        )
+                    return redirect(
+                        'edit_profile',
+                        username=target_user.username)
 
             # Save profile and user
             form.save()
@@ -442,8 +452,8 @@ def edit_profile(request, username=None):
 
     readonly_user_type = profile.get_user_type_display()
     email_initial = (
-        target_user.email if not editing_other or user.profile.user_type == 'admin'
-        else ''
+        target_user.email
+        if not editing_other or user.profile.user_type == 'admin' else ''
     )
 
     return render(request, 'forum/edit_profile.html', {
@@ -455,6 +465,7 @@ def edit_profile(request, username=None):
         'email_initial': email_initial,
         'readonly_user_type': readonly_user_type,
     })
+
 
 @require_POST
 def toggle_approval(request):
@@ -491,10 +502,12 @@ def toggle_approval(request):
                 return HttpResponseForbidden("You can't approve profiles.")
         elif isinstance(obj, CreatorApplication):
             if request.user.profile.user_type not in ['moderator', 'admin']:
-                return HttpResponseForbidden("You can't approve creator applications.")
+                return HttpResponseForbidden(
+                    "You can't approve creator applications.")
         elif isinstance(obj, ModeratorApplication):
             if request.user.profile.user_type != 'admin':
-                return HttpResponseForbidden("You can't approve moderator applications.")
+                return HttpResponseForbidden(
+                    "You can't approve moderator applications.")
 
         # Toggle approval and mark as reviewed
         obj.approved = not obj.approved
@@ -512,14 +525,16 @@ def toggle_approval(request):
 @login_required
 def edit_comment(request, pk):
     """
-    View to edit an individual comment.
-    Only the author or an admin can edit.
+    Handles toggling of approval for articles, comments, profiles,
+    creator applications, and moderator applications.
     """
     comment = get_object_or_404(Comment, pk=pk)
+    # Permission check
     if request.user != comment.author and not request.user.profile.is_admin():
         return HttpResponseForbidden(
             "You do not have permission to edit this comment.")
 
+    # Handle form submission
     if request.method == 'POST':
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
@@ -662,10 +677,22 @@ class Dashboard(generic.TemplateView):
     paginate_by = 6  # Items per page
 
     def dispatch(self, request, *args, **kwargs):
-        # Only allow moderators and admins
+        """
+        Check user role before displaying dashboard.
+
+        Only 'moderator' and 'admin' roles may proceed.
+        Others are redirected with an error message.
+        """
+  
         if request.user.profile.user_type not in ['moderator', 'admin']:
-            messages.error(request, "You do not have permission to access the dashboard.")
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('forum')))
+            messages.error(
+                request,
+                "You do not have permission to access the dashboard."
+            )
+            return HttpResponseRedirect(
+                request.META.get('HTTP_REFERER',
+                                 reverse('forum'))
+            )
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -752,7 +779,8 @@ class Dashboard(generic.TemplateView):
             elif sort in allowed_sorts:
                 queryset = queryset.order_by(sort)
             else:
-                queryset = queryset.order_by('-created_on')  # Default fallback
+                # Fallback to default sort if invalid
+                queryset = queryset.order_by('-created_on')
 
         return queryset
 
