@@ -1,5 +1,4 @@
-# [Speak, Friend and Enter (tolkien_forum)](https://imn-project-tolkienforum-ed83da8fbf63.herokuapp.com)
-A Fellowship for All Things Tolkien. 
+[![screenshot](documentation/forum-logo-hero.png)](https://imn-project-tolkienforum-ed83da8fbf63.herokuapp.com)
 
 Developer: David Doyle-Owen ([Ironmonkeynuts](https://www.github.com/Ironmonkeynuts))
 
@@ -15,33 +14,9 @@ Our aim is to foster thoughtful, respectful, and engaging discussion about all a
 
 At Speak, Friend and Enter, our mission is simple: to build a safe, inclusive, and inspiring space where the magic of Tolkien’s universe can thrive for generations to come. We are committed to maintaining a positive atmosphere where members can learn, share, and connect through their love of Middle-earth and beyond. Whether you are embarking on your first journey through the Shire or have long walked the paths of Beleriand, we invite you to join our fellowship — where all who speak, friend, may enter.
 
-🛑 README NOTES 🛑
-
-Do not add a **Table of Contents** to your Markdown files. GitHub has these built-in automatically using the headers/hashtags.
-
-Don't add screenshots for the README/TESTING into your `assets` or `static` folders. Create a new folder at the root-level called `documentation`. Consider creating sub-directories within `documentation` to handle things like `wireframes`, `features`, `validation`, `responsiveness`, etc.
-
-Learn about Markdown Alerts (aka Callouts), a fairly new feature for GitHub Markdown files.
-https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
-Note: these are not visible within your README Previewer, and are only visible once you push the code to GitHub.
-
-**Site Mockups**
-*([amiresponsive](https://imn-project-tolkienforum-ed83da8fbf63.herokuapp.com/forum), [techsini](https://techsini.com/multi-mockup), etc.)*
-Having issues generating site mockups? This is likely due to security policies with your deployed site.
-If you open up your DevTools, there may be an error referencing `X-Frame-Options`.
-
-For Chrome users, head over to http://bit.ly/3iRPn4u and install the extension within your browser. Once installed, navigate back to the mockup site of your choice. You should find your site rendering in the various devices now.
-
-Alternatively, open your project in Gitpod and run the server. Once the site is running, click the `Ports` tab from your Gitpod Terminal. Click the padlock on the appropriate port for your project (`Flask: 5000`, `Django: 8000`). This will make your local page public temporarily. Now, copy the URL of your live-preview page into the responsive tool above. You should find your site rendering in the various devices.
-
-🛑 --- END ---- 🛑
-
 ![screenshot](documentation/mockup.png)
 
 source: [tolkien_forum amiresponsive](https://ui.dev/amiresponsive?url=https://imn-project-tolkienforum-ed83da8fbf63.herokuapp.com)
-
-> [!IMPORTANT]
-> The examples in these templates are strongly influenced by the Code Institute walkthrough project called "I Think Therefore I forum".
 
 ## UX
 
@@ -162,7 +137,6 @@ I've used [Balsamiq](https://balsamiq.com/wireframes) to design my site wirefram
 | As a content creator | I can view a list of all my published forum articles | so that I can manage them from profile |
 | As a moderator/admin | I can create, read, update, delete and moderate articles | so that I can manage the content of the site. |
 | As a site user | I can see a 404 error page if I get lost | so that it's obvious that I've stumbled upon a page that doesn't exist. | 
-
 Future:
 | As a moderator or admin | I can block a member | so that the member may not make comments. |
 | As an admin | I can suspend a member | so that they may not access the forum temporarily. |
