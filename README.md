@@ -185,18 +185,8 @@ Future:
 
 ### Future Features
 
-⚠️ INSTRUCTIONS ⚠️
-
-Do you have additional ideas that you'd like to include on your project in the future? Fantastic, list them here! It's always great to have plans for future improvements. Consider adding any helpful links or notes to help remind you in the future, if you revisit the project in a couple years.
-
-A few examples are listed below to align with possible ways to improve on the sample walkthrough project, to give you some inspiration.
-
-⚠️ --- END ---⚠️
-
 - **Article Categories/Tags**: Allow users to categorize and tag forum articles, making it easier for visitors to filter content based on their interests.
-- **Article Search Functionality**: Add a search bar for users to quickly find articles by keywords or phrases.
 - **Article Likes/Dislikes or Upvotes**: Implement a "like" or "upvote" system for forum articles to encourage user engagement and give feedback to the author.
-- **User Profiles**: Create personalized user profiles where authenticated users can view their comments, liked articles, and account information.
 - **Comment Replies & Threads**: Enable users to reply to comments, creating nested comment threads for better discussions.
 - **Article Sharing**: Add social media sharing buttons (e.g., Twitter, Facebook, LinkedIn) for users to share forum articles.
 - **Notifications**: Implement a notification system that alerts users when their comments are approved, when new comments are made on a article they've commented on, or when new articles are published.

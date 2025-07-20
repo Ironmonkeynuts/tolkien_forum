@@ -11,17 +11,17 @@ I have used the recommended [HTML W3C Validator](https://validator.w3.org) to va
 
 | Directory | File | URL | Screenshot | Notes |
 | --- | --- | --- | --- | --- |
-| forum | [about.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/about.html) | Link (if applicable) | ![screenshot](documentation/validation/html-about.png) | Notes (if applicable) |
-| forum | [article_detail.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/article_detail.html) | Link (if applicable) | ![screenshot](documentation/validation/html-article_detail.png) | Notes (if applicable) |
-| forum | [article_form.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/article_form.html) | Link (if applicable) | ![screenshot](documentation/validation/html-article_form.png) | Notes (if applicable) |
-| forum | [contact.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/contact.html) | Link (if applicable) | ![screenshot](documentation/validation/html-contact.png) | Notes (if applicable) |
-| forum | [dashboard.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/dashboard.html) | Link (if applicable) | ![screenshot](documentation/validation/html-dashboard.png) | Notes (if applicable) |
-| forum | [edit_profile.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/edit_profile.html) | Link (if applicable) | ![screenshot](documentation/validation/html-edit_profile.png) | Notes (if applicable) |
-| forum | [forum.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/forum.html) | Link (if applicable) | ![screenshot](documentation/validation/html-forum.png) | Notes (if applicable) |
-| forum | [profile.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/profile.html) | Link (if applicable) | ![screenshot](documentation/validation/html-profile.png) | Notes (if applicable) |
-| forum | [profile_list.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/profile_list.html) | Link (if applicable) | ![screenshot](documentation/validation/html-profile_list.png) | Notes (if applicable) |
-| forum | [welcome.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/welcome.html) | Link (if applicable) | ![screenshot](documentation/validation/html-welcome.png) | Notes (if applicable) |
-| templates | [404.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/templates/404.html) | Link (if applicable) | ![screenshot](documentation/validation/html-404.png) | Validated by input |
+| forum | [about.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/about.html) | [About](https://validator.w3.org/nu/?doc=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2Fabout%2F) | ![screenshot](documentation/validation/html-about.png) | Notes (if applicable) |
+| forum | [article_detail.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/article_detail.html) | [Article Detail](https://validator.w3.org/nu/?doc=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2Fforum%2Fhobbiton-peace%2F) | ![screenshot](documentation/validation/html-article_detail.png) | Notes (if applicable) |
+| forum | [article_form.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/article_form.html) | [Article Form](https://validator.w3.org/nu/?doc=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2Fforum%2Fadd%2F) | ![screenshot](documentation/validation/html-article_form.png) | Notes (if applicable) |
+| forum | [contact.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/contact.html) | [Contact](https://validator.w3.org/nu/?doc=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2Fcontact%2F) | ![screenshot](documentation/validation/html-contact.png) | Notes (if applicable) |
+| forum | [dashboard.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/dashboard.html) | [Dashboard]()| ![screenshot](documentation/validation/html-dashboard.png) | Notes (if applicable) |
+| forum | [edit_profile.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/edit_profile.html) | [Edit Profile](https://validator.w3.org/nu/?doc=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2Fprofile%2Fsite_admin%2Fedit%2F) | ![screenshot](documentation/validation/html-edit_profile.png) | Notes (if applicable) |
+| forum | [forum.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/forum.html) | [Forum](https://validator.w3.org/nu/?doc=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2Fforum%2F) | ![screenshot](documentation/validation/html-forum.png) | Notes (if applicable) |
+| forum | [profile.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/profile.html) | [Profile](https://validator.w3.org/nu/?doc=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2Fprofile%2F) | ![screenshot](documentation/validation/html-profile.png) | Notes (if applicable) |
+| forum | [profile_list.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/profile_list.html) | [Community](https://validator.w3.org/nu/?doc=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2Fprofiles%2F) | ![screenshot](documentation/validation/html-profile_list.png) | Notes (if applicable) |
+| forum | [welcome.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/forum/templates/forum/welcome.html) | [Welcome](https://validator.w3.org/nu/?doc=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2F) | ![screenshot](documentation/validation/html-welcome.png) | Notes (if applicable) |
+| templates | [404.html](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/templates/404.html) | [404](https://validator.w3.org/nu/?doc=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2Fforum%2Fad%2F#textarea) | ![screenshot](documentation/validation/html-404.png) | Validated by input |
 
 
 ### CSS
@@ -30,7 +30,7 @@ I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-val
 
 | Directory | File | URL | Screenshot | Notes |
 | --- | --- | --- | --- | --- |
-| static | [style.css](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/static/css/style.css) | https://jigsaw.w3.org/css-validator/validator?lang=en&profile=css3svg&uri=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2F&usermedium=all&vextwarning=&warning=1 | ![screenshot](documentation/validation/css-static-style.png) | Notes (if applicable) |
+| static | [style.css](https://github.com/Ironmonkeynuts/tolkien_forum/blob/main/static/css/style.css) | [CSS Link](https://jigsaw.w3.org/css-validator/validator?lang=en&profile=css3svg&uri=https%3A%2F%2Fimn-project-tolkienforum-ed83da8fbf63.herokuapp.com%2F&usermedium=all&vextwarning=&warning=1) | ![screenshot](documentation/validation/css-static-style.png) | Validated from live deployed site |
 
 
 ### JavaScript
@@ -113,43 +113,6 @@ I've tested my deployed project using the Lighthouse Audit tool to check for any
 
 ## Defensive Programming
 
-⚠️ INSTRUCTIONS ⚠️
-
-Defensive programming (defensive design) is extremely important! When building projects that accept user inputs or forms, you should always test the level of security for each form field. Examples of this could include (but not limited to):
-
-All Projects:
-
-- Users cannot submit an empty form (add the `required` attribute)
-- Users must enter valid field types (ensure the correct input `type=""` is used)
-- Users cannot brute-force a URL to navigate to a restricted pages
-
-Python Projects:
-
-- Users cannot perform CRUD functionality if not authenticated (if login functionality exists)
-- User-A should not be able to manipulate data belonging to User-B, or vice versa
-- Non-Authenticated users should not be able to access pages that require authentication
-- Standard users should not be able to access pages intended for superusers/admins
-
-You'll want to test all functionality on your application, whether it's a standard form, or CRUD functionality, for data manipulation on a database. Try to access various pages on your site as different user types (User-A, User-B, guest user, admin, superuser). You should include any manual tests performed, and the expected results/outcome.
-
-Testing should be replicable (can someone else replicate the same outcome?). Ideally, tests cases should focus on each individual section of every page on the website. Each test case should be specific, objective, and step-wise replicable.
-
-Instead of adding a general overview saying that everything works fine, consider documenting tests on each element of the page (eg. button clicks, input box validation, navigation links, etc.) by testing them in their "happy flow", their "bad/exception flow", mentioning the expected and observed results, and drawing a parallel between them where applicable.
-
-Consider using the following format for manual test cases:
-
-- Expected Outcome / Test Performed / Result Received / Fixes Implemented
-
-- **Expected**: "Feature is expected to do X when the user does Y."
-- **Testing**: "Tested the feature by doing Y."
-- (either) **Result**: "The feature behaved as expected, and it did Y."
-- (or) **Result**: "The feature did not respond to A, B, or C."
-- **Fix**: "I did Z to the code because something was missing."
-
-Use the table below as a basic start, and expand on it using the logic above.
-
-⚠️ --- END --- ⚠️
-
 Defensive programming was manually tested with the below user acceptance testing:
 
 | Page | Expectation | Test | Result | Screenshot |
@@ -173,14 +136,6 @@ Defensive programming was manually tested with the below user acceptance testing
 | 404 Error Page | Feature is expected to display a 404 error page for non-existent pages. | Navigated to an invalid URL (e.g., `/test`). | A custom 404 error page was displayed as expected. | ![screenshot](documentation/defensive/404.png) |
 
 ## User Story Testing
-
-⚠️ INSTRUCTIONS ⚠️
-
-Testing User Stories is actually quite simple, once you've already got the stories defined on your README.
-
-Most of your project's **Features** should already align with the **User Stories**, so this should be as simple as creating a table with the User Story, matching with the re-used screenshot from the respective Feature.
-
-⚠️ --- END --- ⚠️
 
 | Target | Expectation | Outcome | Screenshot |
 | --- | --- | --- | --- |
@@ -235,29 +190,10 @@ Below are the results from the full coverage report on my application that I've 
 
 I have 4 succesful automated tests. One was failing but I was able to resolve the issue in the test and the related view.
 
-
-Initially, test_regular_user_cannot_edit_other_profile was failing:
-![screenshot](documentation/automation/unit-tests-with-fail.png)
-
-Resolved by improving view for edit_profile and the test:
-![screenshot](documentation/automation/unit-test-issue01.png)
-
 Now all passing:
 ![screenshot](documentation/automation/unit-tests-results.png)
 
 ## Bugs
-
-⚠️ INSTRUCTIONS ⚠️
-
-If/when you encounter bugs during the development stages of your project, you should document them here, ideally with a screenshot explaining what the issue was, and what you did to fix the bug.
-
-Alternatively, an improved way to manage bugs is to use the built-in **[Issues](https://www.github.com/Ironmonkeynuts/tolkien_forum/issues)** tracker on your GitHub repository. This can be found at the top of your repository, the tab called "Issues".
-
-If using the Issues tracker for bug management, you can simplify the documentation process for testing. Issues allow you to directly paste screenshots into the issue page without having to first save the screenshot locally. You can add labels to your issues (e.g. `bug`), assign yourself as the owner, and add comments/updates as you progress with fixing the issue(s). Once you've solved the issue/bug, you should then "Close" it.
-
-When showcasing your bug tracking for assessment, you can use the following examples below.
-
-⚠️ --- END --- ⚠️
 
 ### Fixed Bugs
 
@@ -267,21 +203,16 @@ I've used [GitHub Issues](https://www.github.com/Ironmonkeynuts/tolkien_forum/is
 
 All previously closed/fixed bugs can be tracked [here](https://www.github.com/Ironmonkeynuts/tolkien_forum/issues?q=is%3Aissue+is%3Aclosed+label%3Abug).
 
+![screenshot](documentation/bugs/gh-bugs-closed.png)
+
 ![screenshot](documentation/bugs/gh-issues-closed.png)
 
 ### Unfixed Bugs
 
-⚠️ INSTRUCTIONS ⚠️
-
-You will need to mention any unfixed bugs and why they are not fixed upon submission of your project. This section should include shortcomings of the frameworks or technologies used. Although time can be a big variable to consider, paucity of time and difficulty understanding implementation is not a valid reason to leave bugs unfixed. Where possible, you must fix all outstanding bugs, unless outside of your control.
-
-If you've identified any unfixed bugs, no matter how small, be sure to list them here! It's better to be honest and list them, because if it's not documented and an assessor finds the issue, they need to know whether or not you're aware of them as well, and why you've not corrected/fixed them.
-
-⚠️ --- END --- ⚠️
-
 [![GitHub issues](https://img.shields.io/github/issues/Ironmonkeynuts/tolkien_forum)](https://www.github.com/Ironmonkeynuts/tolkien_forum/issues)
 
 Any remaining open issues can be tracked [here](https://www.github.com/Ironmonkeynuts/tolkien_forum/issues).
+These open issues are future user stories that won't be implemented now but are there for future improvement to the site.
 
 ![screenshot](documentation/bugs/gh-issues-open.png)
 
@@ -289,9 +220,7 @@ Any remaining open issues can be tracked [here](https://www.github.com/Ironmonke
 
 | Issue | Screenshot |
 | --- | --- |
-| On devices smaller than 375px, the page starts to have horizontal `overflow-x` scrolling. | ![screenshot](documentation/issues/overflow.png) |
-| When validating HTML with a semantic `<section>` element, the validator warns about lacking a header `h2-h6`. This is acceptable. | ![screenshot](documentation/issues/section-header.png) |
-| Validation errors on "signup.html" coming from the Django Allauth package. | ![screenshot](documentation/issues/allauth.png) |
+| On devices smaller than 400px, the page starts to have horizontal `overflow-x` scrolling on the dashboard page. | ![screenshot](documentation/issues/overflow.png) |
 
 > [!IMPORTANT]
 > There are no remaining bugs that I am aware of, though, even after thorough testing, I cannot rule out the possibility.
