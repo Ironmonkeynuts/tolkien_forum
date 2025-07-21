@@ -27,7 +27,24 @@ from .forms import (
 User = get_user_model()
 
 
-# Create your views here.
+def user_can_edit_or_delete_article(user, article):
+    """
+    Returns True if the user is allowed to edit or delete the article.
+    Only the author or users with user_type == 'admin' may proceed.
+    """
+    if not user.is_authenticated:
+        return False
+
+    if user == article.author:
+        return True
+
+    profile = getattr(user, "profile", None)
+    if not profile:
+        return False
+
+    return profile.user_type == "admin"
+
+
 class ArticleList(generic.ListView):
     """
     A view that displays a list of articles with 
@@ -302,86 +319,107 @@ def contact(request):
 @login_required
 def article_form(request, slug=None):
     """
-    Handles both article creation and editing:
-    - If slug provided → edit mode.
-    - If no slug → create mode.
+    Handles both article creation and editing.
+    - If slug is provided → editing mode.
+    - If no slug → creation mode.
+    
     Permissions:
-    - Create: content creator, moderator, admin.
-    - Edit: author, moderator, admin.
+    - Create: content creator, moderator, or admin.
+    - Edit: only the author or an admin.
     """
+    article = None
+
+    # Editing mode
     if slug:
         article = get_object_or_404(Article, slug=slug)
-        if request.user != article.author and not (
-            request.user.profile.can_approve_content()
-            or request.user.profile.is_admin()
-        ):
-            return HttpResponseForbidden(
+
+        # If user lacks edit permission, show error and redirect
+        if not user_can_edit_or_delete_article(request.user, article):
+            messages.error(
+                request,
                 "You do not have permission to edit this article."
             )
+            return redirect('article_detail', slug=article.slug)
+
+    # Creation mode
     else:
+        # Check if user has permission to create articles
         if not request.user.profile.can_add_articles():
-            return HttpResponseForbidden(
+            messages.error(
+                request,
                 "You do not have permission to add articles."
             )
-        article = None
+            return redirect('forum')
 
+    # Handle form submission
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES, instance=article)
+
         if form.is_valid():
             new_article = form.save(commit=False)
+
+            # Assign author if creating new article
             if not article:
                 new_article.author = request.user
+
             new_article.save()
-            # Smart redirect + message
+
+            # Redirect based on status/approval
             if new_article.status == 0 or not new_article.approved:
                 messages.info(
                     request,
                     "Your article is saved as draft or awaiting approval."
                 )
                 return redirect('forum')
-            # Feedback success
+
             messages.success(
-                request, "Your article has been saved successfully.")
+                request,
+                "Your article has been saved successfully.")
             return redirect('article_detail', slug=new_article.slug)
+
+        # Form validation failed
         else:
-            # Error message
             messages.error(
                 request,
-                ("There was an error saving your article. "
-                    "Please check the form.")
+                "There was an error saving your article. "
+                "Please check the form."
             )
+
+    # GET request: show form
     else:
         form = ArticleForm(instance=article)
+
     return render(
-        request, 
-        'forum/article_form.html', {'form': form, 'article': article}
-        )
+        request,
+        'forum/article_form.html',
+        {'form': form, 'article': article}
+    )
 
 
 @method_decorator(login_required, name='dispatch')
 class ArticleDelete(generic.DeleteView):
     """
     Handles deletion of articles.
-    Only the author, staff, or admin can delete.
+    Only the article's author or an admin can delete.
     """
     model = Article
     success_url = '/forum/'
 
+    # Handle deletion request and confirm with a message
     def delete(self, request, *args, **kwargs):
-        # Feedback on delete
         messages.success(request, "The article has been deleted.")
         return super().delete(request, *args, **kwargs)
 
+    # Restrict queryset to articles the user can delete
     def get_queryset(self):
-        """
-        Restricts deletion rights to:
-        - The author
-        - Staff/admins
-        """
-        qs = super().get_queryset()
-        if self.request.user.is_staff:
-            return qs
-        return qs.filter(author=self.request.user)
+        user = self.request.user
+
+        # Admin can delete any article
+        if getattr(user.profile, 'user_type', '') == 'admin':
+            return super().get_queryset()
+
+        # Authors can delete their own articles only
+        return super().get_queryset().filter(author=user)
 
 
 @login_required
