@@ -560,6 +560,20 @@ def toggle_approval(request):
         obj.reviewed = True
         obj.save()
 
+        # Update user_type for creator application (new)
+        if isinstance(obj, CreatorApplication):
+            # Promote to 'creator' if approved, else revert to 'member'
+            profile = obj.user.profile
+            profile.user_type = 'creator' if obj.approved else 'member'
+            profile.save()
+
+        # Update user_type for moderator application (new)
+        elif isinstance(obj, ModeratorApplication):
+            # Promote to 'moderator' if approved, else revert to 'member'
+            profile = obj.user.profile
+            profile.user_type = 'moderator' if obj.approved else 'member'
+            profile.save()
+
         messages.success(
             request,
             f"{model_name} approval status updated."
